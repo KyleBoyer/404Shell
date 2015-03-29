@@ -350,6 +350,9 @@ u{text-decoration: none;color:#777;float:left;display:block;width:150px;margin-r
 window.onbeforeunload = function(){
   return \'Are you sure you want to leave?\';
 };
+$(\'form\').submit(function() {
+  window.onbeforeunload = null;
+});
 function CheckAll(form) {
 	for(var i=0;i<form.elements.length;i++) {
 		var e = form.elements[i];
